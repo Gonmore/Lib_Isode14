@@ -1,0 +1,87 @@
+<?xml version="1.0" standalone="yes"?>
+<!-- Copyright 2005 Isode Limited -->
+<facility id="13" name="SASL">
+  <doc>
+    <description>
+    Messages relating to SASL authentication
+    </description>
+  </doc>
+
+  <!-- General -->
+  <!-- Error numbers MUST match the value of the corresponding level -->
+  <message id="1" name="Fail" severity="authfail" args="1">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>SASL Authorization Failure
+       </description>
+       <action>Action dependent on security policy</action>
+    </doc>
+  </message>
+
+  <message id="2" name="Error" severity="error" args="1">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>SASL Error. Isode's medium term plan is to remove all
+       common use of this event, Isode's long term plan is to remove all use of
+       this event. 
+       </description>
+       <action>See log entry for details</action>
+    </doc>
+  </message>
+
+  <message id="3" name="Warning" severity="warning" args="1">
+    <arg position="1">
+       Text describing warning
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>General SASL Warning event: See log entry for details
+       </description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="4" name="Notice" severity="notice" args="1">
+    <arg position="1">
+       Text describing message
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>
+       General notice level event: See log entry for details
+       </description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="5" name="Trace" severity="detail" args="1">
+    <arg position="1">
+       Text describing information
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>General trace message
+       </description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="6" name="Pass" severity="detail" args="1">
+    <arg position="1">
+       Text describing information
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>SASL PASS  event: See log entry for details
+       </description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+</facility>

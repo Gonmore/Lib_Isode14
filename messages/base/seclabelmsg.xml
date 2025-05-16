@@ -1,0 +1,170 @@
+<?xml version="1.0" standalone="yes"?>
+<!-- Copyright 2007 Isode Limited -->
+<facility id="181" name="SecLabel">
+  <doc>
+    <description>
+    Messages relating to Security Label api functionality
+    </description>
+  </doc>
+
+  <!-- General -->
+  <!-- Error numbers MUST match the value of the corresponding level -->
+  <message id="6" name="Notice" severity="notice" args="1">
+    <arg position="1">
+       Text describing condition
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>
+       General notice level event: See log entry for details
+       </description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="12" name="Error" severity="error" args="1">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>SecurityLabel API Error.  Isode's medium term plan is to remove all
+       common use of this event,  Isode's long term plan is to remove all use of
+       this event. 
+       </description>
+       <action>See log entry for details.</action>
+    </doc>
+  </message>
+
+  <message id="13" name="Fatal" severity="fatal" args="1">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>
+       Fatal SecurityLabel API Event. This event should only occur in very unusual
+       situations.  Isode's medium term plan is to remove all use of this event
+       </description>
+       <action>See log entry for details.</action>
+    </doc>
+  </message>
+
+  <message id="14" name="Critical" severity="critical" args="2">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <arg position="2">
+       Optional text when reporting system error
+    </arg>
+    <text>%1 %2</text>
+    <doc>
+       <description>Critical SecurityLabel API Event. This event should only occur in
+       very unusual situations.  Isode's medium term plan is to remove all use
+       of this event. 
+       </description>
+       <action>See Log entry for details.  Please send information on the
+       occurrence of this event to support@isode.com</action>
+    </doc>
+  </message>
+
+  <!-- Messages with the system log need two arguments,
+       and the id is the number for the level + 16 -->
+  <message id="29" name="FatalS" severity="fatal" args="2" system="yes">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <arg position="2">
+       Additional text field
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>
+       Fatal SecurityLabel API Event.This event should only occur in very unusual
+       situations. Isode's medium term plan is to remove all use of this event
+       </description>
+    </doc>
+  </message>
+
+  <message id="28" name="ErrorS" severity="error" args="2" system="yes">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <arg position="2">
+       Additional text field
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>
+       SecurityLabel API Error.  Isode's medium term plan is to remove all common use of
+       this event,  Isode's long term plan is to remove all use of this event. 
+       </description>
+       <action>See log entry for details.</action>
+    </doc>
+  </message>
+
+  <message id="22" name="NoticeS" severity="notice" args="2" system="yes">
+    <arg position="1">
+       Text describing condition
+    </arg>
+    <arg position="2">
+       Additional text field
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>General notice level event: See log entry for details
+       </description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+
+  <message id="100" name="SecurityLabelDecode" severity="error">
+    <text>Failed to decode SecurityLabel</text>
+    <doc>
+       <description>
+       Could not decode the supplied data as a SecurityLabel
+       </description>
+       <action>
+       Either a programming error or a data error of some kind.
+       </action>
+    </doc>
+  </message>
+
+  <message id="101" name="NoSpace" args="3" severity="error">
+    <arg position="1">
+       Tag at output point
+    </arg>
+    <arg position="2" type="int">
+       Bytes required
+    </arg>
+    <arg position="3" type="int">
+       Bytes available
+    </arg>
+    <text>No space in output buffer for tag %1, required %2, available %3</text>
+    <doc>
+       <description>
+       The buffer supplied was not big enough to output the data structure/
+       </description>
+       <action>
+       Either a programming error or a data error of some kind.
+       </action>
+    </doc>
+  </message>
+
+  <message id="102" name="ParseFailed" args="1" severity="error">
+    <arg position="1">
+       Error string from FLAX parser
+    </arg>
+    <text>Parse of XML data failed: %1</text>
+    <doc>
+       <description>
+       The attempt to parse the input XML data failed.
+       </description>
+       <action>
+       Either a programming error or a data error of some kind.
+       </action>
+    </doc>
+  </message>
+
+</facility>

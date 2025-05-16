@@ -1,0 +1,589 @@
+<?xml version="1.0" standalone="yes"?>
+<!-- Copyright 2005-2007 Isode Limited -->
+<facility id="20" name="Tsap">
+  <doc>
+    <description>
+    Messages relating to the transport layer
+    </description>
+  </doc>
+
+  <!-- General -->
+  <!-- Error numbers MUST match the value of the corresponding level -->
+  <message id="13" name="Fatal" severity="fatal" args="1">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>
+       OSI Transport Layer Fatal Event. This event should only occur in very
+       unusual situations.  Isode's medium term plan is to remove all use of
+       this event
+       </description>
+       <action>See Log entry for details.  Please send information on the
+       occurrence of this event to support@isode.com</action>
+    </doc>
+  </message>
+
+  <message id="12" name="Error" severity="error" args="1">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>
+       OSI Transport Layer Error.  Isode's medium term plan is to remove all
+       common use of this event,  Isode's long term plan is to remove all use of
+       this event. 
+       </description>
+       <action>See log entry for details</action>
+    </doc>
+  </message>
+
+  <message id="6" name="Notice" severity="notice" args="1">
+    <arg position="1">
+       Text describing condition
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>
+       General notice level event: See log entry for details
+       </description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="2" name="TPDU" severity="pdu" args="1">
+    <arg position="1">
+       File containing PDU
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>Transport PDU</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <!-- Messages with the system log need two arguments,
+       and the id is the number for the level + 16 -->
+  <message id="29" name="FatalS" severity="fatal" args="2" system="yes">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <arg position="2">
+       Additional text field
+    </arg>
+    <text>%1 %2</text>
+    <doc>
+       <description>
+       OSI Transport Layer Fatal Event. This event should only occur in very
+       unusual situations.  Isode's medium term plan is to remove all use of
+       this event.
+       </description>
+       <action>See Log entry for details.  Please send information on the
+       occurrence of this event to support@isode.com</action>
+    </doc>
+  </message>
+
+  <message id="28" name="ErrorS" severity="error" args="2" system="yes">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <arg position="2">
+       Additional text field
+    </arg>
+    <text>%1 %2</text>
+    <doc>
+       <description>
+       OSI Transport Layer Error.  Isode's medium term plan is to remove all
+       common use of this event,  Isode's long term plan is to remove all use of
+       this event. 
+       </description>
+       <action>See log entry for details</action>
+    </doc>
+  </message>
+
+  <message id="22" name="NoticeS" severity="notice" args="2" system="yes">
+    <arg position="1">
+       Text describing condition
+    </arg>
+    <arg position="2">
+       Additional text field
+    </arg>
+    <text>%1 %2</text>
+    <doc>
+       <description>
+       General notice level event: See log entry for details
+       </description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <!-- Specific transport layer messages -->
+  <message id="30" name="Timer" severity="info" args="1">
+  <text>Timeout waiting for operation (%1)</text>
+  <arg position="1" type="int">
+       Bit mask of network level events which are awaited
+  </arg>
+  <doc>
+    <description>
+       A timeout was encountered.
+    </description>
+  </doc>
+  </message>
+
+  <message id="31" name="Interrupt" severity="info" args="0">
+  <text>Operation interrupted</text>
+  <doc>
+    <description>
+       An operation was interrupted
+    </description>
+  </doc>
+  </message>
+
+  <message id="32" name="Waiting" severity="warning" args="0">
+  <text>Indications waiting</text>
+  <doc>
+    <description>
+       There are indications waiting
+    </description>
+  </doc>
+  </message>
+
+  <!-- Unofficial error codes -->
+  <message id="51" name="NetDisconnect" severity="error" args="0">
+  <text>Network disconnect</text>
+  <doc>
+    <description>
+       The network connection was lost.
+    </description>
+  </doc>
+  </message>
+
+  <message id="52" name="BadParameter" severity="error" args="0">
+  <text>Bad Parameter</text>
+  <doc>
+    <description>
+       A transport layer parameter was incorrect.
+    </description>
+  </doc>
+  </message>
+
+  <message id="53" name="BadOperation" severity="warning" args="0">
+  <text>Invalid operation</text>
+  <doc>
+    <description>
+       A transport layer parameter was incorrect.
+    </description>
+  </doc>
+  </message>
+
+  <message id="54" name="UserData" severity="info" args="1">
+    <arg position="1">
+       Data from transport peer
+    </arg>
+    <text>[%1]</text>
+    <description>
+       Data from transport peer.
+    </description>
+  </message>
+
+  <!-- Messages for transport disconnect -->
+  <!-- Warnings are transient, Errors are permanent -->
+  <!-- Codes are 100 + TS value -->
+
+  <!-- Class 0-4 errors -->
+  <message id="100" name="NotSpecified" severity="error" args="0">
+  <text>Reason not specified</text>
+  <doc>
+    <description>
+        A transport level disconnect was sent with no specific reason.
+    </description>
+  </doc>
+  </message>
+
+  <message id="101" name="Congestion" severity="error" args="0">
+  <text>Congestion at TSAP</text>
+  <doc>
+    <description>
+        Lack of resources or some other transient problem caused a
+        transport layer disconnection.
+    </description>
+  </doc>
+  </message>
+
+  <message id="102" name="NoSession" severity="fatal" args="0">
+  <text>Session entity not attached to TSAP</text>
+  <doc>
+    <description>
+       The session entity is not attached to a TSAP.
+    </description>
+  </doc>
+  </message>
+
+  <message id="103" name="AddressUnknown" severity="fatal" args="0">
+  <text>TSAP Address unknown</text>
+  <doc>
+    <description>
+       The transport address presented is unknown.
+    </description>
+  </doc>
+  </message>
+
+  <!-- Class 1-4 errors -->
+  <message id="228" name="NormalDisconnect" severity="success" args="0">
+  <text>Normal disconnect initiated by session entity</text>
+  <doc>
+    <description>
+        A normal transport layer disconnection.
+    </description>
+  </doc>
+  </message>
+
+  <message id="229" name="RemoteCongestion" severity="error" args="0">
+  <text>Remote transport entity congestion at connect request time</text>
+  <doc>
+    <description>
+        Lack of resources or some other transient problem caused a
+        transport layer disconnection.
+    </description>
+  </doc>
+  </message>
+
+  <message id="230" name="Negotiation" severity="fatal" args="0">
+  <text>Connection negotiation failed</text>
+  <doc>
+    <description>
+       The transport providers failed to negotiate. Normally a result
+       of a failure to agree a transport class.
+    </description>
+  </doc>
+  </message>
+
+  <message id="231" name="Duplicate" severity="error" args="0">
+  <text>Duplicate source reference for same pair of NSAPs</text>
+  <doc>
+    <description>
+      An attempt to reuse the source reference for the same NSAPs was
+      detected.
+    </description>
+  </doc>
+  </message>
+
+  <message id="232" name="Mismatch" severity="error" args="0">
+  <text>Mismatched references</text>
+  <doc>
+    <description>
+       There was a problem with transport connection references.
+    </description>
+  </doc>
+  </message>
+
+  <message id="233" name="Protocol" severity="error" args="0">
+  <text>Protocol Error</text>
+  <doc>
+    <description>
+       A protocol error was detected.
+    </description>
+  </doc>
+  </message>
+
+  <message id="235" name="Overflow" severity="error" args="0">
+  <text>Reference overflow</text>
+  <doc>
+    <description>
+       It was not possible to assign a connection reference as there
+       were too many assigned.
+    </description>
+  </doc>
+  </message>
+
+  <message id="236" name="NetRefused" severity="error" args="0">
+  <text>Connection request refused on this network connection</text>
+  <doc>
+    <description>
+       Failed to create the network connection over which the transport
+       connection is made.
+    </description>
+  </doc>
+  </message>
+
+  <message id="238" name="InvalidLength" severity="error" args="0">
+  <text>Head or parameter length invalid</text>
+  <doc>
+    <description>
+       A length field in the transport PDU was found to be invalid.
+    </description>
+  </doc>
+  </message>
+
+  <!-- Internal Messages for new Transport Layer mechanism -->
+  <message id="300" name="NoUser" severity="fatal" args="1">
+    <arg position="1">
+       Operation in progress when error found
+    </arg>
+    <text>No TS User for operation %1</text>
+    <doc>
+      <description>
+      There was no TS User object available for the transport layer.
+      This is a programming error.
+      </description>
+    </doc>
+  </message>
+
+  <message id="301" name="NoNSAPAddress" severity="error" args="0">
+  <text>Missing network address</text>
+  <doc>
+    <description>
+       There was no network address in the transport called address.
+    </description>
+  </doc>
+  </message>
+
+  <message id="302" name="BadMaxTPDUsize" severity="fatal" args="1">
+    <arg position="1" type="int">
+       Requested maximum TPDU size
+    </arg>
+    <text>Invalid Maximum TPDU size %1</text>
+    <doc>
+      <description>
+      The requested maximum TPDU size was invalid.
+      </description>
+    </doc>
+  </message>
+
+  <message id="303" name="RejectUnspecified" severity="error" args="1">
+    <arg position="1">
+       Context for rejection
+    </arg>
+    <text>TPDU rejected %1</text>
+    <doc>
+      <description>
+      A received TPDU was rejected for no specific overall reason,
+      more detail is given in the context.
+      </description>
+    </doc>
+  </message>
+
+  <message id="304" name="RejectBadParam" severity="error" args="1">
+    <arg position="1" type="int">
+       parameter type value
+    </arg>
+    <text>TPDU has unknown parameter type %1</text>
+    <doc>
+      <description>
+      A received TPDU has an unknown parameter field.
+      </description>
+    </doc>
+  </message>
+
+  <message id="305" name="RejectBadType" severity="error" args="1">
+    <arg position="1" type="int">
+       type value
+    </arg>
+    <text>TPDU has unknown TPDU type %1</text>
+    <doc>
+      <description>
+      A received TPDU has an unknown TPDU type field.
+      </description>
+    </doc>
+  </message>
+
+  <message id="306" name="RejectBadValue" severity="error" args="1">
+    <arg position="1">
+       value type
+    </arg>
+    <text>TPDU has bad value for %1</text>
+    <doc>
+      <description>
+      A received TPDU has an invalid value for the given field
+      </description>
+    </doc>
+  </message>
+
+  <message id="307" name="RejectReceived" severity="error" args="1">
+    <arg position="1" type="int">
+       The reject reason
+    </arg>
+    <text>Peer rejected TPDU, reason %1</text>
+    <doc>
+      <description>The peer system rejected a TPDU for the reason given.
+      </description>
+    </doc>
+  </message>
+
+  <message id="308" name="NoProvider" severity="error" args="0">
+  <text>No Transport Provider</text>
+  <doc>
+    <description>
+       The operation could not be performed as there was no transport
+       service provider.
+    </description>
+  </doc>
+  </message>
+
+  <message id="309" name="NoEndPoint" severity="error" args="0">
+  <text>No pollable end point</text>
+  <doc>
+    <description>
+    The transport provider does not use an end point which can be used
+    with poll() or select().
+    </description>
+  </doc>
+  </message>
+
+  <message id="310" name="NoFactory" severity="fatal" args="1">
+    <arg position="1">
+       The type of factory required
+    </arg>
+    <text>No factory method to make Transport %1</text>
+    <doc>
+      <description>The transport stack implementation lacks a factory method
+      for the type of object required.
+      </description>
+    </doc>
+  </message>
+
+  <message id="311" name="NoStack" severity="fatal" args="1">
+    <arg position="1">
+       The network address which failed
+    </arg>
+    <text>No Transport Stack for address %1</text>
+    <doc>
+      <description>There was no transport stack configured for the
+      given network address.
+      </description>
+    </doc>
+  </message>
+
+  <message id="312" name="NoTsap" severity="fatal" args="1">
+    <arg position="1">
+       The selector which was not found (in hex)
+    </arg>
+    <text>No Transport Listener for TSEL '%1'H</text>
+    <doc>
+      <description>There was no transport stack configured for the
+      given network address.
+      </description>
+    </doc>
+  </message>
+
+  <message id="313" name="Tailoring" severity="fatal" args="3">
+    <arg position="1">
+       The name of the module
+    </arg>
+    <arg position="2">
+       The name of the item
+    </arg>
+    <arg position="3">
+       The value for the item
+    </arg>
+    <text>Tailoring error for %1, %2: %3</text>
+    <doc>
+      <description>There is a value error in the loading the tailoring
+      for the transport provider module. If the value is &lt;missing&gt; then
+      a mandatory value is missing from the tailoring file.
+      </description>
+    </doc>
+  </message>
+
+  <message id="314" name="BadProvider" severity="fatal" args="2">
+    <arg position="1">
+       The name of the module
+    </arg>
+    <arg position="2">
+       Information about the problem with the provider
+    </arg>
+    <text>Problem with transport provider %1, %2</text>
+    <doc>
+      <description>There is some problem with the capabilities of the
+      transport provider.
+      </description>
+    </doc>
+  </message>
+
+
+  <!-- TS layer messages -->
+  <message id="350" name="ModuleMismatch" severity="fatal" args="2">
+    <arg position="1">
+       The provided module name
+    </arg>
+    <arg position="2">
+       The name of the module being loaded
+    </arg>
+    <text>Transport module name mismatch proposed=%1 actual=%2</text>
+    <doc>
+      <description>When initializing a transport layer module, 
+      a mismatch was found between the name the loader thought was the
+      module's name, and the actual name.
+      </description>
+    </doc>
+  </message>
+
+  <message id="351" name="RestoreFailure" severity="fatal" args="2">
+    <arg position="1">
+       The provided save information
+    </arg>
+    <arg position="2">
+       The name of the module doing the restoration
+    </arg>
+    <text>Failed to restore using %1 in module %2</text>
+    <doc>
+      <description>
+      There was a failure when rebuilding the information for a transport
+      endpoint following transfer of the endpoint to another process.
+      </description>
+    </doc>
+  </message>
+
+  <message id="352" name="ListenFailure" severity="fatal" args="1">
+    <arg position="1">
+       The address being attempted
+    </arg>
+    <text>Failure listening on %1</text>
+    <doc>
+      <description>There was a failure listening on the given address.
+      The associated error gives more details.
+      </description>
+    </doc>
+  </message>
+
+  <!-- ITOT messages -->
+  <message id="400" name="BadITOTversion" severity="fatal" args="1">
+    <arg position="1" type="int">
+       The provided version number
+    </arg>
+    <text>Bad ITOT version number %1</text>
+    <doc>
+      <description>The version number at the start of an ITOT TPKT was
+      incorrect. The connection is broken.
+      </description>
+    </doc>
+  </message>
+
+  <message id="401" name="NConnectFailed" severity="warning" args="1">
+    <arg position="1">
+       Failed network address
+    </arg>
+    <text>Failed to connect to address %1</text>
+    <doc>
+      <description>When the NSAP address gives multiple actual addresses,
+      the transport layer will attempt each address in turn. This message
+      logs the failure of the initial addresses.
+      </description>
+    </doc>
+  </message>
+
+  <message id="402" name="BadITOTlength" severity="fatal" args="1">
+    <arg position="1" type="int">
+       The presented packet length
+    </arg>
+    <text>Bad ITOT packet length %1</text>
+    <doc>
+      <description>The packet length in the ITOT packet header is incorrect.
+       The connection is broken.
+      </description>
+    </doc>
+  </message>
+
+</facility>

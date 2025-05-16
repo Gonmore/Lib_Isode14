@@ -1,0 +1,520 @@
+<?xml version="1.0" standalone="yes"?>
+<!-- Copyright 2005-2007 Isode Limited -->
+<facility id="25" name="ROsap">
+  <doc>
+    <description>
+    Messages relating to the Remote Operations Service Element
+    </description>
+  </doc>
+
+  <!-- General -->
+  <!-- Error numbers MUST match the value of the corresponding level -->
+  <message id="13" name="Fatal" severity="fatal" args="1">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>
+       OSI ROS Fatal Event. This event should only occur in very unusual
+       situations.  Isode's medium term plan is to remove a
+       </description>
+       <action>See log entry for details. Please send information on the
+       occurrence of this event to support@isode.com</action>
+    </doc>
+  </message>
+
+  <message id="12" name="Error" severity="error" args="1">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>OSI ROS Error.  Isode's medium term plan is to remove all
+       common use of this event,  Isode's long term plan is to remove all use of
+       this event. 
+       </description>
+       <action>See log entry for details</action>
+    </doc>
+  </message>
+
+  <message id="6" name="Notice" severity="notice" args="1">
+    <arg position="1">
+       Text describing condition
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>General notice level event: See log entry for details
+       </description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <!-- Messages with the system log need two arguments,
+       and the id is the number for the level + 16 -->
+  <message id="29" name="FatalS" severity="fatal" args="2" system="yes">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <arg position="2">
+       Additional text field
+    </arg>
+    <text>%1 %2</text>
+    <doc>
+       <description>
+       OSI ROS Fatal Event. This event should only occur in very unusual
+       situations.  Isode's medium term plan is to remove all use of this event.
+       </description>
+       <action>See Log entry for details.  Please send information on the
+       occurrence of this event to support@isode.com
+       </action>
+    </doc>
+  </message>
+
+  <message id="28" name="ErrorS" severity="error" args="2" system="yes">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <arg position="2">
+       Additional text field
+    </arg>
+    <text>%1 %2</text>
+    <doc>
+       <description>
+       OSI ROS Error.  Isode's medium term plan is to remove all
+       common use of this event,  Isode's long term plan is to remove all use of
+       this event
+       </description>
+       <action>See log entry for details</action>
+    </doc>
+  </message>
+
+  <message id="22" name="NoticeS" severity="notice" args="2" system="yes">
+    <arg position="1">
+       Text describing condition
+    </arg>
+    <arg position="2">
+       Additional text field
+    </arg>
+    <text>%1 %2</text>
+    <doc>
+       <description>
+       General notice level event: See log entry for details
+       </description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <!-- PDUs -->
+  <message id="30" name="ROS_OPDU_W" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Written ROSE PDU</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="31" name="ROS_OPDU_R" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Read ROSE PDU</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="32" name="ROS_ROSEapdus_W" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Written ROSE PDU</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="33" name="ROS_ROSEapdus_R" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Read ROSE PDU</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <!-- Internal ROSE Errors -->
+  <message id="49" name="ErrorFound" severity="detail" args="2">
+    <arg position="1">
+       Event which returned the error
+    </arg>
+    <arg position="2">
+       Text of actual error
+    </arg>
+    <text>Event %1 returned error %2</text>
+    <doc>
+       <description>
+       A call to a lower layer operation returned an error. This error is
+       passed to higher levels. This message gives the context for that error.
+        </description>
+    </doc>
+  </message>
+
+  <message id="50" name="Congestion" severity="error" args="1">
+    <arg position="1">Local reason for congestion</arg>
+    <text>Resourse congestion %1</text>
+    <doc>
+       <description>ACSE provider suffered from local resource issue.
+       </description>
+    </doc>
+  </message>
+
+  <message id="51" name="Protocol" severity="error" args="1">
+    <arg position="1">additional information</arg>
+    <text>Protocol error %1</text>
+    <doc>
+       <description>
+       Some protocol error has occurred
+       </description>
+    </doc>
+  </message>
+
+  <message id="52" name="PeerAbort" severity="error">
+    <text>Peer aborted connection</text>
+    <doc>
+       <description>
+       The peer aborted the connection, no user data.
+       </description>
+    </doc>
+  </message>
+
+  <message id="53" name="Parameter" severity="warning" args="1">
+    <arg position="1">additional information</arg>
+    <text>Parameter error %1</text>
+    <doc>
+       <description>
+       Error in parameters
+       </description>
+    </doc>
+  </message>
+
+  <message id="54" name="Operation" severity="error" args="1">
+    <arg position="1">additional information</arg>
+    <text>Operation error %1</text>
+    <doc>
+       <description>
+       Error in operation sequence
+       </description>
+    </doc>
+  </message>
+
+  <message id="55" name="Interrupted" severity="info">
+    <text>Operation Interrupted</text>
+    <doc>
+       <description>
+       The ROSE operation was interrupted.
+       </description>
+    </doc>
+  </message>
+
+  <message id="56" name="APDU" severity="warning">
+    <text>APDU not transferred</text>
+    <doc>
+       <description>
+       The APDU was not transferred.
+       </description>
+    </doc>
+  </message>
+
+  <!-- Actual ROSE Errors -->
+  <!-- These are required to have the same severity, so that they form
+       a numerical sequence -->
+  <message id="60" name="UnrecognizedPDU" severity="warning">
+    <text>ROSE PDU not recognized</text>
+    <doc>
+       <description>
+       The PDU received was not recognized
+       </description>
+    </doc>
+  </message>
+
+  <message id="61" name="MistypedPDU" severity="warning">
+    <text>ROSE PDU mistyped</text>
+    <doc>
+       <description>
+       The PDU received was incorrectly typed.
+       </description>
+    </doc>
+  </message>
+
+  <message id="62" name="StructPDU" severity="warning">
+    <text>ROSE PDU badly structured</text>
+    <doc>
+       <description>
+       The PDU received was badly structured.
+       </description>
+    </doc>
+  </message>
+
+  <message id="63" name="DuplicateID" severity="warning">
+    <text>Duplicate Invoke ID</text>
+    <doc>
+       <description>
+       The same invoke ID was used for more than one operation.
+       </description>
+    </doc>
+  </message>
+
+  <message id="64" name="UnrecognizedOp" severity="warning">
+    <text>Unrecognised operation</text>
+    <doc>
+       <description>
+       The operation code was not recognised in this context.
+       </description>
+    </doc>
+  </message>
+
+  <message id="65" name="ArgMistyped" severity="warning">
+    <text>Mistyped argument</text>
+    <doc>
+       <description>
+       The argument of an operation was the wrong ASN.1 type.
+       </description>
+    </doc>
+  </message>
+
+  <message id="66" name="ResourceLimit" severity="warning">
+    <text>Resource limitation</text>
+    <doc>
+       <description>
+       There was a resource limitation in handling the operation.
+       </description>
+    </doc>
+  </message>
+
+  <message id="67" name="Releasing" severity="warning">
+    <text>Initiator releasing association</text>
+    <doc>
+       <description>
+       The operation is rejected as the initiator is releasing the
+       association.
+       </description>
+    </doc>
+  </message>
+
+  <message id="68" name="UnrecognizedLink" severity="warning">
+    <text>Unrecognized linked ID</text>
+    <doc>
+       <description>
+       The operation had a linked ID which was not recognized.
+       </description>
+    </doc>
+  </message>
+
+  <message id="69" name="UnexpectedLink" severity="warning">
+    <text>Unexpected linked response</text>
+    <doc>
+       <description>
+       The linked response was not expected.
+       </description>
+    </doc>
+  </message>
+
+  <message id="70" name="UnexpectedChild" severity="warning">
+    <text>Unexpected child operation</text>
+    <doc>
+       <description>
+       The child operation was not expected.
+       </description>
+    </doc>
+  </message>
+
+  <message id="71" name="ResultUnknownID" severity="warning">
+    <text>Unrecognised invoke ID in result</text>
+    <doc>
+       <description>
+       A result has an invoke ID which was not recognized.
+       </description>
+    </doc>
+  </message>
+
+  <message id="72" name="ResultUnexpected" severity="warning">
+    <text>Unexpected return result response</text>
+    <doc>
+       <description>
+       The response in the result was not expected.
+       </description>
+    </doc>
+  </message>
+
+  <message id="73" name="ResultMistyped" severity="warning">
+    <text>Result has wrong type</text>
+    <doc>
+       <description>
+       A result contained a value of the wrong type.
+       </description>
+    </doc>
+  </message>
+
+  <message id="74" name="ErrorUnknownID" severity="warning">
+    <text>Unrecognized invoke ID in error</text>
+    <doc>
+       <description>
+       An error was received which contained an unrecognized invoke ID.
+       </description>
+    </doc>
+  </message>
+
+  <message id="75" name="ErrorUnexpectedID" severity="warning">
+    <text>Error response ID unexpected</text>
+    <doc>
+       <description>
+       An error was received which was not expected.
+       </description>
+    </doc>
+  </message>
+
+  <message id="76" name="ErrorUnrecognized" severity="warning">
+    <text>Error response not recognized</text>
+    <doc>
+       <description>
+       An error was received which was not expected.
+       </description>
+    </doc>
+  </message>
+
+  <message id="77" name="ErrorUnexpected" severity="warning">
+    <text>Error response value unexpected</text>
+    <doc>
+       <description>
+       An error was received which was not expected.
+       </description>
+    </doc>
+  </message>
+
+  <message id="78" name="ErrorMistyped" severity="warning">
+    <text>Error response value mistyped</text>
+    <doc>
+       <description>
+       An error was received with a value of the wrong type.
+       </description>
+    </doc>
+  </message>
+
+  <!-- RONOT errors -->
+  <message id="100" name="ACSE" severity="error">
+    <text>ROSE bind failed in ACSE</text>
+    <doc>
+       <description>
+       Bind failure for ROSE within ACSE.
+       </description>
+    </doc>
+  </message>
+
+  <message id="101" name="SetUser" severity="error">
+    <text>Failed to set ROS user</text>
+    <doc>
+       <description>
+       Failed to set ROS user.
+       </description>
+    </doc>
+  </message>
+
+  <message id="102" name="BindArgEncode" severity="error">
+    <text>Failed to encode bind argument</text>
+    <doc>
+       <description></description>
+    </doc>
+  </message>
+
+  <message id="103" name="BindResEncode" severity="error">
+    <text>Failed to encode bind result</text>
+    <doc>
+       <description></description>
+    </doc>
+  </message>
+
+  <message id="104" name="BindErrEncode" severity="error">
+    <text>Failed to encode bind error</text>
+    <doc>
+       <description></description>
+    </doc>
+  </message>
+
+  <message id="105" name="UnbindArgEncode" severity="error">
+    <text>Failed to encode unbind argument</text>
+    <doc>
+       <description></description>
+    </doc>
+  </message>
+
+  <message id="106" name="UnbindResEncode" severity="error">
+    <text>Failed to encode unbind result</text>
+    <doc>
+       <description></description>
+    </doc>
+  </message>
+
+  <message id="107" name="UnbindErrEncode" severity="error">
+    <text>Failed to encode unbind error</text>
+    <doc>
+       <description></description>
+    </doc>
+  </message>
+
+  <message id="108" name="BindArgDecode" severity="error">
+    <text>Failed to decode bind argument</text>
+    <doc>
+       <description></description>
+    </doc>
+  </message>
+
+  <message id="109" name="BindResDecode" severity="error">
+    <text>Failed to decode bind result</text>
+    <doc>
+       <description></description>
+    </doc>
+  </message>
+
+  <message id="110" name="BindErrDecode" severity="error">
+    <text>Failed to decode bind error</text>
+    <doc>
+       <description></description>
+    </doc>
+  </message>
+
+  <message id="111" name="UnbindArgDecode" severity="error">
+    <text>Failed to decode unbind argument</text>
+    <doc>
+       <description></description>
+    </doc>
+  </message>
+
+  <message id="112" name="UnbindResDecode" severity="error">
+    <text>Failed to decode unbind result</text>
+    <doc>
+       <description></description>
+    </doc>
+  </message>
+
+  <message id="113" name="UnbindErrDecode" severity="error">
+    <text>Failed to decode unbind error</text>
+    <doc>
+       <description></description>
+    </doc>
+  </message>
+
+  <message id="114" name="NumUserInfo" severity="error">
+    <text>Erroneous number of user info fields</text>
+    <doc>
+       <description></description>
+    </doc>
+  </message>
+
+  <message id="115" name="AssocDone" severity="info">
+    <text>Association done via async handler</text>
+    <doc>
+       <description>Code passed to operation error handler</description>
+    </doc>
+  </message>
+
+</facility>

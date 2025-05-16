@@ -1,0 +1,165 @@
+<?xml version="1.0" standalone="yes"?>
+
+<!--
+
+ Copyright (c) 2006-2008 Isode Limited, London, England
+ All rights reserved.
+
+ Acquisition and use of this software and related materials for any
+ purpose requires a written licence agreement from Isode Limited,
+ or a written licence from an organisation licenced by Isode
+ Limited to grant such a licence.
+
+
+ Message definitions for javadsapi 
+
+ 14.4v12-0
+-->
+
+<facility id="57" name="javadsapimsg">
+
+  <doc>
+    <description>Java-DSAPI messages</description>
+  </doc>
+
+<!-- needed to satisfy messcat.tcl in case this file uses type="throwable" -->
+  <type name="throwable">
+    <action>ava[$i] = a$i;</action>
+  </type>
+
+<!-- 
+     Messages in the range   1..100 are for the JNI layer.
+     Messages in the range 101..254 are for the Java layer.
+-->
+
+<!-- JNI messages -->
+
+<!-- The "trace" messages are for debugging only -->
+  <message id="1" name="jni_trace_enter" severity="debug" args="1">
+    <arg position="1">Function</arg>
+    <text>JNI function %1 has been entered</text>
+    <doc>
+      <description>The JNI function was entered.</description>
+      <action>No operator action</action>
+    </doc>
+  </message>
+
+
+  <message id="2" name="jni_trace_exception_pending" severity="debug" args="1">
+    <arg position="1">Function</arg>
+    <text>JNI function %1 returned with a Java exception pending</text>
+    <doc>
+      <description>The JNI function returned with 
+      a pending exception</description>
+      <action>No operator action</action>
+    </doc>
+  </message>
+
+  <message id="3" name="jni_trace_leave_string" severity="debug" args="2">
+    <arg position="1">Function</arg>
+    <arg position="2">Result</arg>
+    <text>JNI function %1 returned %2</text>
+    <doc>
+      <description>The JNI function returned.</description>
+      <action>No operator action</action>
+    </doc>
+  </message>
+
+  <message id="4" name="jni_trace_leave_int" severity="debug" args="2">
+    <arg position="1">Function</arg>
+    <arg position="2" type="int">Result</arg>
+    <text>JNI function %1 returned %2</text>
+    <doc>
+      <description>The JNI function returned.</description>
+      <action>No operator action</action>
+    </doc>
+  </message>
+
+  <message id="5" name="jni_trace_throwing" severity="debug" args="1">
+    <arg position="1">Function</arg>
+    <text>JNI is throwing Java exception: %1</text>
+    <doc>
+      <description>JNI is throwing an exception to the Java layer</description>
+      <action>No operator action</action>
+    </doc>
+  </message>
+
+  <message id="6" name="jni_unexpected_exception" severity="error" args="1">
+    <arg position="1">Exception</arg>
+    <text>Dropping unexpected exception: %1</text>
+    <doc>
+      <description>An exception has been caught during JNI cleanup,
+        which probably indicates a serious Java problem or a
+        programming error.</description>
+      <action>Submit the logs to Isode.</action>
+    </doc>
+  </message>
+
+
+<!-- Java messages -->
+
+<!-- These messages are used by the "Logger" class -->
+
+  <message id="101" name="log_finest" severity="debug" args="1">
+    <arg position="1">finestText</arg>
+    <text>%1</text>
+    <doc>
+      <description>A Java method logged a message for tracing purposes.
+      </description>
+      <action>No operator action</action>
+    </doc>
+  </message>
+
+  <message id="102" name="log_fine" severity="detail" args="1">
+    <arg position="1">fineText</arg>
+    <text>%1</text>
+    <doc>
+      <description>A Java method logged a message for tracing purposes.
+      </description>
+      <action>No operator action</action>
+    </doc>
+  </message>
+
+  <message id="103" name="log_info" severity="information" args="1">
+    <arg position="1">infoText</arg>
+    <text>%1</text>
+    <doc>
+      <description>A Java method logged an informational message.
+      </description>
+      <action>No operator action</action>
+    </doc>
+  </message>
+
+  <message id="104" name="log_warning" severity="warning" args="1">
+    <arg position="1">warningText</arg>
+    <text>%1</text>
+    <doc>
+      <description>A Java method logged a warning message.
+      </description>
+      <action>The message should contain information explaining what
+              action is required.</action>
+    </doc>
+  </message>
+
+  <message id="105" name="log_severe" severity="error" args="1">
+    <arg position="1">severeText</arg>
+    <text>%1</text>
+    <doc>
+      <description>A Java method logged a severe error.
+      </description>
+      <action>The message should contain information explaining what
+              action is required.</action>
+    </doc>
+  </message>
+
+  <message id="106" name="log_critical" severity="critical" args="1">
+    <arg position="1">criticalText</arg>
+    <text>%1</text>
+    <doc>
+      <description>A Java method logged a critical error.
+      </description>
+      <action>Submit the logs to Isode.</action>
+    </doc>
+  </message>
+
+</facility>

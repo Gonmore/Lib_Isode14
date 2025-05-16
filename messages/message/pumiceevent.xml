@@ -1,0 +1,244 @@
+<?xml version="1.0" standalone="yes"?>
+<!-- Copyright 2005-2008 Isode Limited -->
+<facility id="151" name="XMS">
+  <doc>
+    <description>
+    Messages relating to M-Store Event Logging
+    </description>
+  </doc>
+
+  <!-- General -->
+  <message id="1" name="TailoringError" severity="error" args="3">
+    <arg position="1">
+       Key which is unknown
+    </arg>
+    <arg position="2" type="int">
+       Line number of unknown key
+    </arg>
+    <arg position="3" type="str">
+       Name of tailoring file
+    </arg>
+    <text>Bad tailoring key %1 at line %2 in file %3</text>
+    <doc>
+       <description>An entry in the Message Store's configuration file is incorrectly specified.
+       </description>
+       <action>Correct the entry in the Message Store's configuration file</action>
+    </doc>
+  </message>
+
+  <message id="2" name="P7LoginFailure" severity="error" args="2">
+    <arg position="1">
+       ORName used in login attempt
+    </arg>
+    <arg position="2" type="str">
+       Failure reason
+    </arg>
+    <text>Login failure by %1: %2</text>
+    <doc>
+       <description>A login attempt by a User Agent failed
+       </description>
+       <action>Check for other log entries. Check the login is using the correct
+       credentials.</action>
+    </doc>
+  </message>
+
+  <message id="3" name="P3BindFailure" severity="error" args="2">
+    <arg position="1">
+       Presentation address for bind attempt
+    </arg>
+    <arg position="2" type="str">
+       Failure reason
+    </arg>
+    <text>P3 Bind to address %1 failed: %2</text>
+    <doc>
+       <description>The Message Store failed to bind to the MTA for message
+        submission. 
+       </description>
+       <action>Check the MTA is running. Check the P3 channel is correctly
+       configured</action>
+    </doc>
+  </message>
+
+  <message id="4" name="P3BindRejected" severity="error" args="2">
+    <arg position="1" type="str">
+       Presentation address for bind attempt
+    </arg>
+    <arg position="2" type="str">
+       Failure reason
+    </arg>
+    <text>P3 Bind by address %1 rejected: %2</text>
+    <doc>
+       <description>The Message Store rejected the bind attempt by the MTA
+        submission. 
+       </description>
+       <action>Check the P3 channel is correctly configured</action>
+    </doc>
+  </message>
+
+  <message id="5" name="DeliveryFailure" severity="error" args="2">
+    <arg position="1" type="str">
+       Mailbox for which delivery failed
+    </arg>
+    <arg position="2" type="str">
+       Failure reason
+    </arg>
+    <text>Delivery to mailbox %1 failed: %2</text>
+    <doc>
+       <description>Delivery into the specified mailbox failed
+       </description>
+       <action>
+       May be a temporary resource problem.  If error repeats, investigate for
+       configuration error. Error will be reported back to MTA, so this error
+       will not generally mean message loss, as non-delivery will be reported to
+       message originator.
+       </action>
+    </doc>
+  </message>
+
+  <message id="6" name="ManagementLoginFailure" severity="error" args="2">
+    <arg position="1" type="str">
+       Calling address
+    </arg>
+    <arg position="2" type="str">
+       Failure reason
+    </arg>
+    <text>Management authentication from %1 failed: %2</text>
+    <doc>
+       <description>An authentication attempt failed for the management 
+                    interface.
+       </description>
+       <action>Action dependent on site security policy.</action>
+    </doc>
+  </message>
+
+  <message id="7" name="ExecFailure" severity="fatal" args="0" system="yes">
+    <text>exec() call failed</text>
+    <doc>
+       <description>A call to the exec() system call failed.       
+       </description>
+       <action>May be temporary resource problem. Check other log entries. If error repeats, investigate system logs</action>
+    </doc>
+  </message>
+
+  <message id="8" name="TailorFileOpenError" severity="fatal" args="1" system="yes">
+    <arg position="1">
+       Name of tailoring file
+    </arg>
+    <text>Failed to open tailor file %1</text>
+    <doc>
+       <description>The Message Store server process could not open its tailoring file.
+       </description>
+       <action>Check that the Store config file exists and has suitable
+       permissions</action>
+    </doc>
+  </message>
+
+  <message id="9" name="ConRefLoadFailure" severity="fatal" args="1">
+    <arg position="1" type="int">
+       Connection id
+    </arg>
+    <text>Cannot load connection reference for handle %1</text>
+    <doc>
+       <description>The Message Store server process could not locate the connection details for the specified connection handle.
+       </description>
+       <action>May be temporary resource problem.  If error repeats, 
+       contact Isode support</action>
+    </doc>
+  </message>
+
+  <message id="10" name="MhsdsInitFailure" severity="fatal" args="0">
+    <text>Directory interface initialization failed</text>
+    <doc>
+       <description>The Message Store server process could not initialize its Directory interface.
+       </description>
+       <action>Check other log entries. Check the directory is running, 
+       and that the configuration of the bind is correct</action>
+    </doc>
+  </message>
+
+  <message id="11" name="MhsdsOpenFailure" severity="fatal" args="0">
+    <text>Failed to open Directory connection</text>
+    <doc>
+       <description>The Message Store server process could not open a connection to the Directory.
+       </description>
+       <action>Check the directory is running, and that the configuration
+       of the bind arguments are is correct
+       </action>
+    </doc>
+  </message>
+
+  <message id="12" name="AnnotationsLoadFailure" severity="error" args="1">
+    <arg position="1" type="int">
+       Connection id
+    </arg>
+    <text>Failed to load Annotations for connection handle %1</text>
+    <doc>
+       <description>The Message Store server process could not open a the annotations file for the Store user associated with the connection.
+       </description>
+       <action>
+       The index file associated with the mailbox may be corrupt. Stop
+       M-Store and remove the annotations file referred to in the
+       log. M-Store X.400 will automatically rebuild the index from 
+       the messages.
+       </action>
+    </doc>
+  </message>
+
+  <message id="13" name="OutOfMemory" severity="fatal" args="1" system="yes">
+    <arg position="1" type="int">
+       Size of memory area we attempted to allocate
+    </arg>
+    <text>Failed to allocate memory region of size %1</text>
+    <doc>
+       <description>The Message Store server process could not allocate the requested chunk of memory.
+       </description>
+       <action>May be temporary resource problem. Check system logs</action>
+    </doc>
+  </message>
+
+  <message id="14" name="ServerStartup" severity="notice" args="2">
+    <arg position="1" type="str">
+       Program name
+    </arg>
+    <arg position="2" type="str">
+       Service name
+    </arg>
+    <text>Starting %1 with service %2</text>
+    <doc>
+       <description>The Message Store server process is starting up.
+       </description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="15" name="ServerShutdown" severity="notice" args="2">
+    <arg position="1" type="str">
+       Program name
+    </arg>
+    <arg position="2" type="str">
+       Service name
+    </arg>
+    <text>Stopping %1 (service %2)</text>
+    <doc>
+       <description>The Message Store server process is stopping.
+       </description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="16" name="FileSystemError" severity="error" args="2" system="yes">
+    <arg position="1" type="str">
+       Name of operation which failed
+    </arg>
+    <arg position="2" type="str">
+       File name
+    </arg>
+    <text>%1 failed for %2</text>
+    <doc>
+       <description>A filesystem error occurred.
+       </description>
+       <action>May be temporary resource problem. Check other log entries. If error repeats, investigate system logs</action>
+    </doc>
+  </message>
+
+</facility>

@@ -1,0 +1,1100 @@
+<?xml version="1.0" standalone="yes"?>
+<!-- Copyright 2005-2008 Isode Limited -->
+<facility id="101" name="MTA_X400">
+  <doc>
+    <description>
+    Messages relating to X.400 P1 and P3
+    </description>
+  </doc>
+
+  <type name="dn">
+      <declaration>char *dnstr$i;</declaration>
+      <action>dnstr$i = dn2str(a$i); ava[$i] = dnstr$i;</action>
+      <clean>free(dnstr$i);</clean>
+      <parameter>DN</parameter>
+  </type>
+
+  <!-- General -->
+  <!-- Error numbers MUST match the value of the corresponding level -->
+  <message id="2" name="GenericPDU" severity="pdu" args="1">
+    <arg position="1">
+       Name of file containing PDU
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>General PDU dump
+       </description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="6" name="Notice" severity="notice" args="1">
+    <arg position="1">
+       Text describing condition
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>
+       General notice level event: See log entry for details
+       </description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="12" name="Error" severity="error" args="1">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>General error used for normal errors
+       </description>
+       <action>See log entry for details</action>
+    </doc>
+  </message>
+
+  <message id="13" name="Fatal" severity="fatal" args="1">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>General error used for fatal errors
+       </description>
+       <action>See Log entry for details.  Please send information on the
+       occurrence of this event to support@isode.com</action>
+    </doc>
+  </message>
+
+  <!-- Messages with the system log need two arguments,
+       and the id is the number for the level + 16 -->
+  <message id="22" name="NoticeS" severity="notice" args="2" system="yes">
+    <arg position="1">
+       Text describing condition
+    </arg>
+    <arg position="2">
+       Additional text field
+    </arg>
+    <text>%1 %2</text>
+    <doc>
+       <description>General notice level event: See log entry for details
+       </description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="28" name="ErrorS" severity="error" args="2" system="yes">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <arg position="2">
+       Additional text field
+    </arg>
+    <text>%1 %2</text>
+    <doc>
+       <description>M-Switch Error.  Isode's medium term plan is to remove all
+       common use of this event,  Isode's long term plan is to remove all use of
+       this event. 
+       </description>
+       <action>See log entry for details.</action>
+    </doc>
+  </message>
+
+  <message id="29" name="FatalS" severity="fatal" args="2" system="yes">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <arg position="2">
+       Additional text field
+    </arg>
+    <text>%1 %2</text>
+    <doc>
+       <description>
+       Fatal M-Switch Event. This event should only occur in very unusual
+       situations.  Isode's medium term plan is to remove all use of this event
+       </description>
+       <action>See Log entry for details.  Please send information on the
+       occurrence of this event to support@isode.com</action>
+    </doc>
+  </message>
+
+  <!-- PDUs -->
+  <message id="30" name="ExtDef_ExtDefBodyPart_R" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc><description>Read X.400 PDU</description></doc>
+  </message>
+
+  <message id="31" name="ExtDef_ExtDefBodyPart_W" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc><description>Written ROS PDU</description></doc>
+  </message>
+
+  <message id="32" name="Ext_InternalTraceInformation_R" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Read X.400 PDU</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="33" name="Ext_InternalTraceInformation_W" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Written X.400 PDU</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="34" name="Ext_OriginatorReturnAddress_R" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Read X.400 PDU</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="35" name="MTA_MessageTransferEnvelope_R" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Written ROS PDU</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="36" name="MTA_MessageTransferEnvelope_W" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Read X.400 PDU</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="37" name="MTA_MTSBindArgument_W" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Written ROS PDU</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="38" name="MTA_MTSBindError_R" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Read X.400 PDU</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="39" name="MTA_MTSBindResult_R" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Written ROS PDU</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="40" name="RTS84_Request_R" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Read X.400 PDU</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="41" name="RTS84_Request_W" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Written ROS PDU</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="42" name="Trans_Bind1988Argument_R" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Read X.400 PDU</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="43" name="Trans_Bind1988Argument_W" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Written ROS PDU</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="44" name="Trans_Bind1988Error_R" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Read X.400 PDU</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="45" name="Trans_Bind1988Error_W" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Written ROS  PDU</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="46" name="Trans_Bind1988Result_R" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Read X.400 PDU</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="47" name="Trans_Bind1988Result_W" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Written ROS PDU</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="48" name="Trans_MtsAPDU_R" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Read X.400 PDU</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="49" name="Trans_MtsAPDU_W" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Written ROS PDU</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="50" name="MTA_AsymmetricTokenBody_W" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Read X.400 PDU</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="51" name="MTA_TraceInformation_W" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Written X.400 PDU</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+
+  <!-- Operational messages -->
+
+  <message id="60" name="AssocRejected" severity="error" args="2">
+    <text>Association Rejected to MTA %1: %2</text>
+    <arg position="1">
+       Peer MTA to which the association was rejected
+    </arg>
+    <arg position="2">
+       Text describing error
+    </arg>
+    <doc>
+	<description>
+	It was not possible to connect to another MTA as the association
+        was rejected
+	</description>
+       <action>May be network problem or remote MTA not running</action>
+    </doc>
+  </message>
+
+  <message id="61" name="AuthNameMismatch" severity="error" args="2">
+    <text>Authorization failed, MTA name mismatch: expected '%1' but got '%2'</text>
+    <arg position="1">
+       The expected value of MTA name in the Bind 
+    </arg>
+    <arg position="2">
+       The value of MTA name received in the Bind 
+    </arg>
+    <doc>
+       <description>
+       It was not possible to connect to another MTA as the authentication
+       failed. The MTA name provided in the bind is not the expected one
+       </description>
+       <action>Configuration error in peer MTA connection</action>
+    </doc>
+  </message>
+
+  <message id="62" name="AuthPassMismatch" severity="error" args="3">
+    <text>Authorization failed for %1, password mismatch: expected '%2' but got '%3'</text>
+    <arg position="1">
+       Peer MTA name
+    </arg>
+    <arg position="2">
+       The expected value of MTA password in the Bind 
+    </arg>
+    <arg position="3">
+       The value of MTA password received in the Bind 
+    </arg>
+    <doc>
+       <description>It was not possible to connect to another MTA as the authentication
+       failed. The MTA password provided in the bind is not the the expected
+       one. 
+       </description>
+       <action>Configuration error in peer MTA connection</action>
+    </doc>
+  </message>
+
+  <message id="63" name="AuthNullPass" severity="error" args="1">
+    <arg position="1">
+       Peer MTA name
+    </arg>
+    <text>Authorization failed for MTA %1, as the MTA password was NULL</text>
+    <doc>
+       <description>The simple authentication check failed, as the password was NULL
+       </description>
+       <action>Configuration error in peer MTA connection</action>
+    </doc>
+  </message>
+
+  <message id="64" name="TransferFailed" severity="error" args="2">
+    <text>Transfer to MTA %1 failed: %2</text>
+    <arg position="1">
+       Peer MTA name
+    </arg>
+    <arg position="2">
+        Failure reason
+    </arg>
+    <doc>
+       <description>It was not possible to transfer a message to/from the
+       specified MTA, and the reason is supplied.
+       </description>
+       <action>This error should not normally occur. Problem should be reviwed
+       with operator of peer MTA.</action>
+    </doc>
+  </message>
+
+  <message id="65" name="StrongBindExpected" severity="error" args="0">
+    <text>strong bind expected, but not found</text>
+    <doc>
+       <description>A strong bind was expected, but it was not found
+       </description>
+    </doc>
+  </message>
+
+  <message id="66" name="RerouteMTA" severity="notice" args="2">
+    <text>Rerouting MTA %1 to MTA %2</text>
+    <arg position="1">
+       MTA name being rerouted
+    </arg>
+    <arg position="2">
+       Target MTA name
+    </arg>
+    <doc>
+       <description>Rather than connect to the first MTA, the connection
+       is being rerouted to the second.
+       </description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="67" name="DoubleReroute" severity="error" args="1">
+    <text>Rerouting MTA %1 to MTA which is rerouted</text>
+    <arg position="1">
+       MTA name
+    </arg>
+    <doc>
+       <description>It is not allowed to reroute an MTA to another MTA
+       which is itself being rerouted.
+       </description>
+       <action>Configuration error in message routing setup</action>
+    </doc>
+  </message>
+
+  <message id="68" name="CallingAddressError" severity="error" args="3">
+    <arg position="1">
+       Peer MTA name
+    </arg>
+    <arg position="2">
+       Expected calling address
+    </arg>
+    <arg position="3">
+       Actual calling address
+    </arg>
+    <text>Authorization failed for MTA %1, calling address mismatch, %2 != %3</text>
+    <doc>
+       <description>The MTA is configured to require network address
+       authentication, and the actual calling address does not match the
+       expected calling address.
+       </description>
+       <action>Configuration error in peer MTA connection</action>
+    </doc>
+  </message>
+
+  <message id="69" name="InvalidPDU" severity="fatal" args="2">
+    <text>Invalid PDU received from MTA %1: %2</text>
+    <arg position="1">
+       Peer MTA name
+    </arg>
+    <arg position="2">
+        Additional information
+    </arg>
+    <doc>
+       <description>An invalid X.400 transfer PDU was received from the peer MTA
+       </description>
+       <action>Contact operator of peer X.400 MTA to diagnose problem</action>
+    </doc>
+  </message>
+
+  <message id="70" name="Aborted" severity="fatal" args="3">
+    <text>Association with MTA %1 while transferring %2, reason=%3</text>
+    <arg position="1">
+       Peer MTA name
+    </arg>
+    <arg position="2">
+        P1 message ID
+    </arg>
+    <arg position="3">
+        Reason for failure
+    </arg>
+    <doc>
+       <description>While transferring a message to a peer MTA, the association
+       as aborted.
+       </description>
+       <action>May be problem with network or with remote MTA.  Both should be
+       investigated</action>
+    </doc>
+  </message>
+
+  <message id="71" name="TrafficClass" severity="detail" args="2">
+    <text>Traffic class set to %1 for %2</text>
+    <arg position="1" type="int">
+       The decimal traffic class value
+    </arg>
+    <arg position="2">
+       Initiator or responder
+    </arg>
+    <doc>
+       <description>Reports the traffic class being set for the association.
+       </description>
+       <action>Check that the value is as expected</action>
+    </doc>
+  </message>
+
+  <!-- X.400 lookup messages -->
+
+  <message id="82" name="NoMTAParams" severity="notice" args="1">
+    <text>Cannot find MTA information for %1 (or address %2)</text>
+    <arg position="1">
+       MTA name
+    </arg>
+    <doc>
+       <description>Failed to find MTA connection information for the
+       given MTA name, or by routing the ORaddress.
+       </description>
+       <action>Correct Routing or MTA configuration</action>
+    </doc>
+  </message>
+
+  <message id="83" name="NoPAentry" severity="error" args="3">
+    <text>Cannot locate entry in table %1 for address %2 (key:%3)</text>
+    <arg position="1">
+       Name of table
+    </arg>
+    <arg position="2">
+       Calling presentation address using macros
+    </arg>
+    <arg position="3">
+       Calling presentation address without macros. This is the key used.
+    </arg>
+    <doc>
+       <description>Failed to find an entry in the channel's intable
+       for the given calling presentation address.
+       </description>
+       <action>Update MTA's intable</action>
+    </doc>
+  </message>
+
+  <message id="84" name="MTAnameNotFound" severity="error" args="1">
+    <text>Cannot find entry in external MTA table for mTAName %1</text>
+    <arg position="1">
+       mTAName from incoming X.400 bind operation 
+    </arg>
+    <doc>
+       <description>Failed to find an entry in the channel's intable
+       for the given mTAName.
+       </description>
+       <action>
+       Configuration error. In EMMA, the external MTA table is the set
+       of links visible in the X400 channel properties. These may need to
+       be regenerated if a new MTA has been added, or if the credentials
+       of an MTA has been
+       changed.
+       </action>
+    </doc>
+  </message>
+
+  <message id="85" name="NoBilateralAgreement" severity="error" args="1">
+    <text>No bilateral agreement found for caller %1</text>
+    <arg position="1">
+       Directory name of the MTA's entry for which a bilateral agreement
+       was expected.
+    </arg>
+    <doc>
+       <description>The channel does not have a directory-based external MTA
+       table. It cannot use the calling mTAName to determine the caller.
+       </description>
+       <action>Add an external MTA entry for the remote MTA</action>
+    </doc>
+  </message>
+
+  <message id="86" name="CallingAETRequired" severity="error">
+    <text>The caller did not supply its name in the calling AET</text>
+    <doc>
+       <description>The channel is configured to require that the caller
+       supply its Directory name in the calling application entity title
+       (AET). But the caller did not supply this information.
+       </description>
+       <action>Configuration error in peer MTA connection</action>
+    </doc>
+  </message>
+
+  <message id="87" name="CallingAETnotValid" severity="error" args="1">
+    <text>Cannot find entry corresponding to AET %1</text>
+    <arg position="1">
+       Directory name within the calling AET.
+    </arg>
+    <doc>
+       <description>The channel is configured to require that the caller
+       supply its Directory name in the calling application entity title
+       (AET) and that the name be a valid name. There was a failure
+       finding the entry corresponding to the supplied name.
+       </description>
+       <action>Configuration error in peer MTA connection</action>
+    </doc>
+  </message>
+
+  <message id="88" name="CallerLookupFailed" severity="error" args="2">
+    <text>Failure finding information for calling MTA name=%1 address=%2</text>
+    <arg position="1">
+       mTAName supplied in bind
+    </arg>
+    <arg position="2">
+       calling presentation address
+    </arg>
+    <doc>
+       <description>The channel was either unable to find information to
+       identify the calling MTA, or the information supplied failed to
+       meet the requirements.
+       </description>
+       <action>Configuration error in peer MTA connection</action>
+    </doc>
+  </message>
+
+  <message id="89" name="EncodeError" severity="error" args="1">
+    <text>Failed to encode %1</text>
+    <arg position="1">
+       item for which the encode failed
+    </arg>
+    <doc>
+       <description>There was a problem encoding some data item.
+       </description>
+       <action>Check for more detailed logging of the problem.</action>
+    </doc>
+  </message>
+
+  <message id="90" name="DecodeError" severity="error" args="2">
+    <text>Failed to decode %1, %2</text>
+    <arg position="1">
+       item for which the encode failed
+    </arg>
+    <arg position="2">
+       detail for the error
+    </arg>
+    <doc>
+       <description>There was a problem decoding some data item.
+       </description>
+       <action>Check for more detailed logging of the problem.</action>
+    </doc>
+  </message>
+
+  <message id="91" name="NoAddress" severity="error" args="1">
+    <text>No address for %1</text>
+    <arg position="1">
+       The name of the MTA being attempted
+    </arg>
+    <doc>
+       <description>There was no address for the remote MTA.
+       </description>
+       <action>Check the configuration of the channel for the remote MTA.</action>
+    </doc>
+  </message>
+
+  <message id="92" name="InvalidAddress" severity="error" args="2">
+    <text>The address '%1' for %2</text>
+    <arg position="1">
+       The string form of the address.
+    </arg>
+    <arg position="2">
+       The name of the MTA being attempted or the local calling address
+    </arg>
+    <doc>
+       <description>The address for the remote MTA is invalid.
+       </description>
+       <action>Check the configuration of the channel for the remote MTA.</action>
+    </doc>
+  </message>
+
+  <!-- Bind errors -->
+  <message id="100" name="Busy" severity="error">
+    <text>MTA/MS busy</text>
+    <doc>
+       <description>Remote MTA or MS is busy.
+       </description>
+       <action>Connection can be attempt again later.</action>
+    </doc>
+  </message>
+
+  <message id="101" name="Authentication" severity="error">
+    <text>Credentials rejected</text>
+    <doc>
+       <description>Remote MTA/MS rejected the credentials of the calling system.
+       </description>
+       <action>Check the credentials which are being sent.</action>
+    </doc>
+  </message>
+
+  <message id="102" name="UnacceptableMode" severity="error" args="1">
+    <text>Dialog mode unacceptable %1</text>
+    <arg position="1">
+       The dialog mode proposed
+    </arg>
+    <doc>
+       <description>The remote MTA rejects the proposed dialogue mode.
+       </description>
+       <action>Change the configuration to propose a different mode.</action>
+    </doc>
+  </message>
+
+  <message id="103" name="SecurityContext" severity="error">
+    <text>The proposed security context was rejected</text>
+    <doc>
+       <description>Remote MTA/MS rejected the security of the calling system.
+       </description>
+       <action>Check the security context which is being sent.</action>
+    </doc>
+  </message>
+
+  <message id="104" name="ValidationFailure" severity="error">
+    <text>Remote MTA failed to validate local MTA</text>
+    <doc>
+       <description>The remote MTA sent an RTS validation error.
+       </description>
+       <action>The local MTA may not be registered with the remote MTA.</action>
+    </doc>
+  </message>
+
+  <message id="105" name="RTSReject" severity="error">
+    <text>MTA rejects connection</text>
+    <doc>
+       <description>Remote MTA has rejected the connection.
+       </description>
+       <action>Ask the remote MTA administrator for details.</action>
+    </doc>
+  </message>
+
+  <message id="106" name="RTSRecover" severity="error">
+    <text>MTA failed to recover</text>
+    <doc>
+       <description>Remote MTA was not able to recover the association.
+       The local MTA will attempt again without attempting recovery.
+       </description>
+       <action>Do not attempt to recover the association.</action>
+    </doc>
+  </message>
+
+  <message id="107" name="BadCredentials" severity="error" args="1">
+    <text>Remote MTA sent invalid credentials, %1</text>
+    <arg position="1">
+       The detailed reason for the rejection
+    </arg>
+    <doc>
+       <description>The remote MTA did not send acceptable credentials.
+       </description>
+       <action>This is either a local configuration issue, or a compatibility issue.</action>
+    </doc>
+  </message>
+
+  <message id="108" name="StrongAuthFailed" severity="error" args="1">
+    <text>Strong Authentication failure, %1</text>
+    <arg position="1" type="int">
+       The detailed reason for the rejection
+    </arg>
+    <doc>
+       <description>The remote MTA's strong bind failed. This could be
+       because of a problem with the credentials, or a problem with
+       the local configuration used to check the credentials.
+       </description>
+       <action>Check the local strong auth trust anchors</action>
+    </doc>
+  </message>
+
+  <message id="109" name="StrongAuthProblem" severity="error" args="1">
+    <text>Local Strong Authentication problem, %1</text>
+    <arg position="1">
+       The detailed reason for the problem
+    </arg>
+    <doc>
+       <description>There is a local problem with strong authentication.
+       </description>
+       <action>Check the strong authentication configuration</action>
+    </doc>
+  </message>
+
+  <message id="110" name="InternalError" severity="error" args="1">
+    <text>Internal error, %1</text>
+    <arg position="1">
+       The detailed reason for the rejection
+    </arg>
+    <doc>
+       <description>There is an internal problem with the configuration
+       or the operation of the channel.
+       </description>
+       <action>Check the channel's configuration</action>
+    </doc>
+  </message>
+
+  <message id="111" name="ReleaseRejected" severity="error" args="1">
+    <text>Release rejected by peer, %1</text>
+    <arg position="1" type="int">
+       The detailed reason for the rejection
+    </arg>
+    <doc>
+       <description>The local MTA attempted to release the association,
+       but this release was rejected by the peer MTA.
+       The local MTA aborts the association.
+       </description>
+    </doc>
+  </message>
+
+  <message id="112" name="RTSAbort" severity="error" args="2">
+    <text>RTS abort %1 [%2]</text>
+    <arg position="1">
+       The operation in progress when the abort occurred.
+    </arg>
+    <arg position="2">
+       Detail for the abort.
+    </arg>
+    <doc>
+       <description>When performing an RTS operation, an abort was encountered.
+       </description>
+    </doc>
+  </message>
+
+  <message id="113" name="TransferComplete" severity="warning" args="2">
+    <text>Transfer of %1 to %2 already complete</text>
+    <arg position="1">
+       The MPDUid of the message
+    </arg>
+    <arg position="2">
+       The peer to which the message was being transferred.
+    </arg>
+    <doc>
+       <description>The RTS transfer of a message was already completed.
+       </description>
+    </doc>
+  </message>
+
+  <message id="114" name="TransferDiscard" severity="error" args="2">
+    <text>Transfer of %1 to %2 discarded</text>
+    <arg position="1">
+       The MPDUid of the message
+    </arg>
+    <arg position="2">
+       The peer to which the message was being transferred.
+    </arg>
+    <doc>
+       <description>The RTS transfer of a message has been discarded
+       as a result of too many attempts following RTS transfer discard or
+       interrupt. The MTA will attempt the transfer later.
+       </description>
+    </doc>
+  </message>
+
+  <!-- P3 related items -->
+
+  <message id="140" name="MHSDSinitfail" severity="fatal">
+    <text>Failed to initialize directory connection</text>
+    <doc>
+       <description>There was a failure to initialize the channel's
+       connection to the Directory service.
+       </description>
+       <action>Check the logs for additional information.
+       Check that the DSA is running.
+       </action>
+    </doc>
+  </message>
+
+  <message id="141" name="MHSDSopenfail" severity="fatal">
+    <text>Failed to open directory connection</text>
+    <doc>
+       <description>There was a failure to open the channel's
+       connection to the Directory service.
+       </description>
+       <action>Check the logs for additional information.
+       The most common reason for this is incorrect credentials for the
+       channel (bind DN and password).
+       </action>
+    </doc>
+  </message>
+
+  <message id="142" name="P3ConnectOK" severity="notice" args="1">
+    <text>P3 connected to %1</text>
+    <arg position="1">
+       The name of the UA/MS
+    </arg>
+    <doc>
+       <description>The P3 channel has connected successfully to the UA/MS.
+       </description>
+    </doc>
+  </message>
+
+  <message id="143" name="P3ConnectFail" severity="error" args="1">
+    <text>P3 failed to connect to %1</text>
+    <arg position="1">
+       The name of the UA/MS
+    </arg>
+    <doc>
+       <description>The P3 channel failed to connect to the UA/MS.
+       </description>
+       <action>Action depends upon the detailed reason for the problem.</action>
+    </doc>
+  </message>
+
+  <message id="144" name="InvalidORaddress" severity="error" args="1">
+    <text>Invalid OR-address %1</text>
+    <arg position="1">
+       The incorrect address
+    </arg>
+    <doc>
+       <description>The given UA address is invalid.
+       </description>
+    </doc>
+  </message>
+
+  <message id="145" name="NoStoreInfo" severity="error" args="1">
+    <text>Failed to get MessageStore for %1</text>
+    <arg position="1">
+       The address being used
+    </arg>
+    <doc>
+       <description>Cannot find the message store information for the given
+       address.
+       </description>
+       <action>Check the configuration of the user with the address</action>
+    </doc>
+  </message>
+
+  <message id="146" name="NoChannelInfo" severity="error" args="1">
+    <text>Failed to get channel info for %1</text>
+    <arg position="1" type="dn">
+       The DN of the channel being used.
+    </arg>
+    <doc>
+       <description>Cannot find the information for the channel.
+       address.
+       </description>
+       <action>Check the configuration for the channel</action>
+    </doc>
+  </message>
+
+
+  <message id="147" name="NoMSaddress" severity="error" args="1">
+    <text>Failed to get message store address for %1</text>
+    <arg position="1" type="dn">
+       The DN of the shared message store.
+    </arg>
+    <doc>
+       <description>Cannot find the presentation address to call.
+       </description>
+       <action>Check the configuration for the message store</action>
+    </doc>
+  </message>
+
+  <message id="148" name="NoMSserver" severity="error" args="1">
+    <text>Failed to get message store server for %1</text>
+    <arg position="1">
+       The DN of the shared message store.
+    </arg>
+    <doc>
+       <description>Cannot find the presentation address to call.
+       </description>
+       <action>Check the configuration for the message store</action>
+    </doc>
+  </message>
+
+  <message id="149" name="DeliveryError" severity="error" args="2">
+    <text>Error delivering %1, %2</text>
+    <arg position="1">
+       The type of object being delivered (message or report)
+    </arg>
+    <arg position="1">
+       Detail for the error
+    </arg>
+    <doc>
+       <description>The delivery of the message or report failed.
+       </description>
+    </doc>
+  </message>
+
+
+  <!-- Resumption -->
+  <message id="190" name="RdirCreate" severity="error" args="1" system="yes">
+    <arg position="1">
+       name of directory
+    </arg>
+    <text>Failed to resumption directory %1</text>
+    <doc>
+       <description>Files for resumption are held in a directory.
+       This directory could not be opened.
+       </description>
+       <action>
+       Check the directory exists, and has the correct permissions
+       </action>
+    </doc>
+  </message>
+
+  <message id="191" name="ResumeNoSlot" severity="error" args="1">
+    <arg position="1">
+       name of directory
+    </arg>
+    <text>No slots available in resumption directory %1</text>
+    <doc>
+       <description>Files for resumption are held in a directory. Only
+       a limited set of files can be created, and this limit has been reached.
+       These files are deleted by the trash channel when they reach a certain
+       age. If the files accumulate, this is an indication that there may
+       be problems with communication with certain MTAs.
+       </description>
+       <action>Investigate number of resumed files, to determine if there are
+       problems with one or more peer MTAs and repeated failed transfers.
+       Unwanted resume files can be deleted by hand
+       </action>
+    </doc>
+  </message>
+
+  <message id="192" name="CannotResume" severity="error" args="1">
+    <arg position="1">
+       The caller's presentation address
+    </arg>
+    <text>Cannot recover association from caller %1</text>
+    <doc>
+       <description>The caller has requested association recovery,
+       but no matching session information has been found. The channel
+       closes the association and exits.
+       </description>
+       <action>No operator action needed</action>
+    </doc>
+  </message>
+
+
+  <!-- File channel errors -->
+  <message id="200" name="FileOpen" severity="error" args="1" system="yes">
+    <arg position="1">
+       name of file
+    </arg>
+    <text>Failed to open submission file %1</text>
+    <doc>
+       <description>There was a failure opening a file used for submission
+       </description>
+       <action>
+       Check that the files exists and has the correct permissions. May
+       be a temporary resource problem.  If error repeats, configuration
+       error is likely.
+       </action>
+    </doc>
+  </message>
+
+  <message id="201" name="ReadyFileWrite" severity="error" args="2" system="yes">
+    <arg position="1">
+       name of file
+    </arg>
+    <arg position="2">
+       directory for ready file
+    </arg>
+    <text>Failed to create file %1 in %2</text>
+    <doc>
+       <description>There was a failure opening a file used to indicate submission
+       </description>
+       <action>Check that the directory exists and the permissions are correct</action>
+    </doc>
+  </message>
+
+  <message id="202" name="DirectoryRead" severity="error" args="1" system="yes">
+    <arg position="1">
+       name of directory
+    </arg>
+    <text>Failed to read directory %1</text>
+    <doc>
+       <description>There was a failure reading the list of files in a directory
+       </description>
+       <action>Check that the directory exists and the permissions are correct</action>
+    </doc>
+  </message>
+
+  <message id="203" name="NoRecipientInfo" severity="error" args="1">
+    <arg position="1">
+       ORaddress of recipient
+    </arg>
+    <text>Failed to get information for address %1</text>
+    <doc>
+       <description>Could not find information to enable delivery for the
+       given address.
+       </description>
+       <action>Update configuration for this user</action>
+    </doc>
+  </message>
+
+  <message id="204" name="InputError" severity="error" args="3">
+    <arg position="1">
+        Error type
+    </arg>
+    <arg position="2" type="int">
+        Numeric error number
+    </arg>
+    <arg position="3">
+        Value giving the error
+    </arg>
+    <text>Input message error: %1 (%2) '%3'</text>
+    <doc>
+       <description>The input X.400 message had some formatting errors
+       and cannot be processed
+       </description>
+       <action>Contact operator of peer X.400 MTA to diagnose problem</action>
+    </doc>
+  </message>
+
+</facility>

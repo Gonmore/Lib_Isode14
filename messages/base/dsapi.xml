@@ -1,0 +1,336 @@
+<?xml version="1.0" standalone="yes"?>
+<!-- Copyright 2005-2009 Isode Limited -->
+<facility id="54" name="dsapi">
+
+  <doc>
+    <description>DSAPI client library events</description>
+  </doc>
+
+  <message id="1" name="trace_enter" severity="debug" args="1">
+    <arg position="1">Function</arg>
+    <text>%1 entered</text>
+    <doc>
+      <description>The function was entered.</description>
+      <action>No operator action</action>
+    </doc>
+  </message>
+
+  <message id="2" name="trace_leave" severity="debug" args="2">
+    <arg position="1">Function</arg>
+    <arg position="2">Status</arg>
+    <text>%1 returned %2</text>
+    <doc>
+      <description>The function returned.</description>
+      <action>No operator action</action>
+    </doc>
+  </message>
+
+  <message id="3" name="bad_addr" severity="error" args="2">
+    <arg position="1">Function</arg>
+    <arg position="2">Address</arg>
+    <text>%1: bad input address %2</text>
+    <doc>
+      <description>The input address could not be parsed as either an RFC 1006
+        presentation address or an LDAP URI.</description>
+      <action>No operator action</action>
+    </doc>
+  </message>
+
+  <message id="4" name="not_implemented" severity="error" args="1">
+    <arg position="1">Operation</arg>
+    <text>Operation %1 not implemented</text>
+    <doc>
+      <description>The operation is not currently implemented for the protocol
+        being used.</description>
+      <action>No operator action</action>
+    </doc>
+  </message>
+
+  <message id="5" name="x509_make_bind_fail" severity="error" args="0">
+    <text>Error making X.509 bind argument</text>
+    <doc>
+      <description>The strong DAP bind argument could not be
+        constructed.</description>
+      <action>Check identities</action>
+    </doc>
+  </message>
+
+  <message id="6" name="x509_sign_bind_fail" severity="error" args="0">
+    <text>Error signing X.509 bind argument</text>
+    <doc>
+      <description>The strong DAP bind argument could not be
+        signed.</description>
+      <action>Check identities</action>
+    </doc>
+  </message>
+
+  <message id="7" name="invalid_dn" severity="error" args="2">
+    <arg position="1">Function</arg>
+    <arg position="2">Protocol</arg>
+    <text>%1: invalid DN passed for %2</text>
+    <doc>
+      <description>The passed DN could not be converted.</description>
+      <action>No operator action</action>
+    </doc>
+  </message>
+
+  <message id="8" name="read_unexpected_message" severity="error" args="1">
+    <arg position="1" type="int">Message</arg>
+    <text>Unexpected LDAP message type %1 during read</text>
+    <doc>
+      <description>An unexpected LDAP message was received while waiting for
+        read/search results.</description>
+      <action>No operator action</action>
+    </doc>
+  </message>
+
+  <message id="9" name="entry_convert_fail" severity="error" args="0">
+    <text>DAP result to DS_Entry conversion failed</text>
+    <doc>
+      <description>The DAP read result could not be converted into a
+        DS_Entry.</description>
+      <action>No operator action</action>
+    </doc>
+  </message>
+
+  <message id="10" name="invalid_opid" severity="error" args="1">
+    <arg position="1" type="int">ID</arg>
+    <text>Invalid DAP operation ID %1</text>
+    <doc>
+      <description>The operation ID was out of range.</description>
+      <action>No operator action</action>
+    </doc>
+  </message>
+
+  <message id="11" name="unknown_opid" severity="error" args="1">
+    <arg position="1" type="int">ID</arg>
+    <text>Unknown DAP operation ID %1</text>
+    <doc>
+      <description>The operation ID was not found.</description>
+      <action>No operator action</action>
+    </doc>
+  </message>
+
+  <message id="12" name="value_convert_fail" severity="error" args="0">
+    <text>IF_AttrVal to DS_AttrVal conversion failed</text>
+    <doc>
+      <description>The DAP attribute value could not be converted
+        into a DS_AttrVal.</description>
+      <action>No operator action</action>
+    </doc>
+  </message>
+
+  <message id="13" name="rdn_convert_fail" severity="error" args="0">
+    <text>IF_Rdn conversion failed</text>
+    <doc>
+      <description>The DAP RDN could not be converted.</description>
+      <action>No operator action</action>
+    </doc>
+  </message>
+
+  <message id="14" name="dn_parse_fail" severity="error" args="2">
+    <arg position="1">String</arg>
+    <arg position="2">Error</arg>
+    <text>Failed to parse DN %1 (%2)</text>
+    <doc>
+      <description>The DN string could not be parsed.</description>
+      <action>Enter a valid DN string</action>
+    </doc>
+  </message>
+
+  <message id="15" name="dn_convert_fail" severity="error" args="0">
+    <text>Failed to convert IF_Dn to DS_DN</text>
+    <doc>
+      <description>The DAP DN could not be converted to a DS_DN.</description>
+      <action>Enter a valid DN string</action>
+    </doc>
+  </message>
+
+  <message id="16" name="invalid_eis" severity="error" args="0">
+    <text>Invalid entry information selection</text>
+    <doc>
+      <description>The combination of attributes in the entry information
+        selection was invalid.</description>
+      <action>No operator action</action>
+    </doc>
+  </message>
+
+  <message id="17" name="invalid_attrtype" severity="error" args="1">
+    <text>Invalid attribute type %1</text>
+    <doc>
+      <description>The attribute type was not recognized.</description>
+      <action>Check the schema files are up to date</action>
+    </doc>
+  </message>
+
+  <message id="18" name="ldap_error_text" severity="information" args="1">
+    <text>LDAP error extra text %1</text>
+    <doc>
+      <description>The LDAP error returned extra information.</description>
+      <action>No operator action</action>
+    </doc>
+  </message>
+
+  <message id="19" name="unsupported_critical_extension"
+    severity="information" args="1">
+    <arg position="1" type="int">Bit</arg>
+    <text>Unsupported DAP critical extension bit %1</text>
+    <doc>
+      <description>An unsupported critical extension bit was
+        used.</description>
+      <action>No operator action</action>
+    </doc>
+  </message>
+
+  <message id="20" name="signature_invalid"
+    severity="warning" args="2">
+    <arg position="1">Function</arg>
+    <arg position="2">X509_Status</arg>
+    <text>Verification for signed %1 operation failed: "%2"</text>
+    <doc>
+      <description>A signed operation appears to have completed
+        successfully, but the signature did not verify.</description>
+      <action>The results from this operation should be 
+        treated with caution</action>
+    </doc>
+  </message>
+
+  <message id="21" name="search_correlation_failed"
+    severity="warning" args="1">
+    <arg position="1">Function</arg>
+    <text>%1 unable to correlate search results</text>
+    <doc>
+      <description>An attempt to correlate a set of search
+		   results failed</description>
+      <action>No operator action</action>
+    </doc>
+  </message>
+
+  <message id="22" name="unrecognised_common_arg"
+    severity="debug" args="2">
+    <arg position="1">function</arg>
+    <arg position="2" type="int">option</arg>
+    <text>%1 ignoring common argument option #%2</text>
+    <doc>
+      <description>An option in a common arguments structure was ignored
+      </description>
+      <action>No operator action</action>
+    </doc>
+  </message>
+
+  <message id="23" name="bad_ldap_filter" severity="information" args="1">
+    <arg position="1">Error_Description</arg>
+    <text>%1</text>
+    <doc>
+      <description>Invalid LDAP filter specification.</description>
+      <action>Correct errors in LDAP filter specification and 
+         reattempt search.</action>
+    </doc>
+  </message>
+
+  <message id="24" name="referral_parse_failure" severity="warning" args="1">
+    <arg position="1">info</arg>
+    <text>Failed to parse referral information : %1</text>
+    <doc>
+      <description>An operation returned a referral, but the referral
+      information could not be parsed into a DS_Referral structure.</description>
+      <action>None.</action>
+    </doc>
+  </message>
+
+  <message id="25" name="unexpected" severity="error" args="3">
+    <arg position="1">caller</arg>
+    <arg position="2">func</arg>
+    <arg position="3" type="int">status</arg>
+    <text>Unexpected condition: %1 called %2 which returned %3</text>
+    <doc>
+      <description>Unexpected condition; should not occur.</description>
+      <action>Consider reporting to Isode.</action>
+    </doc>
+  </message>
+
+  <message id="26" name="delete_file_failed" severity="warning" args="3">
+    <arg position="1">caller</arg>
+    <arg position="2">filename</arg>
+    <arg position="3" type="int">errno</arg>
+    <text>%1 unexpectedly failed to delete file '%2', errno %3</text>
+    <doc>
+      <description>Unexpected failure to delete a file.</description>
+      <action>Look for access-control/permissions problems.</action>
+    </doc>
+  </message>
+
+  <message id="27" name="rename_file_failed" severity="warning" args="4">
+    <arg position="1">caller</arg>
+    <arg position="2">from</arg>
+    <arg position="3">to</arg>
+    <arg position="4" type="int">errno</arg>
+    <text>%1 unexpectedly failed to rename file '%2' to '%3', errno %4</text>
+    <doc>
+      <description>Unexpected failure to rename a file.</description>
+      <action>Look for access-control/permissions problems.</action>
+    </doc>
+  </message>
+
+  <message id="28" name="ldif_write_type_change" severity="notice" args="1">
+    <arg position="1">caller</arg>
+    <text>Attempt to mix change and normal entries on an LDIF stream (%1)</text>
+    <doc>
+      <description>An attempt has been made to write a change-entry
+        on a stream which has previously had normal entries read from it
+        or written to it, or to write normal entries on a stream
+        previously used for change-entries.</description>
+      <action>Possible software bug.</action>
+    </doc>
+  </message>
+
+  <message id="29" name="LDAP_session_lost" severity="error" args="0">
+    <text>A network problem has caused an LDAP session to be disconnected
+    </text>
+    <doc>
+      <description>An LDAP operation failed and a status of
+	LDAP_SERVER_DOWN was detected.  The corresponding DSAPI
+	session state has been set to DSConnectionLost, and further
+	attempts to perform operations will result in DS_E_NOTBOUND
+	errors.
+      </description>
+      <action>Check server and network availability.</action>
+    </doc>
+  </message>
+
+  <message id="30" name="DAP_session_lost" severity="error" args="0">
+    <text>A network problem has caused a DAP session to be disconnected
+    </text>
+    <doc>
+      <description>An DAP operation failed and a status of
+	DS_ERROR_CONNECT was detected.  The corresponding DSAPI
+	session state has been set to DSConnectionLost, and further
+	attempts to perform operations will result in DS_E_NOTBOUND
+	errors.
+      </description>
+      <action>Check server and network availability.</action>
+    </doc>
+  </message>
+
+  <message id="31" name="internal" severity="error" args="2">
+    <arg position="1">caller</arg>
+    <arg position="2">message</arg>
+    <text>Internal error in function %1: %2</text>
+    <doc>
+      <description>Unexpected condition, should not occur.</description>
+      <action>Consider reporting to Isode.</action>
+    </doc>
+  </message>
+
+  <message id="32" name="tls_debug" severity="debug" args="2">
+    <arg position="1">param</arg>
+    <arg position="2">extraInfo</arg>
+    <text>%1 (%2)</text>
+    <doc>
+      <description>Information was logged about a TLS related
+      operation.</description>
+      <action>No operator action.</action>
+    </doc>
+  </message>
+
+</facility>

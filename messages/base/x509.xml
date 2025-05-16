@@ -1,0 +1,2261 @@
+<?xml version="1.0" standalone="yes"?>
+<!-- Copyright 2005-2009 Isode Limited -->
+<facility id="30" name="X509">
+
+  <doc>
+    <description>
+      X.509 system
+    </description>
+  </doc>
+
+  <type name="dn">
+      <declaration>char *dnstr$i;</declaration>
+      <action>dnstr$i = dn2str(a$i); ava[$i] = dnstr$i;</action>
+      <clean>free(dnstr$i);</clean>
+      <parameter>DN</parameter>
+  </type>
+
+  <type name="oid">
+      <declaration></declaration>
+      <action>ava[$i] = strdup(oid2name(a$i, OIDFULL));</action>
+      <clean>free((char*)ava[$i]);</clean>
+      <parameter>OID</parameter>
+  </type>
+
+  <type name="CK_RV">
+    <declaration></declaration>
+    <action>ava[$i] = pkcs11_error_string(a$i);</action>
+    <parameter>int</parameter>
+  </type>
+
+  <message id="1" name="DLOpenFail" severity="warning" args="2">
+
+    <text>Unable to load X.509 shared object %1 (%2)</text>
+
+    <arg position="1" type="str">library</arg>
+    <arg position="2" type="str">supplementary info</arg>
+
+    <doc>
+      <description>
+	X.509 shared object failed to load.
+      </description>
+    </doc>
+  </message>
+
+  <message id="2" name="opensslinit_fail" severity="warning" args="0">
+    <text>SSL_library_init failed</text>
+
+    <doc>
+      <description>
+	SSL_library_init returned a fail code
+      </description>
+    </doc>
+  </message>
+
+  <message id="3" name="certs" severity="detail" args="1">
+    <text>Loaded %1 certificates</text>
+
+    <arg position="1" type="int">number</arg>
+
+    <doc>
+      <description>
+	The number of certificates loaded from the x509 directory.
+      </description>
+    </doc>
+  </message>
+
+  <message id="4" name="identities" severity="information" args="1">
+    <text>Loaded %1 identities</text>
+
+    <arg position="1" type="int">number</arg>
+
+    <doc>
+      <description>
+	the number of identities loaded.
+      </description>
+    </doc>
+  </message>
+
+  <message id="5" name="no_identities" severity="warning" args="0">
+    <text>No identities loaded</text>
+
+    <doc>
+      <description>
+	No identities were loaded, so no strong authentication will be
+	possible.
+      </description>
+    </doc>
+  </message>
+
+  <message id="6" name="identity_found" severity="information" args="1">
+    <text>Found identity for %1</text>
+    <arg position="1" type="dn">identity</arg>
+    <doc>
+      <description>
+	An identity was found for this DN.
+      </description>
+    </doc>
+  </message>
+
+  <message id="7" name="identity_notfound" severity="error" args="1">
+    <text>No identity found for %1</text>
+
+    <arg position="1" type="dn">identity</arg>
+
+    <doc>
+      <description>
+	An identity for this DN was requested, and none was found.
+      </description>
+    </doc>
+  </message>
+
+  <message id="8" name="no_current_identity" severity="warning" args="0">
+    <text>No current identity</text>
+
+    <doc>
+      <description>
+	Application asked for the current identity, and there isn't one.
+      </description>
+    </doc>
+  </message>
+
+  <message id="9" name="cert_verify_fail" severity="error" args="2">
+    <text>Certificate verification failed, subject %1 reason %2</text>
+
+    <arg position="1" type="dn">subject</arg>
+    <arg position="2" type="str">reason</arg>
+    <doc>
+      <description>
+	Validation of a certificate failed.
+      </description>
+    </doc>
+  </message>
+
+  <message id="10" name="create_pubkey_fail" severity="error" args="2">
+    <text>Failed to create %1 public key from a valid certificate, subject %2</text>
+
+    <arg position="1" type="str">type</arg>
+    <arg position="2" type="dn">subject</arg>
+
+    <doc>
+      <description>
+	We failed to create a public key object.
+      </description>
+    </doc>
+  </message>
+
+  <message id="11" name="no_certificate_sent" severity="error" args="0">
+    <text>No certificate path in bind</text>
+
+    <doc>
+      <description>
+	We (currently) require a certificate with a bind, and none was
+	sent.
+      </description>
+    </doc>
+  </message>
+
+  <message id="12" name="algorithm_type_incompatible" severity="error" args="1">
+    <text>%1 key is incompatible with signature algorithm</text>
+
+    <arg position="1" type="str">type</arg>
+
+    <doc>
+      <description>
+	The certificate has a key type that's incompatible with the
+	signature algorithm.
+      </description>
+    </doc>
+  </message>
+
+  <message id="13" name="algorithm_type_unsupported" severity="error" args="0">
+    <text>Signature algorithm unsupported</text>
+
+    <doc>
+      <description>
+	Signed object uses an unsupported signature algorithm.
+      </description>
+    </doc>
+  </message>
+
+  <message id="14" name="token_decode_fail" severity="detail" args="0">
+    <text>DAS_TokenToSign decode failed</text>
+
+    <doc>
+      <description>
+	Signed token couldn't be decoded.
+      </description>
+    </doc>
+  </message>
+
+  <message id="15" name="dsapverify" severity="information" args="1">
+    <text>Bind signed by %1 verified</text>
+
+    <arg position="1" type="dn">peer</arg>
+
+    <doc>
+      <description>
+	Verification succeeded.
+      </description>
+    </doc>
+  </message>
+
+  <message id="16" name="token_encode_fail" severity="detail" args="0">
+    <text>DAS_TokenToSign encode failed</text>
+
+    <doc>
+      <description>
+	Token couldn't be encoded.
+      </description>
+    </doc>
+  </message>
+
+  <message id="17" name="SignInit_fail" severity="error" args="0">
+    <text>C_SignInit failed</text>
+
+    <doc>
+      <description>
+	C_SignInit returned an error code.
+      </description>
+    </doc>
+  </message>
+
+  <message id="18" name="Sign_fail" severity="error" args="0">
+    <text>C_Sign failed</text>
+
+    <doc>
+      <description>
+	C_Sign returned an error code.
+      </description>
+    </doc>
+  </message>
+
+  <message id="19" name="disabled" severity="error" args="0">
+    <text>X509 disabled</text>
+
+    <doc>
+      <description>
+	Source release was built with the X.509 functionality disabled.
+      </description>
+    </doc>
+  </message>
+
+  <message id="20" name="function_unavailable" severity="warning" args="1">
+    <text>X509 function %1 called, but X.509 is disabled</text>
+
+    <arg position="1" type="str">function</arg>
+
+    <doc>
+      <description>
+	X.509 functionality is not available because initialization of
+	it failed, and a function requiring it was called.
+      </description>
+    </doc>
+  </message>
+
+  <message id="21" name="nosession" severity="error" args="1">
+    <text>X509 function %1 called, but without a session</text>
+
+    <arg position="1" type="str">function</arg>
+
+    <doc>
+      <description>
+	Some functions require a session, and this one was called with
+	the session set to NULL.
+      </description>
+    </doc>
+  </message>
+
+  <message id="22" name="noidentity" severity="error" args="1">
+    <text>X509 function %1 called, but the session has no identity</text>
+
+    <arg position="1" type="str">function</arg>
+
+    <doc>
+      <description>
+	Some functions require a session with an identity, and this
+	one was called with a session without an identity.
+      </description>
+    </doc>
+  </message>
+
+  <message id="24" name="slotcount" severity="error" args="1">
+    <text>Slot count, %1, is not 1</text>
+
+    <arg position="1" type="int">slot count</arg>
+
+    <doc>
+      <description>
+	For the moment, the slot count must be 1.
+      </description>
+    </doc>
+  </message>
+
+  <message id="25" name="PKCS11_error" severity="error" args="2">
+    <text>PKCS#11 function %1 returned error code %2</text>
+
+    <arg position="1" type="str">function</arg>
+    <arg position="2" type="CK_RV">code</arg>
+
+    <doc>
+      <description>
+	A PKCS#11 function returned an error code.
+      </description>
+    </doc>
+  </message>
+
+  <message id="26" name="CML_error" severity="error" args="2">
+    <text>A CML function %1 returned an error code %2</text>
+
+    <arg position="1" type="str">function</arg>
+    <arg position="2" type="int">code</arg>
+
+    <doc>
+      <description>
+	A CML function returned an error code.
+      </description>
+    </doc>
+  </message>
+
+  <message id="27" name="unknown_cert_oid" severity="error" args="2">
+    <text>In function %1, algorithm %2 is not recognised</text>
+
+    <arg position="1" type="str">function</arg>
+    <arg position="2" type="str">oid</arg>
+
+    <doc>
+      <description>
+	We received a bind argument or response
+      </description>
+    </doc>
+  </message>
+
+  <message id="28" name="isode_error" severity="error" args="1">
+    <text>An internal function %1 was called which failed</text>
+    <arg position="1" type="str">function</arg>
+    <doc>
+      <description>
+	Some internal isode function was called, which returned an error.
+      </description>
+    </doc>
+  </message>
+
+  <message id="29" name="SRL_error" severity="error" args="2">
+    <text>An SRL function %1 was called which returned error code %2</text>
+
+    <arg position="1" type="str">function</arg>
+    <arg position="2" type="int">code</arg>
+
+    <doc>
+      <description>
+	An SRL function was called, which returned an error.
+      </description>
+    </doc>
+  </message>
+
+  <message id="30" name="no_peer_dn" severity="error" args="0">
+    <text>x509_dsapmkbind called with no peer dn set</text>
+
+    <doc>
+      <description>
+	Attempting to construct a strong bind argument, but the
+	argument lacks the dba_dn field, which should contain the DN
+	of the entity we're attempting to connect to.
+      </description>
+    </doc>
+  </message>
+
+  <message id="31" name="token_expired" severity="error" args="2">
+    <text>Expired bind token, time now %1, token expiry time %2</text>
+
+    <arg position="1" type="str">time now</arg>
+    <arg position="2" type="str">expiry time</arg>
+
+    <doc>
+      <description>
+	A bind token was received that seems to have expired.  This
+	may be an attempt at replaying a bind token, or (probably more
+	likely) indicates unacceptable clock skew between machines.
+      </description>
+    </doc>
+  </message>
+
+  <message id="32" name="entropy" severity="error" args="0">
+    <text>Insufficient entropy</text>
+
+    <doc>
+      <description>
+	RAND_status returned an error, which probably indicates
+	insufficient entropy.  On Unix, this is likely to happen
+	because /dev/urandom is not present or readable.
+      </description>
+    </doc>
+  </message>
+
+  <message id="33" name="nonce_badlen" severity="error" args="1">
+    <text>Nonce in a received bind or response has incorrect length %1</text>
+
+    <arg position="1" type="int">received length</arg>
+
+    <doc>
+      <description>
+	We require that a bind argument has 80 bits in random1, and
+	that a bind response has 160 bits: the concatenation of the
+	bind argument and a fresh 80 bit nonce.
+      </description>
+    </doc>
+  </message>
+
+  <message id="34" name="nonce_mismatch" severity="error" args="0">
+    <text>Nonce in a received response did not match bind argument</text>
+
+    <doc>
+      <description>
+	We require that a bind response contain random1 which begins
+	with the same bits as the original bind argument.  This
+	message failed that test.
+      </description>
+    </doc>
+  </message>
+
+  <message id="35" name="token_null_utc" severity="error" args="1">
+    <text>Failed to convert expiry time as UTC, %1</text>
+
+    <arg position="1" type="str">expiry time</arg>
+
+    <doc>
+      <description>
+	While trying to check a bind token or response for expiry, the expiry
+	time couldn't be converted to UTC, preventing a check.
+      </description>
+    </doc>
+  </message>
+
+  <message id="36" name="response_dn" severity="error" args="2">
+    <text>Bind response which should have come from %1 was signed by %2</text>
+
+    <arg position="1" type="dn">session dn</arg>
+    <arg position="2" type="dn">response dn</arg>
+
+    <doc>
+      <description>
+	x509_dsapverify attempted to verify a bind response, but the
+	response was signed by a key from a different entity.
+      </description>
+    </doc>
+  </message>
+
+  <message id="37" name="nonce_unchecked" severity="error" args="0">
+    <text>Bind argument contains a nonce, but we have no code to check the nonce</text>
+
+    <doc>
+      <description>
+	We can't check nonces yet.  This log is to warn that code
+	needs to be filled in.
+      </description>
+    </doc>
+  </message>
+
+  <message id="38" name="token_life_too_long" severity="error" args="2">
+    <text>Bind token has too long a life, time now %1, token expiry time %2</text>
+
+    <arg position="1" type="str">time now</arg>
+    <arg position="2" type="str">expiry time</arg>
+
+    <doc>
+      <description>
+	A bind token was received that wants to live too long (its
+	expiry time is more than 40 minutes in the future).  This
+	isn't permitted (if unintentional, this may be due to clock
+	skew).
+      </description>
+    </doc>
+  </message>
+
+  <message id="39" name="null_nonce_checker" severity="error" args="0">
+    <text>Failed to create a nonce checker</text>
+
+    <doc>
+      <description>
+	We failed to initialise a nonce checker; this is fatal (for
+	X.509), and no X.509 services will be available.
+      </description>
+    </doc>
+  </message>
+
+  <message id="40" name="nonce_replay" severity="error" args="0">
+    <text>A nonce was received that had already been used</text>
+
+    <doc>
+      <description>
+        An attempt was made to bind using a nonce which has already been
+        used in a previous session.
+      </description>
+    </doc>
+  </message>
+
+  <message id="41" name="identity_chosen" severity="error" args="2">
+    <text>Application attempted to set identity to %1, but identity is already set to %2</text>
+
+    <arg position="1" type="dn">new identity</arg>
+    <arg position="2" type="dn">current identity</arg>
+
+    <doc>
+      <description>
+	The application attempted to choose an identity (either
+	default, or for a specific connection), but the identity has
+	already been selected.
+      </description>
+    </doc>
+  </message>
+
+  <message id="42" name="cert_usage" severity="error" args="1">
+    <text>Received signed bind/response with a certificate, subject %1, with keyUsage that doesn't include digitalSignature</text>
+
+    <arg position="1" type="dn">subject</arg>
+
+    <doc>
+      <description>
+	Digitally signed bind arguments and responses must have a
+	certificate that permits that usage: the certificate should
+	have the keyUsage extension, with at least the
+	digitalSignature bit set.
+      </description>
+    </doc>
+  </message>
+
+  <message id="43" name="trusted_cert_error" severity="error" args="2">
+    <text>Error %1 in adding trust anchor for &lt;%2&gt;</text>
+
+    <arg position="1">error info</arg>
+    <arg position="2">dn</arg>
+    <doc>
+      <description>
+	While adding the trust anchors, an error was found for this certificate.
+      </description>
+    </doc>
+  </message>
+
+  <message id="44" name="functions_not_implemented" severity="error" args="1">
+    <text>Functions not implemented in shared library %1</text>
+
+    <arg position="1" type="str">library</arg>
+    <doc>
+      <description>
+	A shared object library was found, but it does not contain
+	implementations of X.509 functions.
+      </description>
+    </doc>
+  </message>
+
+  <message id="45" name="function_not_found" severity="warning" args="3">
+    <text>Function %1 not found in shared library %2 (%3)</text>
+
+    <arg position="1" type="str">function</arg>
+    <arg position="2" type="str">library</arg>
+    <arg position="3" type="str">supplementary info</arg>
+    <doc>
+      <description>
+	A required function is missing from shared library.
+      </description>
+    </doc>
+  </message>
+
+  <message id="46" name="initialization_fail" severity="notice" args="1">
+    <text>X.509 initialization failed: %1</text>
+
+    <arg position="1" type="str">detail</arg>
+
+    <doc>
+      <description>
+	X.509 isn't available; this event message gives the reason.
+      </description>
+    </doc>
+  </message>
+
+  <message id="47" name="dsa_sig_decode_fail" severity="error" args="0">
+    <text>DSA signature failed to decode</text>
+
+    <doc>
+      <description>
+	DSA signatures have a particular format: they're BER (usually
+	DER) encoded SEQUENCE {INTEGER, INTEGER}, where each INTEGER
+	is 20 octets long.  One was received which failed to decode.
+      </description>
+    </doc>
+  </message>
+
+  <message id="48" name="dsa_sig_encode_fail" severity="error" args="0">
+    <text>DSA signature failed to encode</text>
+    <doc>
+      <description>
+	Failure while encoding DSA signature (probably out of memory).
+      </description>
+    </doc>
+  </message>
+
+  <message id="49" name="moac_tbs_encode_fail" severity="error" args="0">
+    <text>Failed to encode ToBeSigned structure</text>
+    <doc>
+      <description>
+        Failure while encoding MOAC TBS (probably out of memory).
+      </description>
+       <action>See other log entries for details.</action>
+    </doc>
+  </message>
+
+  <message id="50" name="moac_tbs_bs_gen_fail" severity="error" args="0">
+    <text>Failed to generate byte stream for ToBeSigned structure</text>
+    <doc>
+      <description>
+        Failure while generate byte stream for MOAC TBS (probably out of memory).
+      </description>
+       <action>See other log entries for details.</action>
+    </doc>
+  </message>
+
+  <message id="51" name="sign_fail" severity="error" args="1">
+    <text>Error returned by C_Sign when generating the signature: %1</text>
+    <arg position="1" type="int">C_Sign_retval</arg>
+    <doc>
+      <description>
+        Failure while generating a signature for the message.
+      </description>
+       <action>See error code and other log entries for details.</action>
+    </doc>
+  </message>
+
+  <message id="52" name="zero_len_sig_gen" severity="error" args="0">
+    <text>Failure while generating a signature - zero length signature generated</text>
+
+    <doc>
+      <description> Failure while generating a signature for the message.
+      </description>
+      <action>See other log entries for details.</action>
+    </doc>
+  </message>
+
+  <message id="53" name="gen_sig_ok" severity="detail" args="0">
+    <text>Successfully generated signature for message</text>
+
+    <doc>
+      <description>The MOAC for this message was successfully generated.
+      </description>
+      <action>Information only</action>
+    </doc>
+  </message>
+
+  <message id="54" name="verify_init_fail" severity="error" args="1">
+    <text>Error returned by C_VerifyInit when preparing to verify the signature: %1</text>
+    <arg position="1" type="int">C_Sign_retval</arg>
+    <doc>
+      <description>
+        Failure while verifying the signature in the message.
+      </description>
+       <action>See error code and other log entries for details.</action>
+    </doc>
+  </message>
+
+  <message id="55" name="verify_fail" severity="error" args="1">
+    <text>Error returned by C_Verify when verifying the signature: %1</text>
+    <arg position="1" type="int">C_Sign_retval</arg>
+    <doc>
+      <description>
+        Failure while verifying the signature in the message.
+      </description>
+       <action>See error code and other log entries for details.</action>
+    </doc>
+  </message>
+
+  <message id="56" name="verify_ok" severity="detail" args="0">
+    <text>Verified the signature in the message / operation successfully</text>
+    <doc>
+      <description>
+        Verified the signature in the message / operation.
+      </description>
+      <action>Information only</action>
+    </doc>
+  </message>
+
+  <message id="57" name="no_orig_cert" severity="error" args="0">
+    <text> Cannot verify MOAC: no Originator certificate found in the message envelope </text>
+    <doc>
+      <description>
+      No Originator certificate found in the message envelope with which to
+      verify the signature.
+      </description>
+      <action>Check the message as received in the Queue. Ensure that the
+      sender constructed the message and signature correctly</action>
+    </doc>
+  </message>
+
+  <message id="58" name="no_public_key_in_orig_certificate" severity="error" args="0">
+    <text> The originator certificate in the message does not contain a public key. </text>
+    <doc>
+      <description>Although an originator certificate is present in the message
+      envelope, there is no public key available to use to verify the signature
+      </description>
+      <action>Check the message as received in the Queue. Ensure that the
+      sender constructed the message and signature correctly</action>
+    </doc>
+  </message>
+
+  <message id="59" name="certificate_issuer" severity="detail" args="1">
+    <text>Issuer of certificate is %1</text>
+    <arg position="1" type="dn">detail</arg>
+    <doc>
+      <description>The DN of the CA which issued the Certificate
+      </description>
+      <action>Information only</action>
+    </doc>
+  </message>
+
+  <message id="60" name="dump_sig_pe" severity="debug" args="1">
+    <text>Dumping signature in MOAC into %1</text>
+    <arg position="1" type="str">dirname</arg>
+    <doc>
+      <description>Describes the directory into which the MOAC signature is
+      written.
+      </description>
+      <action>Debug Information only. This can be compared with the generated signature</action>
+    </doc>
+  </message>
+
+  <message id="61" name="dump_gen_sig_pe" severity="debug" args="1">
+    <text>Dumping signature in MOAC into %1</text>
+    <arg position="1" type="str">dirname</arg>
+    <doc>
+      <description>Describes the directory into which the generated signature is
+      written.
+      </description>
+      <action>Debug Information only. This can be compared with the signature
+      from the MOAC</action>
+    </doc>
+  </message>
+
+  <message id="62" name="init_security" severity="detail" args="1">
+    <text>Initialising X.509 security environment: ID %1</text>
+    <arg position="1" type="str">id</arg>
+    <doc>
+      <description>
+      Information Only. The X509 security environment is being established
+      using this ID. The ID is a filesystem directory in which a subdirectory
+      named x509 contains the Digital Identities as a set of pkcs11 files.
+      </description>
+      <action>None.</action>
+    </doc>
+  </message>
+
+  <message id="63" name="init_security_ok" severity="detail" args="2">
+    <text>Successfully initialised the  X.509 security environment: ID %1, number of IDs %2</text>
+    <arg position="1" type="str">id</arg>
+    <arg position="2" type="int">numids</arg>
+    <doc>
+      <description>
+      Information Only. The X509 security environment has been established
+      using this ID. The ID is a filesystem directory in which a subdirectory
+      named x509 contains the Digital Identities as a set of pkcs11 files.
+      The number of Digital Identities found is also reported.
+      </description>
+      <action>None.</action>
+    </doc>
+  </message>
+
+  <message id="64" name="client_session" severity="detail" args="1">
+    <text>Creating client session: name %1</text>
+    <arg position="1" type="str">dn</arg>
+    <doc>
+      <description>
+      Information Only. An X509 client session is being established
+      using this DN.
+      </description>
+      <action>None.</action>
+    </doc>
+  </message>
+
+  <message id="65" name="client_session_ok" severity="detail" args="1">
+    <text>Successfully created client session: name %1</text>
+    <arg position="1" type="str">dn</arg>
+    <doc>
+      <description>
+      Information Only. An X509 client session has been successfully established
+      using this DN.
+      </description>
+      <action>None.</action>
+    </doc>
+  </message>
+
+  <message id="66" name="read_cert" severity="detail" args="1">
+    <text>Successfully read cert from %1</text>
+    <arg position="1" type="str">cert</arg>
+    <doc>
+      <description>
+      Information Only. A certificate for the ID has been found in the
+      file name reported.
+      </description>
+      <action>None.</action>
+    </doc>
+  </message>
+
+  <message id="67" name="id_rej" severity="detail" args="1">
+    <text>Digital ID %1</text>
+    <arg position="1" type="dn">cert</arg>
+    <doc>
+      <description>
+      Information Only. A trusted certificate for the ID has been found in the
+      file name reported but cannot be used.
+      </description>
+      <action>None.</action>
+    </doc>
+  </message>
+
+  <message id="68" name="id_ok" severity="detail" args="1">
+    <text>Found Digital ID %1 which can be used for this client session</text>
+    <arg position="1" type="str">cert</arg>
+    <doc>
+      <description>
+      Information Only. A trusted certificate for the ID has been found in the
+      file name reported.
+      </description>
+      <action>None.</action>
+    </doc>
+  </message>
+
+  <message id="69" name="build_time" severity="error" args="0">
+    <text>build_time failed</text>
+    <doc>
+      <description>
+      An internal error occured.
+      </description>
+      <action>See other log entries for details.</action>
+    </doc>
+  </message>
+
+  <message id="70" name="pe_error" severity="error" args="0">
+    <text>NULLPE when converting BIT STRING to primitive</text>
+    <doc>
+      <description>
+      An internal error occured. 
+      </description>
+      <action>See other log entries for details.</action>
+    </doc>
+  </message>
+
+
+  <message id="71" name="bit_string_error" severity="error" args="1">
+    <text>Error encoding BIT STRING: %1</text>
+    <arg position="1" type="str">pe_error</arg>
+    <doc>
+      <description>
+      An internal error occured. 
+      </description>
+      <action>See other log entries for details.</action>
+    </doc>
+  </message>
+
+
+  <message id="72" name="enc_atb" severity="error" args="0">
+    <text>Error encoding token body</text>
+    <doc>
+      <description>
+      AN internal error occurred.
+      </description>
+      <action>See other log entries for details.</action>
+    </doc>
+  </message>
+
+  <message id="73" name="enc_error" severity="error" args="1">
+    <text>Error encoding %1</text>
+    <arg position="1" type="str">pe_error</arg>
+    <doc>
+      <description>
+      An internal error occured while encoding a PE. 
+      </description>
+      <action>See other log entries for details.</action>
+    </doc>
+  </message>
+
+  <message id="74" name="cpath_error" severity="error" args="0">
+    <text>Failed to construct certificate path for strong credentials</text>
+    <doc>
+      <description>
+      An error occured while constructing the certificae path to put
+      into the strong credentials. 
+      </description>
+      <action>See other log entries for details.</action>
+    </doc>
+  </message>
+
+  <message id="75" name="do_strong" severity="detail" args="0">
+    <text>Constructing strong credentials</text>
+    <doc>
+      <description>Information only.
+      </description>
+      <action>None.</action>
+    </doc>
+  </message>
+
+  <message id="76" name="done_strong" severity="detail" args="0">
+    <text>Constructed strong credentials successfully</text>
+    <doc>
+      <description>Information only.
+      </description>
+      <action>None.</action>
+    </doc>
+  </message>
+
+  <message id="77" name="do_check_strong" severity="detail" args="0">
+    <text>Checking strong credentials</text>
+    <doc>
+      <description>Information only.
+      </description>
+      <action>None.</action>
+    </doc>
+  </message>
+
+  <message id="78" name="done_check_strong" severity="detail" args="0">
+    <text>Checked strong credentials successfully</text>
+    <doc>
+      <description>Information only.
+      </description>
+      <action>None.</action>
+    </doc>
+  </message>
+
+  <message id="79" name="unexpected_oid" severity="error" args="1">
+    <text>invalid MTA_Token type: '%1'; expecting AsymmetricToken (2.6.3.6.0) </text>
+    <arg position="1" type="str">token_oid</arg>
+    <doc>
+      <description>
+      An invalid OID was in the token.
+      </description>
+      <action>Check the configuration of the remote end. Ensure it is connecting
+      to the expected protocal server.</action>
+    </doc>
+  </message>
+
+  <message id="80" name="pe_decode_error" severity="error" args="1">
+    <text>error while decoding %1</text>
+    <arg position="1" type="str">str</arg>
+    <doc>
+      <description>
+      The PE could not be decoded.
+      </description>
+      <action>See other log entries for details.</action>
+    </doc>
+  </message>
+
+  <message id="81" name="no_aet_error" severity="error" args="1">
+    <text>unknown internal ppname %1.  Strong authentication not accepted. Possible cause is absent AETitle</text>
+    <arg position="1" type="str">their_aet</arg>
+    <doc>
+      <description>
+      They did not provide an AET therefore we cannot accept their strong bind.
+      </description>
+      <action>Check the configuration of the remote end. Ensure it is connecting
+      to the expected protocal server.</action>
+    </doc>
+  </message>
+
+  <message id="82" name="their_aet" severity="detail" args="1">
+    <text>Checking StrongCredentials initiator name is %1</text>
+    <arg position="1" type="str">pe_error</arg>
+    <doc>
+      <description>
+      Informative: their AET.
+      </description>
+      <action>None.</action>
+    </doc>
+  </message>
+
+  <message id="83" name="init_subject" severity="information" args="1">
+    <text>Found subject %1 in StrongCredentials</text>
+    <arg position="1" type="dn">subject</arg>
+    <doc>
+      <description>
+	The StrongCredentials contained a Certificate and the Subject DN is
+	reported.
+      </description>
+      <action>None.</action>
+    </doc>
+  </message>
+
+  <message id="84" name="no_pub_key" severity="error" args="0">
+    <text>No public key found in certificate</text>
+    <doc>
+      <description>
+      The Certificate supplied does not contain a public key and cannot
+      therefore be used for a strong bind.
+      </description>
+      <action>Configure the remote end to use a suitable Certificate.</action>
+    </doc>
+  </message>
+
+  <message id="85" name="dn_match_error" severity="error" args="2">
+    <text>The DN in the StrongCredentials %1 does not match the DN in the Certificate %2</text>
+    <arg position="1" type="dn">their_dn</arg>
+    <arg position="2" type="dn">cert_dn</arg>
+    <doc>
+      <description>
+	The DN in the StrongCredentials does not match the DN in the
+	Certificate.
+      </description>
+      <action>Configure the remote end to use the Certificate to create correct
+      Strong Credentials.</action>
+    </doc>
+  </message>
+
+  <message id="86" name="dn_match_op" severity="detail" args="2">
+    <text>The DN in the Strong Credentials %1 matches the DN in the Certificate OK %2</text>
+    <arg position="1" type="str">their_dn</arg>
+    <arg position="2" type="str">cert_dn</arg>
+    <doc>
+      <description>
+	The DN in the StrongCredentials matches the DN in the Certificate.
+      </description>
+      <action>None.</action>
+    </doc>
+  </message>
+
+  <message id="87" name="gdi" severity="detail" args="1">
+    <text>GDI in token is %1</text>
+    <arg position="1" type="str">gdi</arg>
+    <doc>
+      <description>
+	An Global Domain Identifier was found in the Strong Credentials.
+      </description>
+      <action>This value is ignored in this release.</action>
+    </doc>
+  </message>
+
+  <message id="88" name="no_mta_name" severity="error" args="0">
+    <text>No MTA name was found in the token.</text>
+    <doc>
+      <description>
+	No MTA name was found in the token. 
+      </description>
+      <action>This value is mandatory. Check the configuration of the 
+      remote MTA.</action>
+    </doc>
+  </message>
+
+  <message id="89" name="token_mta_name" severity="detail" args="1">
+    <text>Found our MTA name in token %1</text>
+    <arg position="1" type="str">mta_name</arg>
+    <doc>
+      <description>
+	Our MTA name. This value is checked against the value of the mta name.
+      </description>
+      <action>None.</action>
+    </doc>
+  </message>
+
+  <message id="90" name="mta_name_mismatch" severity="error" args="2">
+    <text>MTA name found in token (%1) is not our MTA name (%2)</text>
+    <arg position="1" type="str">token_mta_name</arg>
+    <arg position="2" type="str">our_mta_name</arg>
+    <doc>
+      <description>
+	Our MTA name was found in the Strong Credentials. This value is checked
+	against the local value. The two must match but did not match.
+      </description>
+      <action>Check configuration of both ends.</action>
+    </doc>
+  </message>
+
+  <message id="91" name="mta_name_match_ok" severity="detail" args="1">
+    <text>Found our MTA name in local configuration %1</text>
+    <arg position="1" type="str">mta_name</arg>
+    <doc>
+      <description>
+	Our MTA name in token. This value successfully checked against 
+	the value in the Strong Credentials.
+      </description>
+      <action>None.</action>
+    </doc>
+  </message>
+
+  <message id="92" name="our_mta_name" severity="detail" args="1">
+    <text>Found our MTA name in local configuration %1</text>
+    <arg position="1" type="str">mta_name</arg>
+    <doc>
+      <description>
+	Our MTA name. This value is checked againt the value in the Strong Credentials.
+      </description>
+      <action>None.</action>
+    </doc>
+  </message>
+
+  <message id="93" name="dn_match_ok" severity="detail" args="2">
+    <text>Remote DN (%1) and the Certificate DN (%2) are the same</text>
+    <arg position="1" type="dn">our_dn</arg>
+    <arg position="2" type="dn">cert_subject_dn</arg>
+    <doc>
+      <description>
+	The DN in the strong bind and the DN of the MTA must match. This
+	message logs the fact that they do.
+      </description>
+      <action>None.</action>
+    </doc>
+  </message>
+
+  <message id="94" name="inv_token" severity="error" args="1">
+    <text>The OID in the token is invalid %1</text>
+    <arg position="1" type="str">tok_oid</arg>
+    <doc>
+      <description>
+	The OID in the token of a strong P1 bind must be 2.6.3.6.0.
+      </description>
+      <action>Check configuration and presentation addresses</action>
+    </doc>
+  </message>
+
+  <message id="95" name="no_token" severity="error" args="0">
+    <text>There is no OID in the token </text>
+    <doc>
+      <description>
+	The OID in the token of a strong P1 bind must be set to 2.6.3.6.0.
+      </description>
+      <action>Check configuration and presentation addresses</action>
+    </doc>
+  </message>
+
+  <message id="96" name="oid_err" severity="error" args="0">
+    <text>Unable to convert OID</text>
+    <doc>
+      <description>
+	An internal error occurred performing str2oid().
+      </description>
+      <action>Check other log messages.</action>
+    </doc>
+  </message>
+
+  <message id="97" name="no" severity="error" args="0">
+    <text>There is no OID in the token </text>
+    <doc>
+      <description>
+	The OID in the token of a strong P1 bind must be set to 2.6.3.6.0.
+      </description>
+      <action>Check configuration and presentation addresses</action>
+    </doc>
+  </message>
+
+  <message id="98" name="crls_on" severity="information" args="0">
+    <text>Enabling CRL checking</text>
+
+    <doc>
+      <description>
+      Information Only. CRL checking is enabled in the CML library.
+      </description>
+    </doc>
+  </message>
+
+  <message id="99" name="crls_off" severity="warning" args="0">
+    <text>Disabling CRL checking</text>
+
+    <doc>
+      <description>
+      Information Only. CRL checking is enabled in the CML library.
+      </description>
+    </doc>
+  </message>
+
+  <message id="100" name="using_ldap" severity="detail" args="2">
+    <text>SRL: using LDAP, host %1, port %2</text>
+
+    <arg position="1" type="str">host</arg>
+    <arg position="2" type="int">port</arg>
+    <doc>
+      <description>
+	Using LDAP for certificate and CRL retrieval, with the logged
+	host and port.
+      </description>
+    </doc>
+  </message>
+
+  <message id="101" name="not_using_ldap" severity="detail" args="0">
+    <text>Disabling LDAP certificate/LDAP lookup</text>
+
+    <doc>
+      <description>
+	LDAP certificate/CRL retrieval has been disabled.
+      </description>
+    </doc>
+  </message>
+
+  <message id="102" name="config_parse_fail" severity="error" args="1">
+    <text>X509 config line "%1" was not recognised</text>
+    <arg position="1" type="str">line</arg>
+
+    <doc>
+      <description>
+	There was some error in reading the X.509 config file.  This
+	file can contain blank lines, comments (lines beginning with
+	#), and lines beginning "ldap_host ", "ldap_port ", "check_crl
+	".  ldap_host has to be followed by a host name (or IP
+	address), ldap_port by a number, and check_crl by "yes" or
+	"no".  (That description uses double quotes to indicate
+	literal text, no double quotes should appear in the file.)
+      </description>
+    </doc>
+  </message>
+
+  <message id="103" name="srl_init_failed" severity="warning" args="2">
+    <text>Initializing SRL with host %1 and port %2 failed</text>
+    <arg position="1" type="str">ldap_host</arg>
+    <arg position="2" type="int">ldap_port</arg>
+    <doc>
+      <description>
+	Initializing SRL with the LDAP port and host given in the
+	configuration file failed.  So LDAP is disabled.  (The
+	application may reenable it.)
+      </description>
+    </doc>
+  </message>
+
+  <message id="104" name="crl_on" severity="information" args="0">
+    <text>CML is configured to verify certificates against CRLs</text>
+
+    <doc>
+      <description>
+	Certificates (received in strong authentication or signed
+	operations) will be checked against current CRLs.
+      </description>
+    </doc>
+  </message>
+
+  <message id="105" name="crl_off" severity="warning">
+    <text>CML is configured not to verify certificates against CRLs</text>
+
+    <doc>
+      <description>
+	Certificates (received in strong authentication or signed
+	operations) will not be checked against current CRLs.  So
+	certificates that have been revoked may be regarded as still
+	valid.
+      </description>
+    </doc>
+  </message>
+
+  <message id="106" name="timestamp_from_token" severity="detail" args="1">
+    <text>The timestamp in the bind token is %1</text>
+    <arg position="1" type="str">token_timestamp</arg>
+    <doc>
+      <description>
+	Report the timestamp from the strong bind. This value to be checked
+	against the current time, and if too old will cause the bind to be
+	rejected.
+      </description>
+      <action>None.</action>
+    </doc>
+  </message>
+
+  <message id="107" name="token_too_old" severity="error" args="3">
+    <text>The timestamp in the token (%1) is too old, ie older than %2 (time now is %3).</text>
+    <arg position="1" type="str">token_timestamp</arg>
+    <arg position="2" type="str">time_when_token_valid</arg>
+    <arg position="3" type="str">time_now</arg>
+    <doc>
+      <description>
+	The strong bind is rejected as the token timestamp is older than the
+	limit set.
+      </description>
+      <action>Ensure that the clocks on the two systems are set correctly. They need to be synchronised within 5 minutes of each other</action>
+    </doc>
+  </message>
+
+  <message id="108" name="token_age_old_ok" severity="detail" args="2">
+    <text>The timestamp in the token (%1) is more recent than %2.</text>
+    <arg position="1" type="str">token_timestamp</arg>
+    <arg position="2" type="str">time_when_token_valid</arg>
+    <doc>
+      <description>
+	The token timestamp is more recent than the limit set.
+      </description>
+      <action>None.</action>
+    </doc>
+  </message>
+
+
+  <message id="109" name="no_aet" severity="error" args="0">
+    <text>No DN for their MTA.</text>
+    <doc>
+      <description>
+	Cannot determine the name of the remote MTA.
+      </description>
+      <action>Contact Isode support.</action>
+    </doc>
+  </message>
+
+  <message id="110" name="srl_init_total_failure" severity="error" args="0">
+    <text>Initializing SRL with no host/port failed</text>
+    <doc>
+      <description>
+	Initializing SRL with no LDAP port and host failed.  
+      </description>
+      <action>Check other events for details.</action>
+    </doc>
+  </message>
+
+  <message id="111" name="cml_init_failure" severity="error" args="1">
+    <text>Initializing CML failed</text>
+    <arg position="1" type="int">check_crls</arg>
+    <doc>
+      <description>
+	Initializing CML failed.  
+      </description>
+      <action>Check other events for details.</action>
+    </doc>
+  </message>
+
+  <message id="112" name="read_pphr" severity="detail" args="1">
+    <text>Read passphrase from file %1</text>
+    <arg position="1" type="str">passphrase</arg>
+    <doc>
+      <description>
+	The passphrase for the private key has been read from the passphrase
+	file. The passphrase filename has the form p12filename.pphr.
+      </description>
+      <action>None.</action>
+    </doc>
+  </message>
+
+  <message id="113" name="MTA_AsymmetricTokenBody_W" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>P1 Bind with Strong Auth</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="114" name="SRL_LDAP" severity="warning" args="1">
+    <text>SRL_CreateSession returned the LDAP error %1</text>
+
+    <arg position="1" type="str">error</arg>
+    <doc>
+      <description>
+	SRL attempted an LDAP bind on initialisation, and it returned
+	this error code.
+      </description>
+    </doc>
+  </message>
+
+  <message id="115" name="token_too_new" severity="error" args="3">
+    <text>The timestamp in the token (%1) is too far in the future, ie newer than %2 (time now is %3).</text>
+    <arg position="1" type="str">token_timestamp</arg>
+    <arg position="2" type="str">time_when_token_valid</arg>
+    <arg position="3" type="str">time_now</arg>
+    <doc>
+      <description>
+	The strong bind is rejected as the token timestamp is too far in
+	the future.
+      </description>
+      <action>Ensure that the clocks on the two systems are set correctly. They need to be synchronised within 5 minutes of each other</action>
+    </doc>
+  </message>
+
+  <message id="116" name="token_age_new_ok" severity="detail" args="2">
+    <text>The timestamp in the token (%1) is less recent than %2.</text>
+    <arg position="1" type="str">token_timestamp</arg>
+    <arg position="2" type="str">time_when_token_valid</arg>
+    <doc>
+      <description>
+	The token timestamp is less recent than the limit set.
+      </description>
+      <action>None.</action>
+    </doc>
+  </message>
+
+  <message id="117" name="require_signed_ops" severity="information" args="3">
+    <text>Connection by %1 requires signed operations, modify %2, other %3</text>
+    <arg position="1" type="str">auth</arg>
+    <arg position="2" type="str">modify</arg>
+    <arg position="3" type="str">nonmodify</arg>
+    <doc>
+      <description>
+	The named connection is configured (probably using authcon)
+	with the given settings for signed operations.  Signed
+	operations may be required for modification operations, and
+	for non-modifying operations.
+      </description>
+      <action>None.</action>
+    </doc>
+  </message>
+
+  <message id="118" name="use_signed_ops_before_init" severity="error" args="1">
+    <text>%1 called with operation or context as NULL </text>
+    <arg position="1" type="str">function</arg>
+    <doc>
+      <description>
+        %1 called with operation or context as NULL 
+      </description>
+      <action>None.</action>
+    </doc>
+  </message>
+
+  <message id="119" name="shouldnt_sign_verify" severity="error" args="1">
+    <text>%1 called however the x509_context specifies no signing or verification should take place </text>
+    <arg position="1" type="str">function</arg>
+    <doc>
+      <description>
+      %1 called however the x509_context specifies no signing or verification should take place
+      </description>
+      <action>None.</action>
+    </doc>
+  </message>
+
+  <message id="120" name="bad_encode" severity="error" args="1">
+    <text>%1: couldn't encode the operation to sign it</text>
+     <arg position="1" type="str">function</arg>
+    <doc>
+      <description>
+        %1: couldn't encode the operation to sign it
+      </description>
+      <action>None.</action>
+    </doc>
+  </message>
+
+  <message id="121" name="unknown_op" severity="error" args="1">
+    <text>%1 was asked to sign an unknown operation </text>
+      <arg position="1" type="str">function</arg>
+      <doc>
+      <description>
+       %1 was asked to sign an unknown operation 
+      </description>
+      <action>None.</action>
+    </doc>
+   </message>
+
+ 
+
+  <message id="123" name="missing_sig" severity="error" args="1">
+    <text>%1 was called with the operation missing a signature </text>
+    <arg position="1" type="str">function</arg>
+    <doc>
+      <description>
+       %1 was called with the operation missing a signature
+      </description>
+      <action>None.</action>
+    </doc>
+   </message>
+
+
+  <message id="124" name="bad_decode_sig" severity="error" args="1">
+    <text>%1 could not decode the signature </text>
+    <arg position="1" type="str">function</arg>
+    <doc>
+      <description>
+       %1 could not decode the signature.
+      </description>
+      <action>None.</action>
+    </doc>
+  </message>
+
+
+<message id="125" name="dsp_missing_sig" severity="error" args="1">
+    <text>%1 was called with the DSP operation missing a mandatory signature</text>
+    <arg position="1" type="str">function</arg>
+    <doc>
+      <description>
+       %1 was called with the DSP operation missing a mandatory signature.
+      </description>
+      <action>None.</action>
+    </doc>
+  </message>
+
+  
+  <message id="126" name="missing_security" severity="error" args="1">
+    <text>%1 was called without any SecurityParameters</text>
+    <arg position="1" type="str">function</arg>
+    <doc>
+      <description>
+       %1 was called without any SecurityParameters
+      </description>
+      <action>None.</action>
+    </doc>
+  </message>
+
+ <message id="127" name="missing_security_path" severity="error" args="1">
+    <text>%1 : The SecurityParameters provided don't contain a certificate path </text>
+    <arg position="1" type="str">function</arg>
+    <doc>
+      <description>
+       %1 : The SecurityParameters provided don't contain a certificate path
+      </description>
+      <action>None.</action>
+    </doc>
+  </message>
+
+  <message id="128" name="missing_nonce_type" severity="error" args="1">
+    <text>%1 : The nonce type within the x509context is not set.</text>
+    <arg position="1" type="str">function</arg>
+    <doc>
+      <description>
+       %1 : The nonce type within the x509context is not set.
+      </description>
+      <action>None.</action>
+    </doc>
+  </message>
+
+  <message id="129" name="sign_good" severity="detail" args="1">
+    <text>%1 : Generated signature for this operation ok</text>
+    <arg position="1" type="str">function</arg>
+    <doc>
+      <description>
+       %1 : Generated signature for this operation ok
+      </description>
+      <action>None.</action>
+    </doc>
+  </message>
+
+  <message id="130" name="sign_op" severity="information" args="3">
+    <text>The %1 %2 %3 will be signed</text>
+    <arg position="1" type="str">Protocol</arg>
+    <arg position="2" type="str">op_type</arg>
+    <arg position="3" type="str">arg_res</arg>
+    <doc>
+      <description>
+       Indicates if an operation is to be signed.
+      </description>
+      <action>None</action>
+    </doc>
+  </message>
+
+<message id="131" name="trace_func" severity="debug" args="1">
+    <text>Called %1 </text>
+    <arg position="1" type="str">function</arg>
+    <doc>
+      <description>
+        This log message shows which x509 functions have been called
+      </description>
+      <action>None</action>
+    </doc>
+  </message>
+
+   <message id="132" name="verify_op" severity="information" args="3">
+    <text>The %1 %2 %3 is being verified</text>
+    <arg position="1" type="str">Protocol</arg>
+    <arg position="2" type="str">op_type</arg>
+    <arg position="3" type="str">arg_res</arg>
+    <doc>
+      <description>
+       Indicates if an operation is to being verified.
+      </description>
+      <action>None</action>
+    </doc>
+  </message>
+
+ <message id="133" name="sign_op_unsupported" severity="error" args="3">
+    <text>Signed ops for %1 %2  %3 operations are unsupported</text>
+    <arg position="1" type="str">Protocol</arg>
+    <arg position="2" type="str">op_type</arg>
+    <arg position="3" type="str">arg_res</arg>
+    <doc>
+      <description>
+       Indicates if signing an operation is unsupported.
+      </description>
+      <action>None</action>
+    </doc>
+  </message>
+
+  <message id="134" name="set_sign_op_called" severity="information" args="2">
+    <text>x509_setsignop called. Setting %2 to %1 </text>
+    <arg position="1" type="str">sign_op_flag</arg>
+    <arg position="2" type="str">op_type</arg>
+    <doc>
+      <description>
+      This log message shows that set_sign_op is called, and logs it's 
+      arguments
+      </description>
+      <action>None</action>
+    </doc>
+  </message>
+
+  <message id="135" name="SRL_DB_error" severity="error" args="1">
+    <text>SRL returned an error for directory %1</text>
+    <arg position="1" type="str">dir</arg>
+    <doc>
+      <description>
+	The error probably indicates the directory isn't writable.  Or
+	the files "srl_cert_cache.db" and/or "srl_crl_cache.db" are of
+	some unrecognised format.
+      </description>
+      <action>Check (and change) directory permissions</action>
+    </doc>
+  </message>
+
+  <message id="136" name="no_id" severity="error" args="1">
+    <text>No Digital IDs (out of %1 loaded) have been found which can be used for this client session</text>
+    <arg position="1" type="int">cert</arg>
+    <doc>
+      <description>
+      No Digital IDs found in the security environment can be used for this
+      client session.
+      </description>
+      <action>Check that your have configured either a password for the
+      application, or that a pass-phrase file has been created in the same
+      directory as the P12 file, with the same name as the P12 file, with a
+      .pphr suffix.
+      Alternatively, you can set the private key in the P12 file so that it is
+      not protected by a pass-phrase. For security reasons, this is not 
+      recommended.</action>
+    </doc>
+  </message>
+
+  <message id="137" name="try_pphr" severity="debug" args="1">
+    <text>Attempting to read passphrase from file %1</text>
+    <arg position="1" type="str">passphrase</arg>
+    <doc>
+      <description>
+	Attempting to open the passphrase for this Digital ID. The passphrase filename has the form p12filename.pphr.
+      </description>
+      <action>None.</action>
+    </doc>
+  </message>
+
+  <message id="138" name="no_pphr" severity="debug" args="1">
+    <text>Cannot open passphrase file %1</text>
+    <arg position="1" type="str">passphrase</arg>
+    <doc>
+      <description>
+	The attempt to open the passphrase for this Digital ID has failed.
+      </description>
+      <action>None.</action>
+    </doc>
+  </message>
+
+  <message id="139" name="read_config" severity="debug" args="1">
+    <text>Opening X509 config file %1</text>
+    <arg position="1" type="str">configfile</arg>
+    <doc>
+      <description>
+	 Attempting to open the config file %s for the security environment.
+      </description>
+      <action>None.</action>
+    </doc>
+  </message>
+
+  <message id="140" name="no_config" severity="debug" args="1">
+    <text>X509 config file %1 not found</text>
+    <arg position="1" type="str">configfile</arg>
+    <doc>
+      <description>
+	 Attempting to open the config file %s for the security environment.
+      </description>
+      <action>None - this is not an error.</action>
+    </doc>
+  </message>
+
+  <message id="141" name="read_config_ok" severity="detail" args="1">
+    <text>X509 config file %1 has been successfully read</text>
+    <arg position="1" type="str">configfile</arg>
+    <doc>
+      <description>
+	 Successfully read the config file %s for the security environment.
+      </description>
+      <action>None.</action>
+    </doc>
+  </message>
+
+  <message id="142" name="init_mismatch" severity="error" args="2">
+    <text>x509_init_security called with %1 and then with %2</text>
+    <arg position="1" type="str">orig</arg>
+    <arg position="2" type="str">new</arg>
+    <doc>
+      <description>
+	x509_init_security is passed a directory.  It can be called
+	more than once, but only with the same directory each time
+	(subsequent calls have no effect).
+      </description>
+      <action>Application error.</action>
+    </doc>
+  </message>
+
+  <message id="143" name="no_secenv" severity="error" args="0">
+    <text>x509_init_security called with no security environment</text>
+    <doc>
+      <description>
+	x509_init_security must be passed a directory.  
+      </description>
+      <action>Internal error.</action>
+    </doc>
+  </message>
+
+
+  <message id="144" name="no_gdi" severity="detail" args="0">
+    <text>No GDI supplied - no checks against value in token</text>
+    <doc>
+      <description>
+	This release is not checking whether the GDI in the token, matches
+	the locally configured value for our GDI. 
+      </description>
+      <action>None.</action>
+    </doc>
+  </message>
+
+  <message id="145" name="no_gdi_in_token" severity="detail" args="0">
+    <text>No GDI supplied in token</text>
+    <doc>
+      <description>
+	No GDI was supplied in the token to check against
+	the locally configured value for our GDI. 
+      </description>
+      <action>None.</action>
+    </doc>
+  </message>
+
+  <message id="146" name="gdi_in_token" severity="error" args="0">
+    <text>GDI supplied in token</text>
+    <doc>
+      <description>
+	A GDI was supplied in the token to check against
+	the locally configured value for our GDI, however the check
+	was not carried out.
+      </description>
+      <action>This may indicate interworking problems with the remote MTA.</action>
+    </doc>
+  </message>
+
+  <message id="147" name="no_mta_name_check" severity="detail" args="0">
+    <text>No check against the MTAName in the token has been made.</text>
+    <doc>
+      <description>
+	No MTAName was provided to check against the value in the token.
+      </description>
+      <action>This may indicate interworking problems with the remote MTA. This is an internal error which should be reported to Isode support.</action>
+    </doc>
+  </message>
+
+  <message id="148" name="no_aet_check" severity="detail" args="0">
+    <text>No check against the DN of the subject of the Certificate against the AET in the bind has been made.</text>
+    <doc>
+      <description>
+	No AET was provided to check against the value in the token.
+      </description>
+      <action>The MTA has been configured not to check DN of the subject of the
+      Certificate against the AET in the bind. This is configured in the
+      X.400 channel using EMMA.</action>
+    </doc>
+  </message>
+
+  <message id="149" name="verify_failure" severity="error" args="1">
+    <text>Verifying a certificate failed, reason %1</text>
+    <arg position="1" type="str">reason</arg>
+    <doc>
+      <description>
+	The CML function to verify a certificate returned an error
+	code.  This may indicate an error in the PKI (a certificate or
+	CRL not present, or expired), configuration (if something
+	could not be retrieved), or some system failure (if it is a
+	memory error).  More information is likely to be available at
+	higher logging levels (detail).
+      </description>
+      <action>Depends on the specific error.</action>
+    </doc>
+  </message>
+
+  <message id="150" name="verify_detail" severity="error" args="3">
+    <text>Verify fail detail for %1 reason %2 [%3]</text>
+    <arg position="1" type="str">dn</arg>
+    <arg position="2" type="str">detail</arg>
+    <arg position="3" type="str">xinfo</arg>
+    <doc>
+      <description>
+	Gives extended information about failure of certificate
+	verification.
+      </description>
+      <action>Depends on the specific error.</action>
+    </doc>
+  </message>
+
+  <message id="151" name="oid_mismatch" severity="error" args="2">
+    <text>Inner algorithm %1 does not match algorithm %2 in wrapper</text>
+    <arg position="1" type="oid">inner</arg>
+    <arg position="2" type="oid">outer</arg>
+    <doc>
+      <description>
+	Some kinds of signed ASN.1 have the signature algorithm both
+	inside the signed part, and outside.  These two must match,
+	and in this case they do not, so verification fails.
+      </description>
+      <action>Identify origin of the mismatched OIDs and report error</action>
+    </doc>
+  </message>
+
+  <message id="152" name="certpath_encode_fail" severity="error" args="0">
+    <text>CertificationPath failed to encode</text>
+    <doc>
+      <description>
+	CertificationPath did not encode.
+      </description>
+      <action>None</action>
+    </doc>
+  </message>
+
+  <message id="153" name="unknown_key_type" severity="error" args="0">
+    <text>Attempt to sign something with an unknown key type</text>
+    <doc>
+      <description>
+	Some internal error occurred.
+      </description>
+      <action>Contact Isode support</action>
+    </doc>
+  </message>
+
+  <message id="154" name="trusted_cert" severity="information" args="1">
+    <text>Adding certificate with subject %1 as trust anchor</text>
+    <arg position="1" type="dn">subject</arg>
+    <doc>
+      <description>
+	Adding the certificate as a trust anchor.
+      </description>
+      <action>None</action>
+    </doc>
+  </message>
+
+  <message id="155" name="untrusted_cert" severity="detail" args="2">
+    <text>Adding certificate issued by %1 to %2 to database</text>
+    <arg position="1" type="dn">issuer</arg>
+    <arg position="2" type="dn">subject</arg>
+    <doc>
+      <description>
+	Adding the certificate to the database, for use in verifying
+	certificates.
+      </description>
+      <action>None</action>
+    </doc>
+  </message>
+
+  <message id="156" name="no_PKCS11_lib" severity="error" args="0">
+    <text>Attempt to use PKCS#11 library when none is available</text>
+    <doc>
+      <description>
+	This may be because no library was specified in x509/config,
+	or that the library failed to load.
+      </description>
+      <action>Contact Isode support</action>
+    </doc>
+  </message>
+
+  <message id="157" name="identity_finalized" severity="error" args="1">
+    <text>Attempt to change %1 of an identity after it has been finalized</text>
+    <arg position="1" type="str">field</arg>
+    <doc>
+      <description>
+	This is a programming error.  Identities may not be modified
+	after they've been finalized.
+      </description>
+      <action>Contact Isode support</action>
+    </doc>
+  </message>
+
+  <message id="158" name="init_dir_ignored" severity="notice" args="1">
+    <text>Directory %1 not readable, ignored</text>
+    <arg position="1" type="str">directory</arg>
+    <doc>
+      <description>
+	x509_init_security() was passed a directory that does not
+	exist or is not readable, so it will not be used.
+      </description>
+      <action>See earlier log message for possible reasons</action>
+    </doc>
+  </message>
+
+  <message id="159" name="constr_msg_tok_sig_ok" severity="detail" args="0">
+    <text>Generated Message Token successfully`</text>
+    <doc>
+      <description>
+          The X.509 sub-system was able to generate the Message Token.
+      </description>
+      <action>None</action>
+    </doc>
+  </message>
+
+  <message id="160" name="constr_msg_tok_enc_err" severity="error" args="1">
+    <text>Failed to encode %1</text>
+    <arg position="1" type="str">structure</arg>
+    <doc>
+      <description>
+          The X.509 subsystem was unable to encode the PEPSY structure.
+      </description>
+      <action>None</action>
+    </doc>
+  </message>
+
+  <message id="161" name="add_cert_path" severity="detail" args="0">
+    <text>Adding cert path for return</text>
+    <doc>
+      <description>
+          The Certificate Path has been returned to the calling function.
+      </description>
+      <action>None</action>
+    </doc>
+  </message>
+
+  <message id="162" name="not_add_cert_path" severity="detail" args="0">
+    <text>Not adding cert path for return</text>
+    <doc>
+      <description>
+          The Certificate Path has not been returned to the calling function.
+      </description>
+      <action>None</action>
+    </doc>
+  </message>
+
+  <message id="163" name="constr_msg_tok_ok" severity="information" args="1">
+    <text>Generated the MessageToken successfully for this recipient (%1)</text>
+    <arg position="1" type="str">recipient</arg>
+    <doc>
+      <description>
+          The X.509 subsystem has successfully generated a MessageToken for this
+	  recipient of the message
+      </description>
+      <action>None</action>
+    </doc>
+  </message>
+
+  <message id="164" name="msg_tok_mem_alloc_err" severity="error" args="1">
+    <text>Memory allocation error while allocating %1</text>
+    <arg position="1" type="str">structure</arg>
+    <doc>
+      <description>
+         A memory allocation failure has occurred. The system has probably run
+	 out of resources.
+      </description>
+      <action>Check the system for process which are hogging resources</action>
+    </doc>
+  </message>
+
+  <message id="165" name="wrong_oid" severity="error" args="2">
+    <text>Unexpected OID in Message Token (%1) when expecting %2</text>
+    <arg position="1" type="oid">their_tok_oid</arg>
+    <arg position="2" type="str">expected_tok_oid</arg>
+    <doc>
+      <description>
+          The MessageToken must contain the correct OID and does not.
+      </description>
+      <action>Check the configuration of the remote UA which submitted the message</action>
+    </doc>
+  </message>
+
+  <message id="166" name="gen_cic_fail" severity="error" args="0">
+    <text>Can't generate content integrity check</text>
+    <doc>
+      <description>
+          The content integrity check cannot be generated.
+      </description>
+      <action>
+          See previous log messages.
+      </action>
+    </doc>
+  </message>
+
+  <message id="167" name="gen_tok_tbs_fail" severity="error" args="0">
+    <text>Failed to generate Token to be signed</text>
+    <doc>
+      <description>
+          The X.509 subsystem failed to generated the Token to be signed.
+      </description>
+      <action>
+         See previous log messages.
+      </action>
+    </doc>
+  </message>
+
+  <message id="168" name="gen_tok_sig_ok" severity="detail" args="0">
+    <text>Successfully constructed the Token signature</text>
+    <doc>
+      <description>
+          The X.509 successfully generated the Token signature.
+      </description>
+      <action>
+         None.
+      </action>
+    </doc>
+  </message>
+
+  <message id="169" name="our_cert_serial_num" severity="information" args="1">
+    <text>Our certificate serial number is %1</text>
+    <arg position="1" type="str">our_cert_serial_num</arg>
+    <doc>
+      <description>
+          Reports the value of the serial number in our certificate.
+      </description>
+      <action>
+         None - information only.
+      </action>
+    </doc>
+  </message>
+
+  <message id="170" name="del_env_recip" severity="information" args="1">
+    <text>Delivery envelope recipient is %1</text>
+    <arg position="1" type="str">env_recip</arg>
+    <doc>
+      <description>
+          Reports the value of the recipient in the delivery envelope.
+      </description>
+      <action>
+         None - information only.
+      </action>
+    </doc>
+  </message>
+
+  <message id="171" name="tok_oid_ok" severity="information" args="1">
+    <text>OID in Message Token is %1</text>
+    <arg position="1" type="oid">their_tok_oid</arg>
+    <doc>
+      <description>
+          Reports the value of the oid in the MessageToken
+      </description>
+      <action>
+         None - information only.
+      </action>
+    </doc>
+  </message>
+
+  <message id="172" name="token_recip" severity="information" args="1">
+    <text>Message Token recipient is %1</text>
+    <arg position="1" type="str">tok_recip</arg>
+    <doc>
+      <description>
+         Reports the value of the recipient in the Message Token
+      </description>
+      <action>
+         This should either be the same as the value in the delivery
+	 envelope, or the same as the first element of the redirection 
+	 history.
+      </action>
+    </doc>
+  </message>
+
+  <message id="173" name="token_recip_invalid" severity="error" args="1">
+    <text>Message Token recipient is %1</text>
+    <arg position="1" type="int">name_offset</arg>
+    <doc>
+      <description>
+         Reports the type of name in the Message Token. This must be a recipient
+	 name.
+      </description>
+      <action>
+         This should be a recipient name, but is not. You should check the
+	 encoding sent bythe remote UA.
+      </action>
+    </doc>
+  </message>
+
+  <message id="174" name="fail_to_get_orig_cert" severity="error" args="0">
+    <text>Failed to retrieve the originator certificate from the multiple originator certificates extension</text>
+    <doc>
+      <description>
+          The originator certificate which we use the check the signature,
+	  cannot be found in the multiple originator certificates extension.
+      </description>
+      <action>
+         Check the encoding sent by the remote UA.
+      </action>
+    </doc>
+  </message>
+
+  <message id="175" name="their_cert_serial_num" severity="information" args="1">
+    <text>Their certificate serial number is %1</text>
+    <arg position="1" type="str">their_cert_serial_num</arg>
+    <doc>
+      <description>
+          Reports the value of the serial number in their certificate.
+      </description>
+      <action>
+         None - information only.
+      </action>
+    </doc>
+  </message>
+
+  <message id="176" name="cic_sig_invalid" severity="error" args="0">
+    <text>The message content integrity check failed</text>
+    <doc>
+      <description>
+	The Message Token contains a content integrity check which ensures the
+	message has been carried unchanged. This signature in the content
+	integrity check has not been validated which means the signed content
+	cannot be relied on.
+      </description>
+      <action>
+	  No reliance on the message content can be made.
+      </action>
+    </doc>
+  </message>
+
+  <message id="177" name="cic_tbs_gen_failed" severity="error" args="0">
+    <text>Couldn't generate the content integrity to be signed</text>
+    <doc>
+      <description>
+         An error occured while generating the to be signed structure for the
+	 content integrity check.
+      </description>
+      <action>
+	  Look for messages earlier in the log file.
+      </action>
+    </doc>
+  </message>
+
+  <message id="178" name="no_cert_sel" severity="error" args="0">
+    <text>Couldn't find a certificate selector</text>
+    <doc>
+      <description>
+          The certificate selector which identifies the certificate to be used
+	  to check the Message Token signature is not present.
+      </description>
+      <action>
+	  Check the encoding sent by the remote UA.
+      </action>
+    </doc>
+  </message>
+
+  <message id="179" name="invalid_cert_sel" severity="error" args="0">
+    <text>Couldn't find valid certificate selector</text>
+    <doc>
+      <description>
+          The certificate selector which identifies the certificate to be used
+	  to check the Message Token signature is invalid.
+      </description>
+      <action>
+	  Check the encoding sent by the remote UA.
+      </action>
+    </doc>
+  </message>
+
+  <message id="180" name="report_serial_nums" severity="detail" args="2">
+    <text>The serial numbers in the originator certicate and multi-orig-certs are '%1' and '%2'</text>
+    <arg position="1" type="str">their_cert_serial_num</arg>
+    <arg position="2" type="str">mult_cert_serial_num</arg>
+    <doc>
+      <description>
+	  The serial numbers of the  originator certicate and multi-orig-certs
+	  are reported. If these and the issuer CA DNs match, this is the
+	  certificate to use to check the MessageToken signature.
+      </description>
+      <action>
+	  None - information only.
+      </action>
+    </doc>
+  </message>
+
+  <message id="181" name="serial_nums_match" severity="debug" args="2">
+    <text>The serial numbers in the originator certicate and multi-orig-certs match '%1' and '%2'</text>
+    <arg position="1" type="str">their_cert_serial_num</arg>
+    <arg position="2" type="str">mult_cert_serial_num</arg>
+    <doc>
+      <description>
+	  The serial numbers of the  originator certicate and multi-orig-certs
+	  are reported. These serial numbers have been found to match 
+	  so if the issuer CA DNs match, this is the certificate to use to 
+	  check the MessageToken signature.
+      </description>
+      <action>
+	  None - information only.
+      </action>
+    </doc>
+  </message>
+
+  <message id="182" name="serial_nums_and_dns_match" severity="detail" args="2">
+    <text>The serial numbers in the originator certicate and multi-orig-certs match '%1' and '%2'</text>
+    <arg position="1" type="str">cert_serial_num</arg>
+    <arg position="2" type="dn">issuer_dn</arg>
+    <doc>
+      <description>
+	  The serial numbers of the  originator certicate and multi-orig-certs
+	  are reported. These serial numbers and issuer CA DNs match, 
+	  so this is the certificate to use to check the MessageToken 
+	  signature.
+      </description>
+      <action>
+	  None - information only.
+      </action>
+    </doc>
+  </message>
+
+  <message id="183" name="no_serial_num_and_dn_match" severity="error" args="2">
+    <text>The serial number and issuer DN in the certicate selector '%1' and '%2' do not match in in the multi-orig-certs</text>
+    <arg position="1" type="str">cert_serial_num</arg>
+    <arg position="2" type="dn">issuer_dn</arg>
+    <doc>
+      <description>
+	  The serial number ond issuer DN in certicate selector extension cannot
+	  be found in the multi-orig-certs extension. This means there is no
+	  certificate which can be used to verify the MessageToken signature.
+      </description>
+      <action>
+	  Check the encoding and configuration on the remote UA which sent the
+	  message.
+      </action>
+    </doc>
+  </message>
+
+  <message id="184" name="mt_sig_verify_ok" severity="detail" args="0">
+    <text>Verified the signature in the message token successfully</text>
+    <doc>
+      <description>
+        Verified the signature of the message token itself
+      </description>
+      <action>Information only</action>
+    </doc>
+  </message>
+
+  <message id="185" name="mt_cic_verify_ok" severity="detail" args="0">
+    <text>Verified the signature of the content integrity check in the message token successfully</text>
+    <doc>
+      <description>
+        Verified the signature of the content integrity check in the message token
+      </description>
+      <action>Information only</action>
+    </doc>
+  </message>
+
+  <message id="186" name="mt_verify_ok" severity="notice" args="0">
+    <text>Verified the message token successfully</text>
+    <doc>
+      <description>
+        Verified the all the Message Token successfully
+      </description>
+      <action>Information only</action>
+    </doc>
+  </message>
+
+  <message id="187" name="certificate_subject" severity="detail" args="1">
+    <text>Subject of certificate is %1</text>
+    <arg position="1" type="dn">detail</arg>
+    <doc>
+      <description>The Subject of the Certificate
+      </description>
+      <action>Information only</action>
+    </doc>
+  </message>
+
+  <message id="188" name="constr_msg_tok_fail" severity="error" args="0">
+    <text>failed to generate signature</text>
+    <doc>
+      <description>
+          The X.509 sub-system was unable to generate the Message Token.
+      </description>
+      <action>See earlier log message for possible reasons</action>
+    </doc>
+  </message>
+
+
+  <message id="197" name="name_rejected" severity="error" args="2">
+    <text>Name component %1 has problem %2</text>
+    <arg position="1" type="int">position</arg>
+    <arg position="2">description</arg>
+    <doc>
+      <description>
+	A name (usually from a certificate) has a problem.  The
+	component is a number (counting from 0) indicating which part
+	of the name has the problem, and the description indicates the
+	problem, usually that the UTF8 conversion of the name
+	component contains a NUL (but may also be some internal error
+	in performing the check).
+      </description>
+    </doc>
+  </message>
+
+</facility>

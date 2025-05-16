@@ -1,0 +1,13 @@
+<SecurityLabel>
+  <SecurityPolicyIdentifier>1.2.3.4.5</SecurityPolicyIdentifier>
+  <SecurityClassification>99</SecurityClassification>
+  <PrivacyMark>This is my privacy mark</PrivacyMark>
+  <SecurityCategory>
+    <Type>1.2.3.4</Type>
+    <Value>161e4d792073656375726974792063617465676f72792076616c7565206f6e65</Value>
+  </SecurityCategory>
+  <SecurityCategory>
+    <Type>1.2.8.9</Type>
+    <Value>161e4d792073656375726974792063617465676f72792076616c75652074776f</Value>
+  </SecurityCategory>
+</SecurityLabel>

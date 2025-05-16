@@ -1,0 +1,153 @@
+<?xml version="1.0" standalone="yes"?>
+<!-- Copyright 2005-2007 Isode Limited -->
+<facility id="12" name="Address">
+  <doc>
+    <description>
+    Messages relating to OSI address handling
+    </description>
+  </doc>
+
+  <!-- General -->
+  <!-- Error numbers MUST match the value of the corresponding level -->
+  <message id="13" name="Fatal" severity="fatal" args="1">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>
+       Fatal Addressing Event. This event should only occur in very unusual
+       situations.  Isode's medium term plan is to remove all use of this event.
+       </description>
+       <action>
+       No Operator Action
+       </action>
+    </doc>
+  </message>
+
+  <message id="12" name="Error" severity="error" args="1">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>
+       Addressing Error.  Isode's medium term plan is to remove all common use
+       of this event,  Isode's long term plan is to remove all use of this
+       event.
+       </description>
+       <action>
+       No Operator Action
+       </action>
+    </doc>
+  </message>
+
+  <message id="6" name="Notice" severity="notice" args="1">
+    <arg position="1">
+       Text describing condition
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>
+       General notice level event: See log entry for details
+       </description>
+       <action>
+       No Operator Action
+       </action>
+    </doc>
+  </message>
+
+  <!-- Messages with the system log need two arguments,
+       and the id is the number for the level + 16 -->
+  <message id="29" name="FatalS" severity="fatal" args="2" system="yes">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <arg position="2">
+       Additional text field
+    </arg>
+    <text>%1 %2</text>
+    <doc>
+       <description>
+       Fatal Addressing Event. This event should only occur in very unusual
+       situations.  Isode's medium term plan is to remove all use of this event.
+       </description>
+       <action>
+       See Log entry for details. Please send information on the occurrence of
+       this event to support@isode.com
+       </action>
+    </doc>
+  </message>
+
+  <message id="28" name="ErrorS" severity="error" args="2" system="yes">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <arg position="2">
+       Additional text field
+    </arg>
+    <text>%1 %2</text>
+    <doc>
+       <description>
+       Addressing Error.  Isode's medium term plan is to remove all common use
+       of this event,  Isode's long term plan is to remove all use of this
+       event. 
+       </description>
+       <action>
+       No Operator Action
+       </action>
+    </doc>
+  </message>
+
+  <message id="22" name="NoticeS" severity="notice" args="2" system="yes">
+    <arg position="1">
+       Text describing condition
+    </arg>
+    <arg position="2">
+       Additional text field
+    </arg>
+    <text>%1 %2</text>
+    <doc>
+       <description>
+       General notice level event: See log entry for details
+       </description>
+       <action>
+       No Operator Action
+       </action>
+    </doc>
+  </message>
+
+  <!-- Not Legacy messages -->
+
+  <message id="30" name="NameLookup" severity="error" args="1" system="yes">
+    <arg position="1">
+       Text describing condition
+    </arg>
+    <text>Name lookup error %1</text>
+    <doc>
+       <description>
+       An error occurred in name lookup.
+       </description>
+       <action>
+       Action depends upon the error. There may be problems with the local
+       name resolver configuration. There may be problems with the remote
+       name server. Or there may be problems with the presented name.
+       </action>
+    </doc>
+  </message>
+
+  <message id="31" name="InvalidEncoding" severity="error" args="1">
+    <arg position="1">
+       Field in address which is malformed
+    </arg>
+    <text></text>
+    <doc>
+       <description>
+       When extracting fields from an encoded address, an error was found.
+       </description>
+       <action>This is normally a programming error.
+       </action>
+    </doc>
+  </message>
+
+</facility>

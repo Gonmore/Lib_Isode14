@@ -1,0 +1,191 @@
+<?xml version="1.0" standalone="yes"?>
+
+<!--
+
+ Copyright (c) 2008 Isode Limited, London, England
+ All rights reserved.
+
+ Acquisition and use of this software and related materials for any
+ purpose requires a written licence agreement from Isode Limited,
+ or a written licence from an organisation licenced by Isode
+ Limited to grant such a licence.
+
+ Message definitions for java-crypto
+
+-->
+
+<facility id="60" name="javacryptomsg">
+
+  <doc>
+    <description>Java "isode-crypto" library messages</description>
+  </doc>
+
+<!-- The following definition is required because this file will be
+     parsed by messcat.tcl, which needs to know how to generate C
+     and C++ code to deal with "throwable" types
+-->
+  <type name="throwable">
+    <parameter>char*</parameter>
+    <action>ava[$i] = a$i;</action>
+  </type>
+
+<!--
+     Messages in the range   1..100 are for the JNI layer.
+     Messages in the range 101..254 are for the Java layer.
+-->
+
+<!-- JNI messages -->
+
+  <message id="1" name="jni_exception" severity="debug" args="1">
+    <arg position="1">errorText</arg>
+    <text>C++ CryptoException(%1) was thrown</text>
+    <doc>
+      <description>The JNI code threw a CryptoException.</description>
+      <action>No operator action.</action>
+    </doc>
+  </message>
+
+  <message id="2" name="prohibited_method_called" severity="error" args="1">
+    <arg position="1">method</arg>
+    <text>An illegal call was made to %1</text>
+    <doc>
+      <description>A call was made to a C++ function whose use is prohibited
+      </description>
+      <action>Submit logs to Isode.</action>
+    </doc>
+  </message>
+
+
+<!-- Java messages -->
+  <message id="101" name="no_X509Factory" severity="error" args="1">
+    <arg position="1" type="throwable">exception</arg>
+    <text>No X.509 Certificate Factory available %1</text>
+    <doc>
+      <description>
+No Java X.509 CertificateFactory could be instantiated.  The application
+will use the SSLCertificate class, but functionality may be reduced
+      </description>
+      <action>
+Check that a valid Java security provider has been installed.
+Refer to http://java.sun.com/j2se/1.5.0/docs/guide/security/CryptoSpec.html
+</action>
+    </doc>
+  </message>
+
+  <message id="102" name="X509Factory_warning" severity="warning" args="2">
+    <arg position="1">failedOperation</arg>
+    <arg position="2" type="throwable">exception</arg>
+    <text>%1 failed %2</text>
+    <doc>
+      <description>
+An error occurred when attempting to use the Java X.509 CertificateFactory.
+The application will use the SSLCertificate class, but functionality may
+be reduced.
+      </description>
+      <action>
+Check that a valid Java security provider has been installed.
+Refer to http://java.sun.com/j2se/1.5.0/docs/guide/security/CryptoSpec.html
+</action>
+    </doc>
+  </message>
+
+  <message id="103" name="X509_Exception" severity="information" args="2">
+    <arg position="1">failedOperation</arg>
+    <arg position="2" type="throwable">exception</arg>
+    <text>%1 failed with %2</text>
+    <doc>
+      <description>
+An exception was thrown when attempting to use a Java X509Certificate.
+Application functionality may be reduced.
+      </description>
+      <action>No action.</action>
+    </doc>
+  </message>
+
+  <message id="104" name="CryptoException" severity="information" args="2">
+    <arg position="1">failedOperation</arg>
+    <arg position="2" type="throwable">exception</arg>
+    <text>%1 failed with %2</text>
+    <doc>
+      <description>
+An exception was thrown by the isode-crypto  library.
+Application functionality may be reduced.
+      </description>
+      <action>No action.</action>
+    </doc>
+  </message>
+
+  <message id="105" name="java_trace" severity="debug" args="1">
+    <arg position="1">text</arg>
+    <text>%1</text>
+    <doc>
+      <description>A trace message was emitted by the Java layer.</description>
+      <action>No action.</action>
+    </doc>
+  </message>
+
+  <message id="106" name="no_x509_object" severity="fatal" args="1"
+	   returnsexception="true">
+    <arg position="1">operation</arg>
+    <text>Attempted %1 with no X509Certificate</text>
+    <doc>
+      <description>
+An illegal attempt was made to use functionality available only in the
+X509Certificate class, but no X509Certificate object was available.
+</description>
+      <action>Contact Isode Support.</action>
+    </doc>
+  </message>
+
+  <message id="107" name="pkcs12_error" severity="information" args="2">
+    <arg position="1">text</arg>
+    <arg position="2" type="throwable">exception</arg>
+    <text>%1 %2</text>
+    <doc>
+      <description>An exception occurred when processing a PKCS#12 file.
+The application will have been notified using an exception.
+     </description>
+      <action>No action.</action>
+    </doc>
+  </message>
+
+  <message id="108" name="no_pkcs12_provider" severity="error" args="2">
+    <arg position="1">failedOperation</arg>
+    <arg position="2" type="throwable">exception</arg>
+    <text>%1 failed %2</text>
+    <doc>
+      <description>
+No PKCS12 Keystore could be instantiated.  The application
+will use the SSLCertificate class, but functionality may be reduced
+     </description>
+      <action>
+Check that a valid Java security provider has been installed.
+Refer to http://java.sun.com/j2se/1.5.0/docs/guide/security/CryptoSpec.html
+</action>
+    </doc>
+  </message>
+<message id="109" name="no_such_provider" severity="fatal" args="1"
+	   returnsexception="true">
+    <arg position="1">operation</arg>
+    <text>The provider is not recognised by SUN: %1 </text>
+    <doc>
+      <description>
+The Provider that is being used for X509 functions does not exist.
+</description>
+      <action>Contact Isode Support.</action>
+    </doc>
+  </message>
+<message id="110" name="SubjectAltNamesException" severity="information" args="2">
+    <arg position="1">failedOperation</arg>
+    <arg position="2" type="throwable">exception</arg>
+    <text>%1 failed with %2</text>
+    <doc>
+      <description>
+An exception was thrown by the isode-crypto library while encoding decoding of subjectAltNames.
+Application functionality related to subjectAltNames may be reduced.
+      </description>
+      <action>No action.</action>
+    </doc>
+  </message>
+
+</facility>

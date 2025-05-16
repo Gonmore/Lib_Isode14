@@ -1,0 +1,404 @@
+<?xml version="1.0" standalone="yes"?>
+<!-- Copyright 2005-2007 Isode Limited -->
+<facility id="26" name="Dsap">
+  <doc>
+    <description>
+    Messages relating to the Directory Operations
+    </description>
+  </doc>
+
+  <!-- General -->
+  <!-- Error numbers MUST match the value of the corresponding level -->
+  <message id="13" name="Fatal" severity="fatal" args="1">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>
+       X.500 DAP Fatal Event. This event should only occur in very unusual
+       situations. Isode's medium term plan is to remove all use of this event.
+       </description>
+       <action>See log entry for details. Please send information on the
+       occurrence of this event to support@isode.com</action>
+    </doc>
+  </message>
+
+  <message id="12" name="Error" severity="error" args="1">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>
+       X.500 DAP Error. Isode's medium term plan is to remove all common 
+       use of this event,  Isode's long term plan is to remove all use of 
+       this event. 
+       </description>
+       <action>See log entry for details</action>
+    </doc>
+  </message>
+
+  <message id="6" name="Notice" severity="notice" args="1">
+    <arg position="1">
+       Text describing condition
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>General notice level event: See log entry for details
+       </description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <!-- Messages with the system log need two arguments,
+       and the id is the number for the level + 16 -->
+  <message id="29" name="FatalS" severity="fatal" args="2" system="yes">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <arg position="2">
+       Additional text field
+    </arg>
+    <text>%1 %2</text>
+    <doc>
+       <description>
+       X.500 DAP Fatal Event. This event should only occur in very unusual
+       situations. Isode's medium term plan is to remove all use of this event.
+       </description>
+       <action>See log entry for details. Please send information on the
+       occurrence of this event to support@isode.com </action>
+    </doc>
+  </message>
+
+  <message id="28" name="ErrorS" severity="error" args="2" system="yes">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <arg position="2">
+       Additional text field
+    </arg>
+    <text>%1 %2</text>
+    <doc>
+       <description>
+       X.500 DAP Error. Isode's medium term plan is to remove all common 
+       use of this event, Isode's long term plan is to remove all use of 
+       this event. 
+       </description>
+       <action>See log entry for details</action>
+    </doc>
+  </message>
+
+  <message id="22" name="NoticeS" severity="notice" args="2" system="yes">
+    <arg position="1">
+       Text describing condition
+    </arg>
+    <arg position="2">
+       Additional text field
+    </arg>
+    <text>%1 %2</text>
+    <doc>
+       <description>General notice level event: See log entry for details</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <!-- PDUs -->
+  <message id="30" name="ReadArgument" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>DAP ReadArgument</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="31" name="CompareArgument" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+        <description>DAP CompareArgument</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="32" name="AbandonArgument" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>DAP AbandonArgument</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="33" name="ListArgument" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>DAP ListArgument</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="34" name="SearchArgument" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>DAP SearchArgument</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="35" name="AddEntryArgument" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>DAP AddEntryArgument</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="36" name="RemoveEntryArgument" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>DAP RemoveEntryArgument</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="37" name="ModifyEntryArgument" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>DAP ModifyEntryArgument</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="38" name="ModifyRDNArgument" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>DAP ModifyRDNArgument</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="40" name="ReadResult" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>DAP ReadResult</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="41" name="CompareResult" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>DAP CompareResult</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="42" name="AbandonResult" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>DAP AbandonResult</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="43" name="ListResult" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>DAP ListResult</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="44" name="SearchResult" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>DAP SearchResult</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="45" name="AddEntryResult" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>DAP AddEntryResult</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="46" name="RemoveEntryResult" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc><description>DAP RemoveEntryResult</description></doc>
+  </message>
+
+  <message id="47" name="ModifyEntryResult" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>DAP ModifyEntryResult</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="48" name="ModifyRDNResult" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>DAP ModifyRDNResult</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+
+  <!-- DSAP level errors -->
+  <message id="59" name="ErrorFound" severity="detail" args="2">
+    <arg position="1">
+       Event which returned the error
+    </arg>
+    <arg position="2">
+       Text of actual error
+    </arg>
+    <text>Event %1 returned error %2</text>
+    <doc>
+       <description>
+       A call to a lower layer operation returned an error. This error is
+       passed to higher levels. This message gives the context for that error.
+        </description>
+    </doc>
+  </message>
+
+  <message id="60" name="NoReason" severity="error">
+    <text>No reason given</text>
+    <doc>
+       <description>DSAP level failed, no reason given</description>
+    </doc>
+  </message>
+
+  <message id="61" name="ROSError" severity="error" args="1">
+    <arg position="1">Detail of error</arg>
+    <text>ROS operation error, %1</text>
+    <doc>
+       <description>ROS operation suffers an error</description>
+    </doc>
+  </message>
+
+  <message id="62" name="ArgEncode" severity="error" args="1">
+    <arg position="1">Type of item which should have been encoded</arg>
+    <text>Failed to encode arg %1</text>
+    <doc>
+       <description>Failed to encode argument for DSAP operation</description>
+    </doc>
+  </message>
+
+  <message id="63" name="ResultEncode" severity="error" args="1">
+    <arg position="1">Type of item which should have been encoded</arg>
+    <text>Failed to encode result %1</text>
+    <doc>
+       <description>Failed to encode result of DSAP operation</description>
+    </doc>
+  </message>
+
+  <message id="64" name="ErrorEncode" severity="error" args="1">
+    <arg position="1">Type of item which should have been encoded</arg>
+    <text>Failed to encode error %1</text>
+    <doc>
+       <description>Failed to encode error of DSAP operation</description>
+    </doc>
+  </message>
+
+  <message id="65" name="ArgDecode" severity="error" args="1">
+    <arg position="1">Type of item which should have been decoded</arg>
+    <text>Failed to decode arg %1</text>
+    <doc>
+       <description>Failed to decode argument for DSAP operation</description>
+    </doc>
+  </message>
+
+  <message id="66" name="ResultDecode" severity="error" args="1">
+    <arg position="1">Type of item which should have been decoded</arg>
+    <text>Failed to decode result %1</text>
+    <doc>
+       <description>Failed to decode result of DSAP operation</description>
+    </doc>
+  </message>
+
+  <message id="67" name="ErrorDecode" severity="error" args="1">
+    <arg position="1">Type of item which should have been decoded</arg>
+    <text>Failed to decode error %1</text>
+    <doc>
+       <description>Failed to decode error of DSAP operation</description>
+    </doc>
+  </message>
+
+  <message id="68" name="ApplContext" severity="error" args="1">
+    <arg position="1">Circumstances of error</arg>
+    <text>Unknown application context in %1</text>
+    <doc>
+       <description>An unknown application context was found in a bind</description>
+    </doc>
+  </message>
+
+  <message id="69" name="PresContList" severity="error" args="1">
+    <arg position="1">Circumstances of error</arg>
+    <text>Unacceptable presentation context list in %1</text>
+    <doc>
+       <description>The list of presentation contexts was not acceptable.</description>
+    </doc>
+  </message>
+
+  <message id="70" name="ROSUserReject" severity="error" args="1">
+    <arg position="1">Context of error</arg>
+    <text>ROS operation rejected by User in %1</text>
+    <doc>
+       <description>ROS operation has been rejected by the peer User</description>
+    </doc>
+  </message>
+
+  <message id="71" name="InvokeError" severity="error" args="1">
+    <arg position="1">Context of error</arg>
+    <text>Failed to invoke operation %1</text>
+    <doc>
+       <description>Failed to invoke operation</description>
+    </doc>
+  </message>
+
+  <message id="72" name="InvokeFailed" severity="error" args="1">
+    <arg position="1">Context of error</arg>
+    <text>Failed to invoke operation %1</text>
+    <doc>
+       <description>Failed to invoke operation</description>
+    </doc>
+  </message>
+
+  <message id="73" name="ResultFailed" severity="error" args="1">
+    <arg position="1">Context of error</arg>
+    <text>Failed to send operation result %1</text>
+    <doc>
+       <description>There was a failure in sending an operation result</description>
+    </doc>
+  </message>
+
+  <message id="74" name="ErrorFailed" severity="error" args="1">
+    <arg position="1">Context of error</arg>
+    <text>Failed to send operation error %1</text>
+    <doc>
+       <description>There was a failure in sending an operation error</description>
+    </doc>
+  </message>
+
+
+</facility>

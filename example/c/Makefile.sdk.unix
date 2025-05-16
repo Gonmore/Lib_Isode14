@@ -1,0 +1,255 @@
+# 
+# Copyright (c) 2003-2009, Isode Limited, London, England.
+# All rights reserved.
+# 
+# Acquisition and use of this software and related materials for any
+# purpose requires a written licence agreement from Isode Limited,
+# or a written licence from an organisation licenced by Isode Limited
+# to grant such a licence.
+# 
+
+################################################
+# Solaris values
+
+# You may need to set your path to include the following:
+# PATH=/opt/SUNWspro/bin:/usr/local/bin:/usr/ccs/bin:/usr/openwin/bin/:/opt/SUNWspro/bin
+
+#CC 	= cc
+#CFLAGS 	= -c -fast -xtarget=ultra -xarch=v8a   \
+#	-D_POSIX_PTHREAD_SEMANTICS -D_REENTRANT \
+#	-I/opt/isode/include/isode/x400sdk \
+#	-I/opt/isode/include
+
+#LDFLAGS = -L/opt/isode/lib/  -R/opt/isode/lib
+
+#MT_LIBS	= -lpp -lx400mt -lx400common -lresolv $(LIBS)
+
+################################################
+# Linux Values
+# What compiler to use
+CC 	= gcc 
+
+# place the Isode SDK is installed
+# ISODE_INST = /homes/ir/work/git/trunk/install
+ISODE_INST = /opt/isode
+
+# Compiler flags, -g for debug, -c to make an object file
+CFLAGS  = -c -I$(ISODE_INST)/include/isode/x400sdk -I$(ISODE_INST)/include -I$(ISODE_INST)/include/isode/seclabel
+
+MT_LIBS = -lpp -lx400mt -lx400common -ldb -lresolv $(LIBS)
+LDFLAGS = -L$(ISODE_INST)/lib/ -Xlinker -rpath -Xlinker $(ISODE_INST)/lib
+
+################################################
+# Common values
+LIBS 	= 	-lisode -lmdlber -lcrypt -lm  -lpthread -lseclabel -lx509x400
+MS_LIBS 	= -lx400ms -lx400common $(LIBS)
+
+
+MS_RCV_SRCS     = x400_msrcv.c
+MS_RCV_OBJS     = x400_msrcv.o
+MS_RCV_PROG     = x400_msrcv
+
+MS_SND_SRCS     = x400_mssend.c
+MS_SND_OBJS     = x400_mssend.o
+MS_SND_PROG     = x400_mssend
+
+MS_RCV_SIGN_SRCS	= x400_msrcv_sign.c
+MS_RCV_SIGN_OBJS	= x400_msrcv_sign.o 
+MS_RCV_SIGN_PROG	= x400_msrcv_sign
+
+MS_RCV_MSG_TOK_SIGN_SRCS	= x400_msrcv_msg_tok_sign.c
+MS_RCV_MSG_TOK_SIGN_OBJS	= x400_msrcv_msg_tok_sign.o 
+MS_RCV_MSG_TOK_SIGN_PROG	= x400_msrcv_msg_tok_sign
+
+MS_SND_SIGN_SRCS	= x400_mssend_sign.c
+MS_SND_SIGN_OBJS	= x400_mssend_sign.o 
+MS_SND_SIGN_PROG	= x400_mssend_sign 
+
+MS_SND_MSG_TOK_SIGN_SRCS	= x400_mssend_msg_tok_sign.c
+MS_SND_MSG_TOK_SIGN_OBJS	= x400_mssend_msg_tok_sign.o 
+MS_SND_MSG_TOK_SIGN_PROG	= x400_mssend_msg_tok_sign 
+
+MS_ASYNC_SRCS   = x400_msasync.c
+MS_ASYNC_OBJS   = x400_msasync.o
+MS_ASYNC_PROG   = x400_msasync
+
+MS_LIST_SRCS   = x400_mslist.c
+MS_LIST_OBJS   = x400_mslist.o
+MS_LIST_PROG   = x400_mslist
+
+MS_RAA_SRCS   = x400_msraa.c
+MS_RAA_OBJS   = x400_msraa.o
+MS_RAA_PROG   = x400_msraa
+
+MS_TUTORIAL_SRCS = x400_mstutorial.c
+MS_TUTORIAL_OBJS = x400_mstutorial.o
+MS_TUTORIAL_PROG = x400_mstutorial
+
+MT_RCV_SRCS     = x400_mtrcv.c
+MT_RCV_OBJS     = x400_mtrcv.o
+MT_RCV_PROG     = x400_mtrcv
+
+MT_SND_SRCS     = x400_mtsend.c
+MT_SND_OBJS     = x400_mtsend.o
+MT_SND_PROG     = x400_mtsend
+
+MT_SNDREP_SRCS     = x400_mtsend_rep.c
+MT_SNDREP_OBJS     = x400_mtsend_rep.o
+MT_SNDREP_PROG     = x400_mtsend_rep
+
+MT_TUTORIAL_SRCS = x400_mttutorial.c
+MT_TUTORIAL_OBJS = x400_mttutorial.o
+MT_TUTORIAL_PROG = x400_mttutorial
+
+MT_SND_CONTENT_SRCS     = x400_mtcontent.c
+MT_SND_CONTENT_OBJS     = x400_mtcontent.o
+MT_SND_CONTENT_PROG     = x400_mtcontent
+
+COMMON_SRCS     = x400_common.c
+COMMON_OBJS     = x400_common.o
+
+
+
+all : $(MS_RCV_PROG) $(MS_SND_PROG) $(MS_ASYNC_PROG) $(MS_LIST_PROG) \
+	$(MS_RAA_PROG) $(MT_RCV_PROG) $(MT_SND_PROG) $(MT_SNDREP_PROG) \
+	$(MS_RCV_SIGN_PROG) $(MS_SND_SIGN_PROG) $(MT_TUTORIAL_PROG) \
+	$(MS_RCV_MSG_TOK_SIGN_PROG) $(MS_SND_MSG_TOK_SIGN_PROG) \
+	$(MS_TUTORIAL_PROG) $(MT_SND_CONTENT_PROG)
+
+
+# Link the target with all objects and libraries
+$(MS_RCV_PROG) : $(MS_RCV_OBJS) $(COMMON_OBJS)
+	$(CC) $(LDFLAGS) $(MS_LIBS) -o $@ $(MS_RCV_OBJS) $(COMMON_OBJS)
+
+# Compile the source files into object files
+$(MS_RCV_OBJS) : $(MS_RCV_SRCS)
+	$(CC) $(CFLAGS) $<
+
+# Link the target with all objects and libraries
+$(MS_SND_PROG) : $(MS_SND_OBJS)  $(COMMON_OBJS)
+	$(CC) $(LDFLAGS) $(MS_LIBS) -o $@ $(MS_SND_OBJS) $(COMMON_OBJS)
+
+# Compile the source files into object files
+$(MS_SND_OBJS) : $(MS_SND_SRCS)
+	$(CC) $(CFLAGS) $<
+
+# Link the target with all objects and libraries
+$(MS_RCV_SIGN_PROG) : $(MS_RCV_SIGN_OBJS) $(COMMON_OBJS)
+	$(CC) $(LDFLAGS) $(MS_LIBS) -o $@ $(MS_RCV_SIGN_OBJS) $(COMMON_OBJS)
+
+# Compile the source files into object files
+$(MS_RCV_SIGN_OBJS) : $(MS_RCV_SIGN_SRCS)
+	$(CC) $(CFLAGS) $<
+
+# Link the target with all objects and libraries
+$(MS_RCV_MSG_TOK_SIGN_PROG) : $(MS_RCV_MSG_TOK_SIGN_OBJS) $(COMMON_OBJS)
+	$(CC) $(LDFLAGS) $(MS_LIBS) -o $@ $(MS_RCV_MSG_TOK_SIGN_OBJS) $(COMMON_OBJS)
+
+# Compile the source files into object files
+$(MS_RCV_MSG_TOK_SIGN_OBJS) : $(MS_RCV_MSG_TOK_SIGN_SRCS)
+	$(CC) $(CFLAGS) $<
+
+# Link the target with all objects and libraries
+$(MS_SND_SIGN_PROG) : $(MS_SND_SIGN_OBJS)  $(COMMON_OBJS)
+	$(CC) $(LDFLAGS) $(MS_LIBS) -o $@ $(MS_SND_SIGN_OBJS) $(COMMON_OBJS)
+
+# Compile the source files into object files
+$(MS_SND_SIGN_OBJS) : $(MS_SND_SIGN_SRCS)
+	$(CC) $(CFLAGS) $<
+
+# Link the target with all objects and libraries
+$(MS_SND_MSG_TOK_SIGN_PROG) : $(MS_SND_MSG_TOK_SIGN_OBJS)  $(COMMON_OBJS)
+	$(CC) $(LDFLAGS) $(MS_LIBS) -o $@ $(MS_SND_MSG_TOK_SIGN_OBJS) $(COMMON_OBJS)
+
+# Compile the source files into object files
+$(MS_SND_MSG_TOK_SIGN_OBJS) : $(MS_SND_MSG_TOK_SIGN_SRCS)
+	$(CC) $(CFLAGS) $<
+
+# Link the target with all objects and libraries
+$(MS_ASYNC_PROG) : $(MS_ASYNC_OBJS)  $(COMMON_OBJS)
+	$(CC) $(LDFLAGS) $(MS_LIBS) -o $@ $(MS_ASYNC_OBJS) $(COMMON_OBJS)
+
+# Compile the source files into object files
+$(MS_ASYNC_OBJS) : $(MS_ASYNC_SRCS)
+	$(CC) $(CFLAGS) $<
+
+# Link the target with all objects and libraries
+$(MS_LIST_PROG) : $(MS_LIST_OBJS)  $(COMMON_OBJS)
+	$(CC) $(LDFLAGS) $(MS_LIBS) -o $@ $(MS_LIST_OBJS) $(COMMON_OBJS)
+
+# Compile the source files into object files
+$(MS_LIST_OBJS) : $(MS_LIST_SRCS)
+	$(CC) $(CFLAGS) $<
+
+# Link the target with all objects and libraries
+$(MS_RAA_PROG) : $(MS_RAA_OBJS)  $(COMMON_OBJS)
+	$(CC) $(LDFLAGS) $(MS_LIBS) -o $@ $(MS_RAA_OBJS) $(COMMON_OBJS)
+
+# Compile the source files into object files
+$(MS_RAA_OBJS) : $(MS_RAA_SRCS)
+	$(CC) $(CFLAGS) $<
+
+# Link the target with all objects and libraries
+$(MS_TUTORIAL_PROG) : $(MS_TUTORIAL_OBJS)  $(COMMON_OBJS)
+	$(CC) $(LDFLAGS) $(MS_LIBS) -o $@ $(MS_TUTORIAL_OBJS) $(COMMON_OBJS)
+
+# Compile the source files into object files
+$(MS_TUTORIAL_OBJS) : $(MS_TUTORIAL_SRCS)
+	$(CC) $(CFLAGS) $<
+
+# Link the target with all objects and libraries
+$(MT_RCV_PROG) : $(MT_RCV_OBJS)  $(COMMON_OBJS)
+	$(CC) $(LDFLAGS) $(MT_LIBS) -o $@ $(MT_RCV_OBJS) $(COMMON_OBJS)
+
+# Compile the source files into object files
+$(MT_RCV_OBJS) : $(MT_RCV_SRCS)
+	$(CC) $(CFLAGS) $<
+
+# Link the target with all objects and libraries
+$(MT_SND_PROG) : $(MT_SND_OBJS)  $(COMMON_OBJS)
+	$(CC) $(LDFLAGS) $(MT_LIBS) -o $@ $(MT_SND_OBJS) $(COMMON_OBJS)
+
+# Compile the source files into object files
+$(MT_SND_OBJS) : $(MT_SND_SRCS)
+	$(CC) $(CFLAGS) $<
+
+# Link the target with all objects and libraries
+$(MT_SNDREP_PROG) : $(MT_SNDREP_OBJS)  $(COMMON_OBJS)
+	$(CC) $(LDFLAGS) $(MT_LIBS) -o $@ $(MT_SNDREP_OBJS) $(COMMON_OBJS)
+
+# Compile the source files into object files
+$(MT_SNDREP_OBJS) : $(MT_SNDREP_SRCS)
+	$(CC) $(CFLAGS) $<
+
+# Link the target with all objects and libraries
+$(MT_TUTORIAL_PROG) : $(MT_TUTORIAL_OBJS)  $(COMMON_OBJS)
+	$(CC) $(LDFLAGS) $(MT_LIBS) -o $@ $(MT_TUTORIAL_OBJS) $(COMMON_OBJS)
+
+# Compile the source files into object files
+$(MT_TUTORIAL_OBJS) : $(MT_TUTORIAL_SRCS)
+	$(CC) $(CFLAGS) $<
+
+# Link the target with all objects and libraries
+$(MT_SND_CONTENT_PROG) : $(MT_SND_CONTENT_OBJS)  $(COMMON_OBJS)
+	$(CC) $(LDFLAGS) $(MT_LIBS) -o $@ $(MT_SND_CONTENT_OBJS) $(COMMON_OBJS)
+
+# Compile the source files into object files
+$(MT_SND_CONTENT_OBJS) : $(MT_SND_CONTENT_SRCS)
+	$(CC) $(CFLAGS) $<
+
+
+
+$(COMMON_OBJS) : $(COMMON_SRCS)
+	$(CC) $(CFLAGS) $<
+
+clean: 
+	rm -f *.o $(MS_RCV_PROG) $(MS_SND_PROG) $(MT_RCV_PROG) $(MT_SND_PROG) \
+	$(MT_SNDREP_PROG) $(MS_RAA_PROG) $(MS_ASYNC_PROG) $(MS_LIST_PROG) \
+	$(MS_RCV_SIGN_PROG) $(MS_SND_SIGN_PROG) $(MT_TUTORIAL_PROG) \
+	$(MS_RCV_MSG_TOK_SIGN_PROG) $(MS_SND_MSG_TOK_SIGN_PROG) \
+	$(MS_TUTORIAL_PROG) $(MT_SND_CONTENT_PROG)
+
+
+
+
+

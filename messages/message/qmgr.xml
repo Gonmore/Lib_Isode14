@@ -1,0 +1,648 @@
+<?xml version="1.0" standalone="yes"?>
+<!-- Copyright 2005-2007 Isode Limited -->
+<facility id="104" name="MTA_Qmgr">
+  <doc>
+    <description>
+    Messages relating to the M-Switch Queue Manager
+    </description>
+  </doc>
+
+  <!-- General Messages -->
+  <message id="1" name="NotImplemented" severity="error">
+    <text>Operation not implemented</text>
+    <doc>
+       <description>The operation is not yet implemented.
+       </description>
+    </doc>
+  </message>
+
+  <message id="2" name="InvalidOperation" severity="error" args="2">
+    <arg position="1">Operation type</arg>
+    <arg position="2">Type of object</arg>
+    <text>Cannot perform operation %1 on object type %2</text>
+    <doc>
+       <description>An attempt has been made to perform an operation
+       which is not appropriate for the object to which it applies.
+       </description>
+    </doc>
+  </message>
+
+  <message id="3" name="NoObjectFound" severity="warning">
+    <text>No matching objects were found for operation</text>
+    <doc>
+       <description>An attempt has been made to perform an operation
+       but the selector failed to find any matching objects.
+       </description>
+       <action>This can arise through incorrect data entered by an operator
+       </action>
+    </doc>
+  </message>
+
+  <message id="4" name="SizeLimitReached" severity="warning">
+    <text>Search size limit reached</text>
+    <doc>
+       <description>
+       A search operation matches more objects than the size limit.
+       </description>
+    </doc>
+  </message>
+
+
+  <message id="5" name="Internal" severity="detail" args="1">
+    <arg position="1">Text describing state or case</arg>
+    <text>%1</text>
+    <doc>
+       <description>Information on the internal workings which is
+       at a higher level than debug information.
+       </description>
+    </doc>
+  </message>
+
+  <!-- Som operation messages -->
+  <message id="30" name="DuplicateID" severity="error">
+    <text>Duplicate SOM operation ID</text>
+    <doc>
+       <description>The Queue Manager object has received a duplicate
+       SOM operation ID. This is an internal queue manager error.
+       </description>
+    </doc>
+  </message>
+
+  <message id="31" name="InvalidID" severity="error">
+    <text>Invalid SOM operation ID</text>
+    <doc>
+       <description>The Queue Manager object has received an operation
+       continue instruction with an invalid SOM operation ID.
+       This is an internal queue manager error.
+       </description>
+    </doc>
+  </message>
+
+  <message id="32" name="InvalidOperationData" severity="error" args="2">
+    <arg position="1">
+       Operation type
+    </arg>
+    <arg position="2">
+       The data string
+    </arg>
+    <text>Operation %1 has invalid data '%2'</text>
+    <doc>
+       <description>Data provided for a SOM operation is invalid.
+       This is either a protocol error, or a UA error.
+       </description>
+    </doc>
+  </message>
+
+
+  <!-- Interface messages -->
+  <message id="50" name="Listen" severity="notice" args="1">
+    <arg position="1">
+       Listen address
+    </arg>
+    <text>Listening on %1</text>
+    <doc>
+       <description>Listening on the given address.
+       </description>
+    </doc>
+  </message>
+
+  <message id="51" name="ListenError" severity="fatal">
+    <text>Error on listener</text>
+    <doc>
+       <description>An error has occurred on a listener.
+       </description>
+    </doc>
+  </message>
+
+  <message id="52" name="Connection" severity="info" args="2">
+    <arg position="1">
+       Caller's address
+    </arg>
+    <arg position="2">
+       Connection context
+    </arg>
+    <text>New connection from %1 for %2</text>
+    <doc>
+       <description>A new connection from the given address has been received.
+       </description>
+    </doc>
+  </message>
+
+  <message id="53" name="BadPDU" severity="error" args="1">
+    <arg position="1">
+       Caller's address
+    </arg>
+    <text>Invalid PDU from %1</text>
+    <doc>
+       <description>Cannot decode a PDU from the given host.
+       </description>
+    </doc>
+  </message>
+
+  <message id="54" name="PDUencode" severity="error" args="1">
+    <arg position="1">
+       Caller's address
+    </arg>
+    <text>Failed to encode PDU for %1</text>
+    <doc>
+       <description>There was a problem encoding a PDU.
+       </description>
+    </doc>
+  </message>
+
+  <message id="55" name="ProcessCreateFailed" severity="error" args="2" system="yes">
+    <arg position="1">
+       Channel name
+    </arg>
+    <arg position="2">
+       Program command
+    </arg>
+    <text>Failed to start process for channel %1 using '%2'</text>
+    <doc>
+       <description>There was a problem starting a child process
+       </description>
+    </doc>
+  </message>
+
+  <message id="56" name="LDAPconnect" severity="warning" args="1">
+    <arg position="1">
+       Text of LDAP error
+    </arg>
+    <text>Failed to connect to directory: %1</text>
+    <doc>
+       <description>Failed to connect to the LDAP directory server,
+       the reason given is in the message.
+       </description>
+    </doc>
+  </message>
+
+  <message id="57" name="LDAPsearch" severity="warning" args="2">
+    <arg position="1">
+       Operation
+    </arg>
+    <arg position="2">
+       Text of LDAP error
+    </arg>
+    <text>A search or read operation for %1 failed: %2</text>
+    <doc>
+       <description>The queue manager attempted to find entries in
+       the directory server and this failed for the given reason.
+       </description>
+    </doc>
+  </message>
+
+  <message id="58" name="dbmbuildrun" severity="error">
+    <text>Failed to execute dbmbuild</text>
+    <doc>
+       <description>The attempt to execute dbmbuild failed.
+       </description>
+    </doc>
+  </message>
+
+  <!-- Selector parse errors -->
+  <message id="100" name="UnknownSelectorKey" severity="error" args="1">
+    <arg position="1">
+       Key for selector
+    </arg>
+    <text>Unknown selector key '%1'</text>
+    <doc>
+       <description>A selector key has been passed in which is either
+       unknown, or is not valid in the current context (e.g. a message
+       selection key when acting on channels). This is a protocol error.
+       </description>
+    </doc>
+  </message>
+
+  <message id="101" name="BadSelectorValue" severity="error" args="2">
+    <arg position="1">
+       Key for selector
+    </arg>
+    <arg position="2">
+       Value for selector
+    </arg>
+    <text>Selector key '%1' has bad value '%2'</text>
+    <doc>
+       <description>
+       The value provided for a selector key is not valid.
+       </description>
+       <action>This may be a UA issue in not validating values</action>
+    </doc>
+  </message>
+
+  <message id="102" name="MissingSelectorKey" severity="error" args="0">
+    <text>Bad selector key</text>
+    <doc>
+       <description>There is no selector key.
+       This is a protocol error.
+       </description>
+    </doc>
+  </message>
+
+  <message id="103" name="MissingSelectorValue" severity="error" args="1">
+    <arg position="1">
+       Key for selector
+    </arg>
+    <text>The selector with key '%1' is missing a value</text>
+    <doc>
+       <description>The value for a selector key is missing.
+       This is a protocol error.
+       </description>
+    </doc>
+  </message>
+
+  <message id="104" name="BadSelectorRegexp" severity="error" args="3">
+    <arg position="1">
+       The regular expression
+    </arg>
+    <arg position="2" type="int">
+       Offset in regular expression of the error
+    </arg>
+    <arg position="3">
+       Text describing the error
+    </arg>
+    <text>Regular express'%1' has error at offset %2: %3</text>
+    <doc>
+       <description>
+       A regular expression in a selector value has a problem.
+       </description>
+       <action>This is probably a UA issue, or a user issue.</action>
+    </doc>
+  </message>
+
+
+  <!-- Message Submission etc. -->
+  <message id="200" name="DuplicateRecipient" severity="error" args="2">
+    <arg position="1">
+       The internal queue ID of the message.
+    </arg>
+    <arg position="2" type="int">
+       The internal recipient number.
+    </arg>
+    <text>Duplicate internal recipient number in message %1: %2</text>
+    <description>Recipients of a message are identified internally by a number.
+    This message is produced when the queue manager finds a message with
+    two recipients with the same internal number. It will normally be the
+    result of a programming error.
+    </description>
+    <action>The message needs to be identified in the on-disk queue.
+    It can then be corrected, or deleted. This needs to be done manually.
+    </action>
+  </message>
+
+  <message id="201" name="UnknownChannel" severity="error" args="3">
+    <arg position="1">
+       The channel name
+    </arg>
+    <arg position="2">
+       The internal queue ID of the message.
+    </arg>
+    <arg position="3" type="int">
+       The internal recipient number.
+    </arg>
+    <text>Unknown channel %1 in message %2, recipient %3</text>
+    <description>A recipient data references a channel which has not been
+    configured. This can arise when a message remains in the queue and
+    a channel is removed from the configuration.
+    </description>
+    <action>The message needs to be identified in the on-disk queue.
+    It can then be corrected, or deleted. This needs to be done manually.
+    </action>
+  </message>
+
+  <message id="202" name="DuplicateMessage" severity="fatal" args="1">
+    <arg position="1">
+       The internal queue ID of the message.
+    </arg>
+    <text>Duplicate message %1</text>
+    <description>A message is being submitted which the Queue Manager
+    already knows about. This is likely to be a serious breach of procedure.
+    </description>
+    <action>Find out which channel is submitting the message. It is necessary
+    to resolve which of the queue manager and channel is correct.
+    </action>
+  </message>
+
+
+  <!-- Configuration etc. -->
+  <message id="300" name="TooManyChannels" severity="error" args="2">
+    <arg position="1">
+       The name of the channel being added
+    </arg>
+    <arg position="2" type="int">
+       The limit on the number of channels
+    </arg>
+    <text>Too many channels found when adding %1. Cannot have more than %2</text>
+    <description>There is a limit to the number of distinct channels the
+    queue manager can handle. This only affects reporting.
+    </description>
+    <action>Reduce the number of channels in use in the tailoring information.
+    </action>
+  </message>
+
+  <message id="301" name="TooManyMTAs" severity="error" args="2">
+    <arg position="1">
+       The name of the MTA being added
+    </arg>
+    <arg position="2" type="int">
+       The limit on the number of MTAs
+    </arg>
+    <text>Too many MTAs when adding %1. Cannot have more than %2</text>
+    <description>There is a limit to the number of distinct MTAs the
+    queue manager can handle. This only affects reporting.
+    </description>
+    <action>It is unlikely in practice that you will meet this limit.
+    </action>
+  </message>
+
+  <message id="302" name="TooManyAssociations" severity="error" args="1">
+    <arg position="1" type="int">
+       The limit on the number of Associations
+    </arg>
+    <text>Too many concurrent associations. Cannot have more thn %1</text>
+    <description>There is a limit to the number of distinct associations the
+    queue manager can handle. This only affects reporting.
+    </description>
+    <action>It is unlikely in practice that you will meet this limit.
+    </action>
+  </message>
+
+  <message id="303" name="MissingValue" severity="error" args="1">
+    <arg position="1">
+       Name of value
+    </arg>
+    <text>No value for %1</text>
+    <description>There is some configuration value which is required,
+    but which is missing.
+    </description>
+    <action>Ensure that the value is set.
+    </action>
+  </message>
+
+  <message id="304" name="SetTime" severity="error" args="1" system="yes">
+    <arg position="1">
+       Name of tailor file
+    </arg>
+    <text>Failed to set timestamp on file %1</text>
+    <description>Failed to set the modified time on the file to correspond
+    to the configuration timestamp.
+    </description>
+    <action>Check the system error for the reason for the failure.
+    </action>
+  </message>
+
+  <message id="305" name="ValueTooLarge" severity="error" args="1">
+    <arg position="1">
+       Value which is too large
+    </arg>
+    <text>Value too large for tailor file: %1</text>
+    <description>The given value proved too big to write into the tailorfile.
+    </description>
+    <action>Use a smaller value.
+    </action>
+  </message>
+
+  <message id="306" name="SchemaVersion" severity="error" args="2">
+    <arg position="1">
+       Schema version found for MTA
+    </arg>
+    <arg position="1">
+       Expected schema version
+    </arg>
+    <text>MTA has schema version %1, expecting %2</text>
+    <description>The MTA does not have the schema version expected.
+    </description>
+    <action>Upgrade the configuration being used, if the schema version
+    found is earlier than the expected version.
+    </action>
+  </message>
+
+  <message id="307" name="NoTimestamp" severity="error" args="1">
+    <arg position="1">
+       Text of LDAP error
+    </arg>
+    <text>A search or read operation for the mt-serial attribute failed: %1</text>
+    <doc>
+       <description>The queue manager attempted to find the mt-serial 
+       attribute in its entry in the directory server and this failed for 
+       the given reason. This will result in failure to create or update
+       the mtatailor file.
+       </description>
+    </doc>
+  </message>
+
+  <message id="308" name="NoMTAdname" severity="notice">
+    <text>No Directory Name for MTA available</text>
+    <description>The mtatailor file does not contain a directory name for
+    the MTA in the loc_mtadnname field. This value is required if directory
+    based features are to be used.
+    </description>
+    <action>If directory based features are to be used, then set the value
+    appropriately.
+    </action>
+  </message>
+
+  <message id="309" name="InvalidConfiguration" severity="fatal">
+    <text>Problem with configuration</text>
+    <description>There is a problem with the configuration. Another error
+    should give additional information. This is given on queue manager
+    startup when the resulting configuration has problems. It can arise
+    through a failure to read the full configuration.
+    </description>
+    <action>Check the other error messages. The problem might be with the
+    DSA not being available, or the connection details for that DSA in
+    the stub mtatailor file being incorrect. 
+    </action>
+  </message>
+
+  <message id="310" name="TooManySOM" severity="fatal" args="1">
+    <text>Too many (%1) SOM connections</text>
+    <arg position="1" type="int">The current number of connections</arg>
+    <description>Too many consoles are attempting to connect using SOM.
+    </description>
+    <action>You can configure a large number. If the SOM port is open to the
+    Internet this could be a sign of an attack on your system.
+    </action>
+  </message>
+
+  <!-- Significant events -->
+  <message id="400" name="MessageSubmit" severity="info" args="3">
+    <arg position="1">Internal Message ID</arg>
+    <arg position="2">Originator address</arg>
+    <arg position="3" type="int">Internal priority</arg>
+    <text>New Message %1 %2</text>
+    <doc>
+      <description>A new message arrives</description>
+    </doc>
+  </message>
+
+  <message id="401" name="RecipientSubmit" severity="info" args="5">
+    <arg position="1">Internal Message ID</arg>
+    <arg position="2">Recipient address</arg>
+    <arg position="3" type="int">Internal recipient number</arg>
+    <arg position="4">Status</arg>
+    <arg position="5" type="int">status value</arg>
+    <text>New Recipient %1 %2 (%3) %4 (%5)</text>
+    <doc>
+      <description>New recipient in message</description>
+    </doc>
+  </message>
+
+  <message id="402" name="RecipientStatus" severity="info" args="5">
+    <arg position="1">Internal Message ID</arg>
+    <arg position="2">Recipient address</arg>
+    <arg position="3" type="int">Internal recipient number</arg>
+    <arg position="4">Status</arg>
+    <arg position="5" type="int">status value</arg>
+    <text>Recipient Status %1 %2 (%3) %4 (%5)</text>
+    <doc>
+      <description>Channel reports status to queue manager</description>
+    </doc>
+  </message>
+
+  <message id="403" name="MessageTimeout" severity="info" args="2">
+    <arg position="1">Internal Message ID</arg>
+    <arg position="2">Timeout or warning</arg>
+    <text>Message %1 %2</text>
+    <doc>
+      <description>Timer expiry on message giving warning or timeout
+      </description>
+    </doc>
+  </message>
+
+  <message id="404" name="ManagerOperation" severity="notice" args="1">
+    <arg position="1">Operation</arg>
+    <text>Manager operation %1</text>
+    <doc>
+      <description>External operation on queue manager itself.
+      </description>
+    </doc>
+  </message>
+
+  <message id="405" name="ChannelOperation" severity="notice" args="2">
+    <arg position="1">Operation</arg>
+    <arg position="2">Channel name</arg>
+    <text>Channel operation %1 on %2</text>
+    <doc>
+      <description>External operation on channel.
+      </description>
+    </doc>
+  </message>
+
+  <message id="406" name="MTAOperation" severity="notice" args="2">
+    <arg position="1">Operation</arg>
+    <arg position="2">MTA name</arg>
+    <text>MTA operation %1 on %2</text>
+    <doc>
+      <description>External operation on MTA.
+      </description>
+    </doc>
+  </message>
+
+  <message id="407" name="MessageOperation" severity="info" args="2">
+    <arg position="1">Operation</arg>
+    <arg position="2">Internal Message ID</arg>
+    <text>Message operation %1 on %2</text>
+    <doc>
+      <description>External operation on message.
+      </description>
+    </doc>
+  </message>
+
+  <message id="408" name="ChannelStart" severity="info" args="1">
+    <arg position="1">Channel name</arg>
+    <text>Starting process for %1</text>
+    <doc>
+      <description>Starting a channel process.
+      </description>
+    </doc>
+  </message>
+
+  <message id="409" name="InstanceStart" severity="info" args="4">
+    <arg position="1">Channel name</arg>
+    <arg position="2" type="ulong">Process ID</arg>
+    <arg position="3" type="int">Instance number</arg>
+    <arg position="4" type="int">status</arg>
+    <text>New channel instance on %1 (%2,%3) status %4</text>
+    <doc>
+      <description>A new channel instance has started
+      </description>
+    </doc>
+  </message>
+
+  <message id="410" name="InstanceStatus" severity="info" args="6">
+    <arg position="1">Channel name</arg>
+    <arg position="2" type="ulong">Process ID</arg>
+    <arg position="3" type="int">Instance number</arg>
+    <arg position="4" type="int">status</arg>
+    <arg position="5">status</arg>
+    <arg position="6" type="int">context</arg>
+    <text>Channel instance on %1 (%2,%3) has status %4 (%5) context:%6</text>
+    <doc>
+      <description>Status from channel instance.
+      </description>
+    </doc>
+  </message>
+
+  <message id="411" name="ProcessMsg" severity="info" args="4">
+    <arg position="1">Message ID</arg>
+    <arg position="2">Channel name</arg>
+    <arg position="3" type="ulong">Process ID</arg>
+    <arg position="4" type="int">Instance number</arg>
+    <text>Starting message %1 on %2 (%3,%4)</text>
+    <doc>
+      <description>Status from channel instance
+      </description>
+    </doc>
+  </message>
+
+  <!-- SOM related messages -->
+  <message id="500" name="BufferTooBig" severity="error" args="2">
+    <arg position="1">Caller's address</arg>
+    <arg position="2" type="int">Size of buffer</arg>
+    <text>On connection from %1 buffer reached %2 bytes</text>
+    <doc>
+       <description>The SOM command handler broke the connection as
+       the line provided exceeded the given limit.
+       </description>
+    </doc>
+  </message>
+
+  <message id="501" name="Authorization" severity="info" args="2">
+    <arg position="1">Username</arg>
+    <arg position="2">Levels</arg>
+    <text>Authorization granted to %1: %2</text>
+    <doc>
+       <description>The user has been granted the given authorization.
+       </description>
+    </doc>
+  </message>
+
+  <message id="502" name="PasswordError" severity="authfail" args="1">
+    <arg position="1">Username</arg>
+    <text>Password comparison failed for %1</text>
+    <doc>
+       <description>The system compared the presented password with
+       the hashed password in the auth.qmgr table, but they did not match.
+       </description>
+    </doc>
+  </message>
+
+  <message id="503" name="SASLinit" severity="fatal" args="1">
+    <arg position="1">Detailed reason</arg>
+    <text>SASL initialization failed: %1</text>
+    <doc>
+       <description>Failed to initialize the SASL system or connection.
+       </description>
+    </doc>
+  </message>
+
+  <message id="504" name="NoTLSInfo" severity="info" args="0">
+    <text>no TLS information was found</text>
+    <doc>
+       <description>No TLS information was found, so not using TLS.
+       </description>
+    </doc>
+  </message>
+
+
+</facility>

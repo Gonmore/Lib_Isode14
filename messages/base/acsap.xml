@@ -1,0 +1,426 @@
+<?xml version="1.0" standalone="yes"?>
+<!-- Copyright 2005-2008 Isode Limited -->
+<facility id="23" name="ACsap">
+  <doc>
+    <description>
+    Messages relating to the Application Control Service Element
+    </description>
+  </doc>
+
+  <!-- General -->
+  <!-- Error numbers MUST match the value of the corresponding level -->
+  <message id="13" name="Fatal" severity="fatal" args="1">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>General error used for fatal errors
+       </description>
+       <action>
+       See Log entry for details.  Please send information on the
+       occurrence of this event to support@isode.com
+       </action>
+    </doc>
+  </message>
+
+  <message id="12" name="Error" severity="error" args="1">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>General error used for normal errors
+       </description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="6" name="Notice" severity="notice" args="1">
+    <arg position="1">
+       Text describing condition
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>notice level event: See log entry for details
+       </description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <!-- Messages with the system log need two arguments,
+       and the id is the number for the level + 16 -->
+  <message id="29" name="FatalS" severity="fatal" args="2" system="yes">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <arg position="2">
+       Additional text field
+    </arg>
+    <text>%1 %2</text>
+    <doc>
+       <description>General error used for fatal errors
+       </description>
+       <action>
+       See Log entry for details.  Please send information on the
+       occurrence of this event to support@isode.com
+       </action>
+    </doc>
+  </message>
+
+  <message id="28" name="ErrorS" severity="error" args="2" system="yes">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <arg position="2">
+       Additional text field
+    </arg>
+    <text>%1 %2</text>
+    <doc>
+       <description>General error used for normal errors
+       </description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="22" name="NoticeS" severity="notice" args="2" system="yes">
+    <arg position="1">
+       Text describing condition
+    </arg>
+    <arg position="2">
+       Additional text field
+    </arg>
+    <text>%1 %2</text>
+    <doc>
+       <description>
+       General notice level event: See log entry for details 
+       </description>
+       <action>
+       No Operator Action
+       </action>
+    </doc>
+  </message>
+
+  <!-- PDUs -->
+  <message id="30" name="ACS_ACSE__apdu_W" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Written ACSE pdu</description>
+       <action>
+       No Operator Action
+       </action>
+    </doc>
+  </message>
+
+  <message id="31" name="ACS_ACSE__apdu_R" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Read ACSE PDU</description>
+       <action>
+       No Operator Action
+       </action>
+    </doc>
+  </message>
+
+  <message id="32" name="OACS_AbortInformation_W" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc><description>Written old ACSE AbortInformation</description>
+       <action>
+       No Operator Action
+       </action>
+    </doc>
+  </message>
+
+  <message id="33" name="OACS_AbortInformation_R" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc><description>Read ACSE(1984) AbortInformation</description>
+       <action>
+       No Operator Action
+       </action>
+    </doc>
+  </message>
+
+  <message id="34" name="OACS_PAccept_W" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+	<description>Read ACSE(1984) Accept</description>
+       <action>
+       No Operator Action
+       </action>
+    </doc>
+  </message>
+
+  <message id="35" name="OACS_PAccept_R" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Read ACSE(1984) Accept</description>
+       <action>
+       No Operator Action
+       </action>
+    </doc>
+  </message>
+
+  <message id="36" name="OACS_PConnect_W" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Read ACSE(1984) Refuse</description>
+       <action>
+       No Operator Action
+       </action>
+    </doc>
+  </message>
+
+  <message id="37" name="OACS_PConnect_R" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Read ACSE(1984) Connect</description>
+       <action>
+       No Operator Action
+       </action>
+    </doc>
+  </message>
+
+  <message id="38" name="OACS_PRefuse_W" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Written ACSE(1984) Refuse</description>
+       <action>
+       No Operator Action
+       </action>
+    </doc>
+  </message>
+
+  <message id="39" name="OACS_PRefuse_R" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Read ACSE(1984) Refuse</description>
+       <action>
+       No Operator Action
+       </action>
+    </doc>
+  </message>
+
+  <message id="40" name="OACS_Priority_W" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Written ACSE(1984) Priority</description>
+       <action>
+       No Operator Action
+       </action>
+    </doc>
+  </message>
+
+  <message id="41" name="OACS_Priority_R" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+      <description>Read ACSE(1984) Priority</description>
+      <action>
+	No Operator Action
+      </action>
+    </doc>
+  </message>
+
+  <!-- Proper ACSE status values -->
+  <message id="49" name="ErrorFound" severity="detail" args="2">
+    <arg position="1">
+       Event which returned the error
+    </arg>
+    <arg position="2">
+       Text of actual error
+    </arg>
+    <text>Event %1 returned error %2</text>
+    <doc>
+       <description>
+       A call to a lower layer operation returned an error. This error is
+       passed to higher levels. This message gives the context for that error.
+        </description>
+    </doc>
+  </message>
+
+  <message id="50" name="Null" severity="info">
+    <text>No ACSE diagnostic information</text>
+    <doc>
+       <description>
+       The peer ACSE user provided no diagnostic information.
+       </description>
+    </doc>
+  </message>
+
+  <message id="51" name="UserNoReason" severity="error">
+    <text>User ACSE rejection with no specific reason</text>
+    <doc>
+       <description>
+       The peer ACSE user did not supply a specific reason for the
+       refusal.
+       </description>
+    </doc>
+  </message>
+
+  <message id="52" name="Context" severity="error">
+    <text>Application context name not supported</text>
+    <doc>
+       <description>
+       The peer ACSE user does not support the application context name.
+       </description>
+    </doc>
+  </message>
+
+  <message id="53" name="CallingAPTitle" severity="error">
+    <text>Calling AP title not recognized</text>
+    <doc>
+       <description>
+       The peer ACSE user does not recognise the calling Application Process
+       Title.
+       </description>
+    </doc>
+  </message>
+
+  <message id="54" name="CallingAPID" severity="error">
+    <text>Calling AP invocation-ID not recognized</text>
+    <doc>
+       <description>
+       The peer ACSE user does not recognise the calling Application Process
+       invocation ID.
+       </description>
+    </doc>
+  </message>
+
+  <message id="55" name="CallingAEQual" severity="error">
+    <text>Calling AE qualifier not recognized</text>
+    <doc>
+       <description>
+       The peer ACSE user does not recognise the calling Application Entity
+       qualifier.
+       </description>
+    </doc>
+  </message>
+
+  <message id="56" name="CallingAEID" severity="error">
+    <text>Calling AE invocation ID not recognized</text>
+    <doc>
+       <description>
+       The peer ACSE user does not recognise the calling Application Entity
+       invocation ID.
+       </description>
+    </doc>
+  </message>
+
+  <message id="57" name="CalledAPTitle" severity="error">
+    <text>Called AP title not recognized</text>
+    <doc>
+       <description>
+       The peer ACSE user does not recognise the called Application Process
+       Title.
+       </description>
+    </doc>
+  </message>
+
+  <message id="58" name="CalledAPID" severity="error">
+    <text>Called AP invocation-ID not recognized</text>
+    <doc>
+       <description>
+       The peer ACSE user does not recognise the called Application Process
+       invocation ID.
+       </description>
+    </doc>
+  </message>
+
+  <message id="59" name="CalledAEQual" severity="error">
+    <text>Called AE qualifier not recognized</text>
+    <doc>
+       <description>
+       The peer ACSE user does not recognise the called Application Entity
+       qualifier.
+       </description>
+    </doc>
+  </message>
+
+  <message id="60" name="CalledAEID" severity="error">
+    <text>Called AE invocation ID not recognized</text>
+    <doc>
+       <description>
+       The peer ACSE user does not recognise the called Application Entity
+       invocation ID.
+       </description>
+    </doc>
+  </message>
+
+  <message id="61" name="ProviderNoReason" severity="error">
+    <text>Provider rejected association, no specific reason given</text>
+    <doc>
+       <description>The peer ACSE provider rejected the association,
+       but did not give a specific reason.
+       </description>
+    </doc>
+  </message>
+
+  <message id="62" name="ProviderVersion" severity="error">
+    <text>Provider rejected association, no common version</text>
+    <doc>
+       <description>The peer ACSE provider rejected the association,
+       because there was no common ACSE version.
+       </description>
+    </doc>
+  </message>
+
+  <message id="69" name="Congestion" severity="error" args="1">
+    <arg position="1">Local reason for congestion</arg>
+    <text>Resourse congestion %1</text>
+    <doc>
+       <description>ACSE provider suffered from local resource issue.
+       </description>
+    </doc>
+  </message>
+
+  <message id="70" name="Protocol" severity="error" args="1">
+    <arg position="1">additional information</arg>
+    <text>Protocol error %1</text>
+    <doc>
+       <description>
+       Some protocol error has occurred
+       </description>
+    </doc>
+  </message>
+
+  <message id="71" name="PeerAbort" severity="error">
+    <text>Peer aborted connection</text>
+    <doc>
+       <description>
+       The peer aborted the connection, no user data.
+       </description>
+    </doc>
+  </message>
+
+  <message id="72" name="Parameter" severity="warning" args="1">
+    <arg position="1">additional information</arg>
+    <text>Parameter error %1</text>
+    <doc>
+       <description>
+       Error in parameters
+       </description>
+    </doc>
+  </message>
+
+  <message id="73" name="Operation" severity="warning" args="1">
+    <arg position="1">additional information</arg>
+    <text>Operation error %1</text>
+    <doc>
+       <description>
+       Error in operation sequence
+       </description>
+    </doc>
+  </message>
+
+</facility>

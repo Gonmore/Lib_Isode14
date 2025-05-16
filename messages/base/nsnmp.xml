@@ -1,0 +1,73 @@
+<?xml version="1.0" standalone="yes"?>
+<!-- Copyright 2007 Isode Limited -->
+<facility id="32" name="nsnmp">
+  <doc>
+    <description>NSNMP AgentX library events</description>
+  </doc>
+  
+  <message id="1" name="debug" severity="debug" args="1">
+    <arg position="1">Message</arg>
+    <text>%1</text>
+    <doc>
+      <description>Debug messaging</description>
+      <action>No operator action</action>
+    </doc>
+  </message>
+  
+  <message id="4" name="info" severity="information" args="1">
+    <arg position="1">Message</arg>
+    <text>%1</text>
+    <doc>
+      <description>SNMP informative</description>
+      <action>No operator action</action>
+    </doc>
+  </message>
+  
+  <message id="5" name="warning" severity="warning" args="1">
+    <arg position="1">Message</arg>
+    <text>%1</text>
+    <doc>
+      <description>SNMP warning</description>
+      <action>Should ensure SNMP is available</action>
+    </doc>
+  </message>
+  
+  <message id="6" name="error" severity="error" args="1">
+    <arg position="1">Message</arg>
+    <text>%1</text>
+    <doc>
+      <description>Potential loss of SNMP service</description>
+      <action>Check master agent is available</action>
+    </doc>
+  </message>  
+  
+  <message id="7" name="notice" severity="notice" args="1">
+    <arg position="1">Message</arg>
+    <text>%1</text>
+    <doc>
+      <description>SNMP notice</description>
+      <action>No operator action</action>
+    </doc>
+  </message>  
+  
+  <message id="2" name="register" severity="notice" args="2">
+    <arg position="1">Textual OID</arg>
+    <arg position="2">Handler name</arg>
+    <text>%2 registered for %1</text>
+    <doc>
+      <description>AgentX subagent handler registered</description>
+      <action>No operator action</action>
+    </doc>
+  </message>
+  
+  <message id="3" name="request" severity="detail" args="3">
+    <arg position="1">Textual OID</arg>
+    <arg position="2">Handler name</arg>
+    <arg position="3">Type of request</arg>
+    <text>%2 received %3 request for %1</text>
+    <doc>
+      <description>AgentX subagent handler received SNMP request</description>
+      <action>No operator action</action>
+    </doc>
+  </message>
+</facility>

@@ -1,0 +1,412 @@
+<?xml version="1.0" standalone="yes"?>
+<!-- Copyright 2005-2008 Isode Limited -->
+<facility id="105" name="ACP142">
+  <doc>
+    <description>
+    Messages relating to ACP142
+    </description>
+  </doc>
+
+  <!-- Print IPv4 address from host byte order unsigned 32 bit int -->
+  <type name="ipv4">
+    <declaration>char astr$i[16];</declaration>
+    <action>sprintf(astr$i,"%u.%u.%u.%u",((a$i)>>24)&amp;0xFF,((a$i)>>16)&amp;0xFF,((a$i)>>8)&amp;0xFF,(a$i)&amp;0xFF); ava[$i] = astr$i;</action>
+  </type>
+
+  <!-- File channel errors -->
+  <message id="200" name="FileOpen" severity="error" args="1" system="yes">
+    <arg position="1">
+       name of file
+    </arg>
+    <text>Failed to open submission file %1</text>
+    <doc>
+       <description>There was a failure opening a file used for submission
+       </description>
+       <action>
+       Check that the files exists and has the correct permissions. May
+       be a temporary resource problem.  If error repeats, configuration
+       error is likely.
+       </action>
+    </doc>
+  </message>
+
+  <message id="500" name="UnknownPDU" severity="error" args="1">
+    <arg position="1" type="int">
+        Number in type field
+    </arg>
+    <text>Unknown PDU type value: %1</text>
+    <doc>
+       <description>A PDU with an unknown PDU type was received.
+       </description>
+    </doc>
+  </message>
+
+  <message id="501" name="ChecksumFailed" severity="error">
+    <text>PDU checksum is invalid</text>
+    <doc>
+       <description>A received PDU failed the checksum test.
+       </description>
+    </doc>
+  </message>
+
+  <message id="502" name="LengthMismatch" severity="error" args="2">
+    <arg position="1" type="int">
+        Length value in PDU
+    </arg>
+    <arg position="2" type="int">
+        Actual length
+    </arg>
+    <text>PDU length mismatch: %1 > %2</text>
+    <doc>
+       <description>A received PDU had a length field which was longer than
+       the actual length of data received.
+       </description>
+    </doc>
+  </message>
+
+  <message id="503" name="PortNotWorking" severity="error">
+    <text>Attempt to send PDU to port which is not initialized</text>
+    <doc>
+       <description>The Pmul transceiver could not send a PDU because
+       the logical port to which it should be sent was not working.
+       </description>
+    </doc>
+  </message>
+
+  <message id="504" name="NetworkError" severity="error">
+    <text>Error when transmitting or receiving data</text>
+    <doc>
+       <description>The ACP142 transceiver had an error when transmitting or receiving.
+       </description>
+    </doc>
+  </message>
+
+  <message id="505" name="Alreadylocked" severity="fatal" args="1" system="yes">
+    <arg position="1">
+        Channel's DB directory
+    </arg>
+    <text>Cannot lock channel's DB directory: %1</text>
+    <doc>
+       <description>The channel cannot lock its Database.
+       </description>
+       <action>Check permissions on the channel's DB directory. The MTA user
+       should be able to create files within this directory.
+       </action>
+    </doc>
+  </message>
+
+  <message id="506" name="DatabaseOpen" severity="fatal" args="2">
+    <arg position="1">
+        Channel's DB directory
+    </arg>
+    <arg position="2">
+        Error string from DB error code
+    </arg>
+    <text>Cannot open channel DB in %1: %2</text>
+    <doc>
+       <description>The channel open its database
+       </description>
+       <action>Check permissions on the channel's DB directory. The MTA user
+       should be able to create files within this directory.
+       </action>
+    </doc>
+  </message>
+
+  <message id="507" name="DatabaseError" severity="error" args="1">
+    <arg position="1">
+        Error string from DB error code
+    </arg>
+    <text>DB error: %1</text>
+    <doc>
+       <description>The underlying Database system reports an error.
+       </description>
+       <action>Action will depend upon the actual error reported.
+       </action>
+    </doc>
+  </message>
+
+  <message id="508" name="PDU_W" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc><description>ACP142 PDU sent</description></doc>
+  </message>
+
+  <message id="509" name="PDU_R" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc><description>ACP142 PDU received</description></doc>
+  </message>
+
+  <message id="510" name="Discarded" severity="notice">
+    <text>Message discarded</text>
+    <description>An inbound message has been discarded.
+    </description>
+  </message>
+
+  <message id="511" name="Aborted" severity="notice">
+    <text>Message discarded by user</text>
+    <description>A message has been discarded by the local user.
+    </description>
+  </message>
+
+  <message id="512" name="Expired" severity="notice">
+    <text>Message reached expiry time</text>
+    <description>A message has been discarded because the expiry time
+    has been reached.
+    </description>
+    <action>This could be a sign that the network is unreliable.</action>
+  </message>
+
+  <message id="513" name="NoAddress" severity="notice" args="2">
+    <arg position="1" type="ipv4">Source ID</arg>
+    <arg position="2" type="ulong">Message ID</arg>
+    <text>Data PDUs discarded, no Address PDU seen: source=%1 MSID=%2</text>
+    <description>Data PDUs have been seen for a message, but no Address PDU
+    has been seen within the time limit. The Data PDUs are discarded.
+    </description>
+    <action>This could be a sign that the network is unreliable.</action>
+  </message>
+
+  <message id="514" name="Received" severity="notice" args="5">
+    <arg position="1" type="ipv4">Source ID</arg>
+    <arg position="2" type="ulong">Message ID</arg>
+    <arg position="3" type="ulong">Message sequence number</arg>
+    <arg position="4" type="int">Number of PDUs</arg>
+    <arg position="5" type="ulong">Total data size</arg>
+    <text>Message Received: source=%1 MSID=%2 MSN=%3 pdus=%4 size=%5</text>
+    <description>An inbound message has been received.
+    </description>
+  </message>
+
+  <message id="515" name="Sent" severity="notice" args="5">
+    <arg position="1" type="ipv4">Destination ID</arg>
+    <arg position="2" type="ulong">Message ID</arg>
+    <arg position="3" type="ulong">Message sequence number</arg>
+    <arg position="4" type="int">Number of PDUs</arg>
+    <arg position="5" type="ulong">Total data size</arg>
+    <text>Message Sent: destination=%1 MSID=%2 MSN=%3 pdus=%4 size=%5</text>
+    <description>An outbound message has been received by a destination.
+    </description>
+  </message>
+
+  <message id="516" name="OutMsg" severity="info" args="1">
+    <arg position="1" type="ulong">Message ID</arg>
+    <text>MSID=%1</text>
+    <description>Data for outbound message</description>
+  </message>
+
+  <message id="517" name="InMsg" severity="info" args="3">
+    <arg position="1" type="ipv4">Source ID</arg>
+    <arg position="2" type="ulong">Message ID</arg>
+    <arg position="3" type="ulong">Message sequence number</arg>
+    <text>source=%1 MSID=%2 MSN=%3</text>
+    <description>Details of inbound message</description>
+  </message>
+
+  <message id="520" name="MulticastListen" severity="info" args="1">
+    <arg position="1" type="ipv4">Source ID</arg>
+    <text>Starting listening on multicast address %1</text>
+    <description>The ACP142 listener is starting listening on the given
+    multicast address.</description>
+  </message>
+
+  <message id="521" name="MulticastStop" severity="info" args="1">
+    <arg position="1" type="ipv4">Source ID</arg>
+    <text>Stopping listening on multicast address %1</text>
+    <description>The ACP142 listener is stopping listening on the given
+    multicast address.</description>
+  </message>
+
+  <message id="522" name="Initialization" severity="fatal" args="1">
+    <arg position="1">ACP142 component</arg>
+    <text>Initialization failed in %1</text>
+    <description>Initializing some component of ACP142 failed.</description>
+    <action>Look at other error messages to see the more detailed reasons.
+    </action>
+  </message>
+
+  <message id="523" name="Inbound" severity="detail" args="5">
+    <arg position="1">ACP142 PDU type</arg>
+    <arg position="2" type="ipv4">Source ID</arg>
+    <arg position="3" type="ulong">Message ID</arg>
+    <arg position="4">State</arg>
+    <arg position="5" type="int">Source found or PDUno</arg>
+    <text>Inbound %1 PDU source=%2 msid=%3 state=%4 param=%5</text>
+    <description>Reports the arrival of a PDU for a given inbound message
+    and gives the current state. The parameter is -1/0/1 for address PDUs,
+    depending on if the receiver is in the destination list.
+    For Data PDUs, it is the PDU number.
+    </description>
+  </message>
+
+  <message id="524" name="DuplicateID" severity="error" args="1">
+    <arg position="1" type="int">ID for message</arg>
+    <text>Message ID %1 alerady in use</text>
+    <description>The message ID in a message has already been used.
+    This is an error in the program.
+    </description>
+  </message>
+
+  <message id="525" name="NoAddressAvailable" severity="error">
+    <text>No address available for destination(s)</text>
+    <description>The ACP142 system has attempted to find a multicast
+    address which can be used to send to the set of destinations for the
+    message. However, no such address can be found. If dynamic multicast
+    addresses are used, they may all be in use. If static multicast addresses
+    are used, there may be no address which is common for all the destinations.
+    This event also occurs on service restart, if the ACP142 server was in
+    process of getting an address for the message when shut down.
+    </description>
+    <action>Check the configuration of static multicast addresses, or ensure
+    that there are sufficient dynamic multicast addresses to use.
+    </action>
+  </message>
+
+  <message id="526" name="Resuming" severity="detail">
+    <text>Message is resuming</text>
+    <description>The ACP142 system is resuming the transmission of a message
+    </description>
+  </message>
+
+  <message id="527" name="BadAckPDU" severity="error" args="1">
+    <text>Invalid Ack PDU received from %1</text>
+    <arg position="1" type="ipv4">Source ID</arg>
+    <description>An Ack PDU has been received from the given source ID.
+    There is some problem with the format.</description>
+  </message>
+
+  <message id="528" name="AckPDU" severity="detail" args="3">
+    <arg position="1" type="int">ID for message</arg>
+    <arg position="2" type="ipv4">ID for message</arg>
+    <arg position="3" type="int">Number of missing PDUs</arg>
+    <text>Ack for MSID=%1 from dest=%2, missing=%3</text>
+    <description>Ack PDU from the given destination. The number of missing
+    PDUs is the length of the array, which may contain compressed ranges.
+    </description>
+  </message>
+
+  <message id="529" name="Transmit" severity="detail" args="3">
+    <arg position="1" type="int">ID for message</arg>
+    <arg position="2" type="str">Transmission context</arg>
+    <arg position="3" type="int">If paused</arg>
+    <text>Transmitting MSID=%1 (%2) paused=%3</text>
+    <description>Sending a message. The context gives the reason the message
+    is being sent at this point. If the message is paused, then nothing
+    will be sent.
+    </description>
+  </message>
+
+  <message id="530" name="EMCONchange" severity="notice" args="1">
+    <arg position="1" type="int">0 means not EMCON, 1 means EMCON</arg>
+    <text>EMCON state change, now %1</text>
+    <description>This message records the change in EMCON state of the
+    local system.
+    </description>
+  </message>
+
+  <message id="531" name="Starting" severity="detail">
+    <text>Message is starting</text>
+    <description>The ACP142 system has started sending the message
+    </description>
+  </message>
+
+  <message id="532" name="Retransmit" severity="detail">
+    <text>Message has been retransmitted</text>
+    <description>The ACP142 system is retransmitting the message
+    </description>
+  </message>
+
+  <message id="533" name="Transmitted" severity="success">
+    <text>Message has been transmitted</text>
+    <description>The ACP142 system has completed sending a message.
+    </description>
+  </message>
+
+  <message id="534" name="MissingMessage" severity="error" args="1">
+    <arg position="1" type="int">ACP142 message ID</arg>
+    <text>Cannot find queued message for %1</text>
+    <doc><description>Internally, the P_mul channel cannot find the data
+    corresponding to the P_mul message ID.
+    </description></doc>
+  </message>
+
+  <message id="535" name="AnnexE_Message_W" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc><description>Annex-E Message being sent using P_MUL.
+    This is the data for the CompressedData item.
+    </description></doc>
+  </message>
+
+  <message id="536" name="AnnexE_Message_R" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc><description>Annex-E Message received.
+    This is the data for the CompressedData item.
+    </description></doc>
+  </message>
+
+  <message id="537" name="Recipient" severity="detail" args="4">
+    <arg position="1" type="int">ID for message</arg>
+    <arg position="2" type="ipv4">Destination ID</arg>
+    <arg position="3" type="str">Queue ID of message</arg>
+    <arg position="4" type="int">Recipient number</arg>
+    <text>MSID=%1 Dest=%2 Qid=%3 Rno=%4</text>
+    <description>Relates the ACP 142 (P-Mul) information on message
+    to the Message ID and recipient number.
+    </description>
+  </message>
+
+  <message id="538" name="Compression" severity="detail" args="4">
+    <arg position="1">Unique message id</arg>
+    <arg position="2" type="int">Size before compression</arg>
+    <arg position="3" type="int">Size before compression</arg>
+    <arg position="4" type="int">Percentage</arg>
+    <text>Compression for unid=%1: before=%2 after=%3 percent=%4 </text>
+    <doc><description>Shows the raw compression of the message
+    </description></doc>
+  </message>
+
+  <message id="539" name="UnsuitableMsg" severity="error">
+    <text>Message not suitable for connection-oriented transport</text>
+    <doc><description>The message was passed to the connection-oriented transport
+    but it is not suitable. This might be because of a change in configuration
+    or system state. However, it should not ordinarily arise.
+    </description></doc>
+  </message>
+
+  <message id="540" name="UnexpectedPDUtype" severity="warning" args="1">
+    <arg position="1" type="int">Type of PDU</arg>
+    <text>Unexpected PDU type %1 received</text>
+    <doc><description>The system has received a PDU which has a type which
+    is either unknown or unexpected for the network type.
+    </description></doc>
+  </message>
+
+  <message id="541" name="PDUorder" severity="warning" args="4">
+    <arg position="1" type="ipv4">Source ID</arg>
+    <arg position="2" type="int">Message ID</arg>
+    <arg position="3" type="int">Actual PDU number</arg>
+    <arg position="4" type="int">Expected PDU number</arg>
+    <text>Data PDU from %1 for %2 has incorrect PDU number %3 expected %4</text>
+    <doc><description>A Data PDU on a connection is not sequential.
+    </description></doc>
+  </message>
+
+  <message id="542" name="IdleTimeout" severity="notice" args="1">
+    <arg position="1">Peer address</arg>
+    <text>Timeout of idle connection with %1</text>
+    <doc><description>The connection has been idle for a while and so it is
+    being closed. This is normal operation.
+    </description></doc>
+  </message>
+
+  <message id="543" name="Disconnect" severity="error" args="0">
+    <text>Unexpected disconnection</text>
+    <doc><description>The connection has been closed by the peer system
+    unexpectedly.
+    </description></doc>
+  </message>
+
+
+</facility>

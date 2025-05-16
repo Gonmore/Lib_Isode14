@@ -1,0 +1,288 @@
+<?xml version="1.0" standalone="yes"?>
+<!-- Copyright 2005-2008 Isode Limited -->
+<facility id="21" name="Ssap">
+  <doc>
+    <description>
+    Messages relating to the Session layer
+    </description>
+  </doc>
+
+  <!-- General -->
+  <!-- Error numbers MUST match the value of the corresponding level -->
+  <message id="13" name="Fatal" severity="fatal" args="1">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>
+       OSI Session Layer Fatal Event. This event should only occur in very
+       unusual situations.  Isode's medium term plan is to remove all use of
+       this event.
+       </description>
+       <action>See log entry for details</action>
+    </doc>
+  </message>
+
+  <message id="12" name="Error" severity="error" args="1">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>OSI Session Layer Error.  Isode's medium term plan is to
+       remove all common use of this event,  Isode's long term plan is to remove
+       all use of this event
+       </description>
+       <action>See log entry for details</action>
+    </doc>
+  </message>
+
+  <message id="6" name="Notice" severity="notice" args="1">
+    <arg position="1">
+       Text describing condition
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>General notice level event: See log entry for details
+       </description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="2" name="SPDU" severity="pdu" args="1">
+    <arg position="1">
+       File containing PDU
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>Session PDU</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <!-- Messages with the system log need two arguments,
+       and the id is the number for the level + 16 -->
+  <message id="29" name="FatalS" severity="fatal" args="2" system="yes">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <arg position="2">
+       Additional text field
+    </arg>
+    <text>%1 %2</text>
+    <doc>
+       <description>OSI Session Layer Fatal Event. This event should only occur
+       in very unusual situations.  Isode's medium term plan is to remove all
+       use of this event
+       </description>
+       <action>See Log entry for details.  Please send information on the
+       occurrence of this event to support@isode.com</action>
+    </doc>
+  </message>
+
+  <message id="28" name="ErrorS" severity="error" args="2" system="yes">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <arg position="2">
+       Additional text field
+    </arg>
+    <text>%1 %2</text>
+    <doc>
+       <description>
+       OSI Session Layer Error.  Isode's medium term plan is to remove all
+       common use of this event,  Isode's long term plan is to remove all use of
+       this event
+       </description>
+       <action>See log entry for details</action>
+    </doc>
+  </message>
+
+  <message id="22" name="NoticeS" severity="notice" args="2" system="yes">
+    <arg position="1">
+       Text describing condition
+    </arg>
+    <arg position="2">
+       Additional text field
+    </arg>
+    <text>%1 %2</text>
+    <doc>
+       <description>
+       General notice level event: See log entry for details
+       </description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="49" name="ErrorFound" severity="detail" args="2">
+    <arg position="1">
+       Event which returned the error
+    </arg>
+    <arg position="2">
+       Text of actual error
+    </arg>
+    <text>Event %1 returned error %2</text>
+    <doc>
+       <description>
+       A call to a lower layer operation returned an error. This error is
+       passed to higher levels. This message gives the context for that error.
+        </description>
+    </doc>
+  </message>
+
+  <!-- Session layer messages -->
+  <message id="51" name="ProviderAbort" severity="error">
+    <text>Session provider aborted session</text>
+    <doc>
+       <description>
+           The remote session layer provider aborted the session.
+       </description>
+    </doc>
+  </message>
+
+  <message id="52" name="Protocol" severity="error" args="1">
+    <arg position="1">
+       Text with details of error
+    </arg>
+    <text>Protocol error at session, %1</text>
+    <doc>
+       <description>
+           The session layer provider aborted the session. This might be
+           a remote abort or a local abort.
+        </description>
+    </doc>
+  </message>
+
+  <message id="53" name="Parameter" severity="warning" args="1">
+    <arg position="1">
+       Text with details of error
+    </arg>
+    <text>Parameter error at session, %1</text>
+    <doc>
+       <description>
+        There was a parameter error at the session layer provider.
+        </description>
+    </doc>
+  </message>
+
+  <message id="54" name="Operation" severity="warning" args="1">
+    <arg position="1">
+       Text with details of error
+    </arg>
+    <text>Operation error at session, %1</text>
+    <doc>
+       <description>
+        There was an operation error at the session layer provider.
+        This can be because of a sequencing error.
+        </description>
+    </doc>
+  </message>
+
+  <!-- Session layer errors for connection refusal -->
+  <!-- Errors are transient, Fatal are permanent -->
+  <!-- Codes are 100 + SS value -->
+
+  <message id="100" name="NotSpecified" severity="error">
+    <text>Rejection by called SS user; no reason specified</text>
+    <doc>
+       <description>
+           The remote session layer user has rejected the cpmmection.
+           No specific reason is specified.
+       </description>
+    </doc>
+  </message>
+
+  <message id="101" name="UserCongestion" severity="error">
+    <text>Rejection by called SS user due to temporary congestion</text>
+    <doc>
+       <description>
+           The remote session layer user has rejected the call because
+           of the shortage of some resource.
+       </description>
+    </doc>
+  </message>
+
+  <message id="102" name="UserRejection" severity="error">
+    <text>Rejection by called SS user</text>
+    <doc>
+       <description>
+           The remote session layer user has rejected the call.
+           The higher layer protocol should be indicating the reason.
+       </description>
+    </doc>
+  </message>
+
+  <message id="229" name="SelectorUnknown" severity="fatal">
+    <text>Session selector unknown</text>
+    <doc>
+       <description>
+          The remote session layer rejects the call as the called session
+          selector is not known.
+       </description>
+    </doc>
+  </message>
+
+  <message id="230" name="NotAttached" severity="fatal">
+    <text>SS-user not attached to SSAP</text>
+    <doc>
+       <description>
+          The remote session layer rejects the call as there is no
+          session user attached to the session access point.
+       </description>
+    </doc>
+  </message>
+
+  <message id="231" name="Congestion" severity="error">
+    <text>Congestion in Session provider</text>
+    <doc>
+       <description>
+          The remote session layer rejects the call as there is a temporary
+          shortage of resources.
+       </description>
+    </doc>
+  </message>
+
+  <message id="232" name="ProtocolVersion" severity="fatal">
+    <text>Proposed protocol versions not supported</text>
+    <doc>
+       <description>
+          The remote session layer rejects the call as none of the
+          proposed session protocol versions are supported.
+       </description>
+    </doc>
+  </message>
+
+  <message id="233" name="SPMnoReason" severity="error">
+    <text>Connection rejected by SPM; no reason specified</text>
+    <doc>
+       <description>
+          The remote session layer rejects the call for some unspecified
+          reason.
+       </description>
+    </doc>
+  </message>
+
+  <message id="234" name="Restriction" severity="error">
+    <text>Connection rejected by SPM; implementation restriction</text>
+    <doc>
+       <description>
+          The remote session layer rejects the call as a result of an
+          implementation reason specified in the PICS (Protocol
+          Implementation Conformance Statement).
+       </description>
+    </doc>
+  </message>
+
+  <message id="235" name="TransportDisconnect" severity="fatal">
+    <text>Unexpected transport disconnect</text>
+    <doc>
+       <description>
+          The session layer received a transport disconnect indication,
+          when this was not expected.
+       </description>
+    </doc>
+  </message>
+
+
+</facility>

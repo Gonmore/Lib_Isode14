@@ -1,0 +1,501 @@
+<?xml version="1.0" standalone="yes"?>
+<!-- Copyright 2005-2007 Isode Limited -->
+<facility id="22" name="Psap">
+  <doc>
+    <description>
+    Messages relating to the Presentation layer
+    </description>
+  </doc>
+
+  <!-- General -->
+  <!-- Error numbers MUST match the value of the corresponding level -->
+  <message id="13" name="Fatal" severity="fatal" args="1">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>OSI Presentation Layer Fatal Event. This event should only
+       occur in very unusual situations.  Isode's medium term plan is to remove
+       all use of this event.
+       </description>
+       <action>See log entry for details. Please send information on the
+       occurrence of this event to support@isode.com</action>
+    </doc>
+  </message>
+
+  <message id="12" name="Error" severity="error" args="1">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>OSI Presentation Layer Error.  Isode's medium term plan is
+       to remove all common use of this event,  Isode's long term plan is to
+       remove all use of this event
+       </description>
+       <action>See log entry for details</action>
+    </doc>
+  </message>
+
+  <message id="6" name="Notice" severity="notice" args="1">
+    <arg position="1">
+       Text describing condition
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>General notice level event: See log entry for details
+       </description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="2" name="PS_PDU" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Generic Presentation PDU</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <!-- Messages with the system log need two arguments,
+       and the id is the number for the level + 16 -->
+  <message id="29" name="FatalS" severity="fatal" args="2" system="yes">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <arg position="2">
+       Additional text field
+    </arg>
+    <text>%1 %2</text>
+    <doc>
+       <description>OSI Presentation Layer Fatal Event. This event should only
+       occur in very unusual situations.  Isode's medium term plan is to remove
+       all use of this event.
+       </description>
+       <action>See log entry for details. Please send information on the
+       occurrence of this event to support@isode.com</action>
+    </doc>
+  </message>
+
+  <message id="28" name="ErrorS" severity="error" args="2" system="yes">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <arg position="2">
+       Additional text field
+    </arg>
+    <text>%1 %2</text>
+    <doc>
+       <description>OSI Presentation Layer Error.  Isode's medium term plan is
+       to remove all common use of this event,  Isode's long term plan is to
+       remove all use of this event
+       </description>
+       <action>See log entry for details</action>
+    </doc>
+  </message>
+
+  <message id="22" name="NoticeS" severity="notice" args="2" system="yes">
+    <arg position="1">
+       Text describing condition
+    </arg>
+    <arg position="2">
+       Additional text field
+    </arg>
+    <text>%1 %2</text>
+    <doc>
+       <description>General notice level event: See log entry for details
+       </description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <!-- PDUs -->
+  <message id="30" name="PS_Abort__type_W" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Presentation PDU</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="31" name="PS_Abort__type_R" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Presentation PDU</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="32" name="PS_ARP__PPDU_W" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Presentation PDU</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="33" name="PS_ARP__PPDU_R" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Presentation PDU</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="34" name="PS_ARU__PPDU_W" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Presentation PDU</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="35" name="PS_ARU__PPDU_R" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Presentation PDU</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="36" name="PS_CPA__type_W" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Presentation PDU</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="37" name="PS_CPA__type_R" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Presentation PDU</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="38" name="PS_CPR__type_W" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Presentation PDU</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="39" name="PS_CPR__type_R" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Presentation PDU</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="40" name="PS_CP__type_W" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Presentation PDU</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="41" name="PS_CP__type_R" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Presentation PDU</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="42" name="PS_RS__PPDU_W" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Presentation PDU</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="43" name="PS_RS__PPDU_R" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Presentation PDU</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="44" name="PS_User__data_W" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Presentation PDU</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="45" name="PS_User__data_R" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Presentation PDU</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="46" name="unknown_type" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Unknown Presentation PDU</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+
+
+  <message id="49" name="ErrorFound" severity="detail" args="2">
+    <arg position="1">
+       Event which returned the error
+    </arg>
+    <arg position="2">
+       Text of actual error
+    </arg>
+    <text>Event %1 returned error %2</text>
+    <doc>
+       <description>
+       A call to a lower layer operation returned an error. This error is
+       passed to higher levels. This message gives the context for that error.
+        </description>
+    </doc>
+  </message>
+
+  <!-- Connection rejection messages -->
+  <message id="50" name="PeerRejected" severity="error">
+    <text>Peer rejected presentation connection</text>
+    <doc>
+       <description>
+       The peer presentation user rejected the connection.
+       </description>
+    </doc>
+  </message>
+
+  <message id="51" name="NotSpecified" severity="error">
+    <text>Reason not specified</text>
+    <doc>
+       <description>
+       The presentation layer refused the connection or aborted the connection
+       for some unspecified reason.
+       </description>
+    </doc>
+  </message>
+
+  <message id="52" name="Congestion" severity="error" args="1">
+    <arg position="1">Local reason for congestion</arg>
+    <text>Presentation connection refused, congestion %1</text>
+    <doc>
+       <description>
+       The presentation layer refused the connection as a result of the
+       temporary shortage of some resource.
+       </description>
+    </doc>
+  </message>
+
+  <message id="53" name="LocalLimit" severity="error">
+    <text>Presentation connection refused, local limit exceeded</text>
+    <doc>
+       <description>
+       The presentation layer refused the connection as a result of some
+       local limit being exceeded.
+       </description>
+    </doc>
+  </message>
+
+  <message id="54" name="AddressUnknown" severity="fatal">
+    <text>Presentation connection refused, address unknown</text>
+    <doc>
+       <description>
+       The presentation layer refused the connection as a result of
+       the called presentation selection being unknown.
+       </description>
+    </doc>
+  </message>
+
+  <message id="55" name="BadVersion" severity="fatal">
+    <text>Presentation connection refused, protocol version not supported</text>
+    <doc>
+       <description>
+       The presentation layer refused the connection as a result of
+       the proposed protocol version not being supported.
+       </description>
+    </doc>
+  </message>
+
+  <message id="56" name="DefaultContext" severity="fatal">
+    <text>Presentation connection refused, default context not available</text>
+    <doc>
+       <description>
+       The default context for the association is not supported.
+       </description>
+    </doc>
+  </message>
+
+  <message id="57" name="UserData" severity="error">
+    <text>Presentation connection refused, user data not readable</text>
+    <doc>
+       <description>
+       The user data cannot be decoded.
+       </description>
+    </doc>
+  </message>
+
+  <message id="58" name="NoPSAP" severity="fatal">
+    <text>Presentation connection refused, no PSAP available</text>
+    <doc>
+       <description>
+       There is no presentation user attached to the presentation address.
+       </description>
+    </doc>
+  </message>
+
+  <message id="60" name="Unrecognized" severity="error" args="1">
+    <arg position="1">additional information</arg>
+    <text>Unrecognized Presentation PDU %1</text>
+    <doc>
+       <description>
+       Unknown Presentation PDU.
+       </description>
+    </doc>
+  </message>
+
+  <message id="61" name="Unexpected" severity="error">
+    <text>Unexpected Presentation PDU</text>
+    <doc>
+       <description>
+       The Presentation PDU was not expected at this time.
+       </description>
+    </doc>
+  </message>
+
+  <message id="62" name="SSprimitive" severity="error">
+    <text>Unrecognized Session service primitive</text>
+    <doc>
+       <description>
+       The presentation layer received an unknown primitive from the session layer.
+       </description>
+    </doc>
+  </message>
+
+  <message id="63" name="PPParam1" severity="error">
+    <text>Unrecognized PPDU parameter</text>
+    <doc>
+       <description>
+       Unknown Presentation PDU parameter.
+       </description>
+    </doc>
+  </message>
+
+  <message id="64" name="PPParam2" severity="error">
+    <text>Unexpected PPDU parameter</text>
+    <doc>
+       <description>
+       Unexpected Presentation PDU parameter.
+       </description>
+    </doc>
+  </message>
+
+  <message id="65" name="Invalid" severity="error" args="1">
+    <arg position="1">additional information</arg>
+    <text>Invalid PPDU parameter %1</text>
+    <doc>
+       <description>
+       Invalid Presentation PDU parameter.
+       </description>
+    </doc>
+  </message>
+
+  <message id="66" name="AbstractSyntax" severity="error" args="1">
+    <arg position="1">Name of syntax</arg>
+    <text>Abstract Syntax %1 not supported</text>
+    <doc>
+       <description>
+       The presentation user requested the use of an unsupported abstract
+       syntax.
+       </description>
+    </doc>
+  </message>
+
+  <message id="67" name="TransferSyntax" severity="error" args="1">
+    <arg position="1">Name of syntax</arg>
+    <text>Abstract Syntax not supported</text>
+    <doc>
+       <description>
+       The presentation user requested the use of an unsupported transfer
+       syntax.
+       </description>
+    </doc>
+  </message>
+
+  <message id="68" name="DCSlimit" severity="error">
+    <text>Local limit on DCS exceeded</text>
+    <doc>
+       <description>
+       The local limit on DCS was exceeded
+       </description>
+    </doc>
+  </message>
+
+  <message id="70" name="Protocol" severity="error" args="1">
+    <arg position="1">additional information</arg>
+    <text>Protocol error %1</text>
+    <doc>
+       <description>
+       Some protocol error has occurred
+       </description>
+    </doc>
+  </message>
+
+  <message id="71" name="PeerAbort" severity="error">
+    <text>Peer aborted connection</text>
+    <doc>
+       <description>
+       The peer aborted the connection, no user data.
+       </description>
+    </doc>
+  </message>
+
+  <message id="72" name="Parameter" severity="warning" args="1">
+    <arg position="1">additional information</arg>
+    <text>Parameter error %1</text>
+    <doc>
+       <description>
+       Error in parameters
+       </description>
+    </doc>
+  </message>
+
+  <message id="73" name="Operation" severity="warning" args="1">
+    <arg position="1">additional information</arg>
+    <text>Operation error %1</text>
+    <doc>
+       <description>
+       Error in operation sequence
+       </description>
+    </doc>
+  </message>
+
+
+</facility>

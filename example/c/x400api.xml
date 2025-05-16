@@ -1,0 +1,7 @@
+<log-config>
+  <log-stream name="Events">
+    <log-file>x400api.log</log-file>
+    <log-audit action="on" type="*" key="*"/>
+    <log-event action="on" level="error critical authok authfail fatal warning information"/>
+  </log-stream>
+</log-config>

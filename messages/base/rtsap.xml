@@ -1,0 +1,344 @@
+<?xml version="1.0" standalone="yes"?>
+<!-- Copyright 2005-2007 Isode Limited -->
+<facility id="24" name="RTsap">
+  <doc>
+    <description>
+    Messages relating to the Reliable Transport Service Element
+    </description>
+  </doc>
+
+  <!-- General -->
+  <!-- Error numbers MUST match the value of the corresponding level -->
+  <message id="13" name="Fatal" severity="fatal" args="1">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>
+       OSI RTS Fatal Event. This event should only occur in very
+       unusual situations.  Isode's medium term plan is to remove all use of
+       this event.
+       </description>
+       <action>See log entry for details. Please send information on the
+       occurrence of this event to support@isode.com</action>
+    </doc>
+  </message>
+
+  <message id="12" name="Error" severity="error" args="1">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>
+       OSI RTS Error.  Isode's medium term plan is to remove all common use of
+       this event,  Isode's long term plan is to remove all use of this event. 
+       </description>
+       <action>See log entry for details</action>
+    </doc>
+  </message>
+
+  <message id="6" name="Notice" severity="notice" args="1">
+    <arg position="1">
+       Text describing condition
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>
+       General notice level event: See log entry for details
+       </description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <!-- Messages with the system log need two arguments,
+       and the id is the number for the level + 16 -->
+  <message id="29" name="FatalS" severity="fatal" args="2" system="yes">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <arg position="2">
+       Additional text field
+    </arg>
+    <text>%1 %2</text>
+    <doc>
+       <description>
+       OSI RTS Fatal Event. This event should only occur in very unusual
+       situations.  Isode's medium term plan is to remove all use of this event.
+       </description>
+       <action>See log entry for details. Please send information on the
+       occurrence of this event to support@isode.com</action>
+    </doc>
+  </message>
+
+  <message id="28" name="ErrorS" severity="error" args="2" system="yes">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <arg position="2">
+       Additional text field
+    </arg>
+    <text>%1 %2</text>
+    <doc>
+       <description>
+       OSI RTS Error.  Isode's medium term plan is to remove all common use of
+       this event,  Isode's long term plan is to remove all use of this event. 
+       </description>
+       <action>See log entry for details</action>
+    </doc>
+  </message>
+
+  <message id="22" name="NoticeS" severity="notice" args="2" system="yes">
+    <arg position="1">
+       Text describing condition
+    </arg>
+    <arg position="2">
+       Additional text field
+    </arg>
+    <text>%1 %2</text>
+    <doc>
+       <description>
+       General notice level event: See log entry for details
+       </description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <!-- PDUs -->
+  <message id="30" name="RTS_RTSE__apdus_W" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Written RTSE PDU</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="31" name="RTS_RTSE__apdus_R" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>Read RTSE PDU</description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <!-- Proper RTSE status values -->
+  <message id="49" name="ErrorFound" severity="detail" args="2">
+    <arg position="1">
+       Event which returned the error
+    </arg>
+    <arg position="2">
+       Text of actual error
+    </arg>
+    <text>Event %1 returned error %2</text>
+    <doc>
+       <description>
+       A call to a lower layer operation returned an error. This error is
+       passed to higher levels. This message gives the context for that error.
+        </description>
+    </doc>
+  </message>
+
+  <message id="50" name="Congestion" severity="error" args="1">
+    <arg position="1">Local reason for congestion</arg>
+    <text>Resourse congestion %1</text>
+    <doc>
+       <description>ACSE provider suffered from local resource issue.
+       </description>
+    </doc>
+  </message>
+
+  <message id="51" name="Protocol" severity="error" args="1">
+    <arg position="1">additional information</arg>
+    <text>Protocol error %1</text>
+    <doc>
+       <description>
+       Some protocol error has occurred
+       </description>
+    </doc>
+  </message>
+
+  <message id="52" name="PeerAbort" severity="error">
+    <text>Peer aborted connection</text>
+    <doc>
+       <description>
+       The peer aborted the connection, no user data.
+       </description>
+    </doc>
+  </message>
+
+  <message id="53" name="Parameter" severity="warning" args="1">
+    <arg position="1">additional information</arg>
+    <text>Parameter error %1</text>
+    <doc>
+       <description>
+       Error in parameters
+       </description>
+    </doc>
+  </message>
+
+  <message id="54" name="Operation" severity="error" args="1">
+    <arg position="1">additional information</arg>
+    <text>Operation error %1</text>
+    <doc>
+       <description>
+       Error in operation sequence
+       </description>
+    </doc>
+  </message>
+
+  <message id="55" name="Remote" severity="error">
+    <text>Remote system problem</text>
+    <doc>
+       <description>
+       Problem with remote system.
+       </description>
+    </doc>
+  </message>
+
+  <message id="57" name="TransCompleted" severity="error">
+    <text>Transfer completed</text>
+    <doc>
+       <description>
+       Association aborted as a result of the transfer already having been
+       completed.
+       </description>
+    </doc>
+  </message>
+
+  <message id="58" name="TransAbort" severity="error">
+    <text>Transfer and provider abort</text>
+    <doc>
+       <description>
+       Association aborted as a result of the transfer transfer being aborted.
+       completed.
+       </description>
+    </doc>
+  </message>
+
+  <message id="59" name="DiscardTimeout" severity="error">
+    <text>Discard following timeout timed out</text>
+    <doc>
+       <description>The transfer timed out. The attempt to discard the
+       transfer following this itself timed out.
+       </description>
+    </doc>
+  </message>
+
+  <message id="60" name="InterruptTimeout" severity="error">
+    <text>Interrupt following timeout timed out</text>
+    <doc>
+       <description>The transfer timed out. The attempt to interrupt the
+       transfer following this itself timed out.
+       </description>
+    </doc>
+  </message>
+
+  <message id="61" name="TransferFail" severity="error">
+    <text>Transfer failure</text>
+    <doc>
+       <description>The transfer failed.
+       </description>
+    </doc>
+  </message>
+
+  <message id="62" name="TransferTimeout" severity="error">
+    <text>Transfer timed out</text>
+    <doc>
+       <description>The transfer reached its timeout.
+       </description>
+    </doc>
+  </message>
+
+  <message id="63" name="TransferInterrupted" severity="warning">
+    <text>Transfer interrupted</text>
+    <doc>
+       <description>The transfer was interrupted.
+       </description>
+    </doc>
+  </message>
+
+  <message id="64" name="TransferDiscarded" severity="warning">
+    <text>Transfer discarded</text>
+    <doc>
+       <description>The transfer was discarded.
+       </description>
+    </doc>
+  </message>
+
+  <!-- Abort codes -->
+  <message id="80" name="LocalSystem" severity="error">
+    <text>Local system problem</text>
+    <doc>
+       <description>
+       The peer aborted the connection. Local system problem.
+       </description>
+    </doc>
+  </message>
+
+  <message id="81" name="InvalidParameter" severity="error">
+    <text>Invalid parameter</text>
+    <doc>
+       <description>
+       The peer aborted the connection. Some parameter was invalid.
+       </description>
+    </doc>
+  </message>
+
+  <message id="82" name="NoActivity" severity="error">
+    <text>Unreconized activity</text>
+    <doc>
+       <description>
+       The peer aborted the connection. Unrecognized activity.
+       </description>
+    </doc>
+  </message>
+
+  <message id="83" name="Temporary" severity="error">
+    <text>Temporary problem</text>
+    <doc>
+       <description>
+       The peer aborted the connection. Temporary problem.
+       </description>
+    </doc>
+  </message>
+
+  <message id="84" name="ProtocolError" severity="error">
+    <text>Protocol error</text>
+    <doc>
+       <description>
+       The peer aborted the connection. Protocol error.
+       </description>
+    </doc>
+  </message>
+
+  <message id="85" name="Permanent" severity="error">
+    <text>Permanent problem</text>
+    <doc>
+       <description>
+       The peer aborted the connection. Permanent problem.
+       </description>
+    </doc>
+  </message>
+
+  <message id="86" name="UserError" severity="error">
+    <text>User error</text>
+    <doc>
+       <description>
+       The peer aborted the connection. User error.
+       </description>
+    </doc>
+  </message>
+
+  <message id="87" name="TransferCompleted" severity="error">
+    <text>Transfer completed</text>
+    <doc>
+       <description>
+       The peer aborted the connection. Transfer completed.
+       </description>
+    </doc>
+  </message>
+
+</facility>

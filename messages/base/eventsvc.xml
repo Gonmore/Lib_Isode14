@@ -1,0 +1,635 @@
+<?xml version="1.0" standalone="yes"?>
+<!-- Copyright 2005-2007 Isode Limited -->
+<facility id="31" name="IOevent">
+  <doc>
+    <description>
+    A set of messages from the low-level I/O event handling sub-system
+    </description>
+  </doc>
+
+  <!-- Configuration and Manager -->
+  <message id="1" name="Managertype" severity="fatal" args="1">
+    <arg position="1">
+       The type of event manager requested
+    </arg>
+    <text>Unknown event manager type: %1</text>
+    <doc>
+       <description>In attempting to configure an event manager, an unknown
+       event manager type was provided.
+       </description>
+       <action>Programmer or configuration error</action>
+    </doc>
+  </message>
+
+  <message id="2" name="ManagerCreated" severity="warning">
+    <text>Event manager already created</text>
+    <doc>
+       <description>An event manager has already been created.
+	 This can arise as a result of a race condition between threads.
+       </description>
+    </doc>
+  </message>
+
+  <message id="3" name="Terminating" severity="notice">
+    <text>System shutting down</text>
+    <doc>
+       <description>The system is shutting down.
+       </description>
+    </doc>
+  </message>
+
+  <!-- Poll interface implementation -->
+  <message id="10" name="PollProvidertype" severity="fatal" args="1">
+    <arg position="1">
+       The type of poll provider
+    </arg>
+    <text>Unknown poll provider type: %1</text>
+    <doc>
+       <description>In attempting to configure a poll service provider,
+       an unknown type was supplied.
+       </description>
+       <action>Programmer or configuration error</action>
+    </doc>
+  </message>
+
+  <message id="11" name="PollProviderCreated" severity="warning">
+    <text>Poll provider already created</text>
+    <doc>
+       <description>An poll provider has already been created.
+	 This can arise as a result of a race condition between threads.
+       </description>
+    </doc>
+  </message>
+
+  <message id="12" name="Pollerror" severity="error" args="1" system="yes">
+    <text>Poll interface error calling %1</text>
+    <arg position="1">
+      The system call which returned the error
+    </arg>
+    <doc>
+      <description>The call to the given system call returned an error.
+	These should be very unusual, and are probably the result of a system
+        problem, such as resource limitations.
+      </description>
+    </doc>
+  </message>
+
+  <message id="13" name="Pollthread" severity="fatal" args="1">
+    <text>Poll locking error: %1</text>
+    <arg position="1" type="int">
+      The error code from the pthread call.
+    </arg>
+    <doc>
+      <description>A serious problem with locking has occurred. This is
+      can be fatal to the operation of the I/O polling.
+      </description>
+    </doc>
+  </message>
+
+  <message id="14" name="NoPollProvider" severity="fatal">
+    <text>There is no Poll Provider</text>
+    <doc>
+      <description>An I/O Stream needs a Poll Provider, but none has
+      been set up.
+      </description>
+    </doc>
+  </message>
+
+  <message id="15" name="PollRegister" severity="fatal" args="1">
+    <text>Poll Register error: %1</text>
+    <arg position="1" type="int">
+      The error code from the Register call.
+    </arg>
+    <doc>
+      <description>Registering the end point with the poll service failed.
+      If the error is -1, then the end point was already registered.
+      Other values are system error numbers.
+      </description>
+    </doc>
+  </message>
+
+<!-- Stream Interface -->
+
+  <message id="100" name="InvalidParameter" severity="error" args="1">
+    <text>Invalid parameter in request: %1</text>
+    <arg position="1">
+      The name of the parameter in error
+    </arg>
+    <doc>
+      <description>An invalid parameter was received in a request.
+      </description>
+    </doc>
+  </message>
+
+  <message id="101" name="NotConnected" severity="error" args="0">
+    <text>Endpoint is not connected</text>
+    <doc>
+      <description>A request for I/O was received when the provider
+      was not connected.
+      </description>
+    </doc>
+  </message>
+
+  <message id="102" name="IOerror" severity="fatal" args="1" system="yes">
+    <text>Error occurred on connection in %1</text>
+    <arg position="1">
+      The operation which failed
+    </arg>
+    <doc>
+      <description>A system error occurred on the connection.
+      </description>
+    </doc>
+  </message>
+
+  <message id="103" name="ConnectionClosed" severity="notice" args="0">
+    <text>Normal Connection Closure</text>
+    <doc>
+      <description>The Peer network entity closed the connection.
+      </description>
+    </doc>
+  </message>
+
+  <message id="104" name="MissingUser" severity="warning" args="0">
+    <text>Provider has no User - cannot communicate</text>
+    <doc>
+      <description>A Provider has no user with which it can communicate.
+      This could indicate a race condition when both the connection and
+      the user of the connection are shutting down at the same time.
+      </description>
+    </doc>
+  </message>
+
+  <message id="105" name="WrongState" severity="fatal" args="0">
+    <text>Provider in wrong state</text>
+    <doc>
+      <description>The provider is not the correct state for this operation.
+      </description>
+    </doc>
+  </message>
+
+  <message id="110" name="DupRead" severity="error" args="0">
+    <text>Already reading</text>
+    <doc>
+      <description>A read request was received by a stream provider,
+      when there was already an outstanding read request.
+      </description>
+    </doc>
+  </message>
+
+  <message id="111" name="DupWrite" severity="error" args="0">
+    <text>Already reading</text>
+    <doc>
+      <description>A write request was received by a stream provider,
+      when there was already an outstanding write request.
+      </description>
+    </doc>
+  </message>
+
+
+  <message id="112" name="AddrType" severity="error" args="1">
+    <text>Unknown socket address family %1</text>
+    <arg position="1" type="int">
+      The value of the sa_family field
+    </arg>
+    <doc>
+      <description>The socket address specified a family not known
+      to the stream provider.
+      </description>
+    </doc>
+  </message>
+
+  <message id="113" name="Connected" severity="success" args="0">
+    <text>Connected to peer</text>
+    <doc>
+      <description>The stream provider is connected to the peer.
+      </description>
+    </doc>
+  </message>
+
+  <message id="114" name="AcceptError" severity="error" args="0">
+    <text>Error in accept</text>
+    <doc>
+      <description>An error occurred in accept.
+      </description>
+    </doc>
+  </message>
+
+  <message id="115" name="UnknownStreamOpt" severity="warning" args="1">
+    <text>Unknown stream constrol option %1</text>
+    <arg position="1" type="int">
+      The number of the option.
+    </arg>
+    <doc>
+      <description>A control message was sent to a stream provider with
+      an unknown option. It was ignored.
+      </description>
+    </doc>
+  </message>
+
+  <message id="116" name="StreamProvidertype" severity="fatal" args="1">
+    <arg position="1">
+       The type of stream provider
+    </arg>
+    <text>Unknown stream provider type: %1</text>
+    <doc>
+       <description>In attempting to create a stream provider,
+       an unknown type was supplied.
+       </description>
+       <action>Programmer or configuration error</action>
+    </doc>
+  </message>
+
+  <message id="117" name="Listening" severity="success" args="0">
+    <text>Listening OK</text>
+    <doc>
+      <description>The provider is listening OK
+      </description>
+    </doc>
+  </message>
+
+  <message id="118" name="Inherit" severity="fatal" args="0" system="yes">
+    <text>Error making socket inheritable</text>
+    <doc>
+      <description>
+      In order to pass a connection to another process it has to be made
+      inheritable. This operation failed.
+      </description>
+    </doc>
+  </message>
+
+  <!-- SSL/TLS related items -->
+  <message id="200" name="SSLOK" severity="success" args="3">
+    <arg position="1">SSL version</arg>
+    <arg position="2" type="int">Cipher code</arg>
+    <arg position="3" type="int">Cipher strength</arg>
+    <text>SSL/TLS handshake OK version=%1, cipher=%2, strength=%3</text>
+    <doc>
+      <description>SSL/TLS has started correctly.
+      </description>
+    </doc>
+  </message>
+
+  <message id="201" name="SSLverified" severity="success" args="4">
+    <arg position="1">SSL version</arg>
+    <arg position="2" type="int">Cipher code</arg>
+    <arg position="3" type="int">Cipher strength</arg>
+    <arg position="4">Peer name</arg>
+    <text>SSL/TLS handshake OK version=%1, cipher=%2, strength=%3 with %4</text>
+    <doc>
+      <description>SSL/TLS has started correctly, and the peer identity
+      identity has been verified.
+      </description>
+    </doc>
+  </message>
+
+  <message id="202" name="SSLnotverified" severity="error">
+    <text>SSL/TLS verification failed</text>
+    <doc>
+      <description>SSL/TLS failed to verify the peer entity. A subordinate
+      message may give more information.
+      </description>
+    </doc>
+  </message>
+
+  <message id="203" name="SSLpreconfig" severity="error">
+    <text>SSL/TLS preconfiguration failed</text>
+    <doc>
+      <description>The first configuration function call failed.
+      </description>
+    </doc>
+  </message>
+
+  <message id="204" name="SSLlibinit" severity="error">
+    <text>SSL/TLS library initialization failed</text>
+    <doc>
+      <description>Failed to load SSL/TLS library.
+      </description>
+    </doc>
+  </message>
+
+  <message id="205" name="SSLentropy" severity="error" args="2">
+    <arg position="1">Name of seed file</arg>
+    <arg position="2">Specific information</arg>
+    <text>SSL/TLS random initialize problem (seedfile=%1), %2</text>
+    <doc>
+      <description>TLS cryptographic random number generator seed data being
+      generated internally.  This is probably less secure than you intend,
+      and NOT suitable for production use.
+      </description>
+      <action>
+      For production use, the configured seed file (name given in the message)
+      should be filled with a sufficient amount of externally-generated
+      cryptographically random data. (This needs to be done only once.)
+      ACCESS CONTROL set on the seed file should prevent all other users
+      reading and writing the file.
+      </action>
+    </doc>
+  </message>
+
+  <message id="206" name="SSLnosuites" severity="error">
+    <text>No SSL/TLS cipher suites configured</text>
+    <doc>
+      <description>There are no cipher suites configured.
+      </description>
+    </doc>
+  </message>
+
+  <message id="207" name="SSLerror" severity="error" args="2">
+    <arg position="1">Context for error</arg>
+    <arg position="2">Specific information</arg>
+    <text>SSL/TLS problem with %1: %2</text>
+    <doc>
+      <description>There was an error in an SSL/TLS function.
+      </description>
+    </doc>
+  </message>
+
+  <message id="208" name="SSLIDerror" severity="error" args="1">
+    <arg position="1">Path for ID file</arg>
+    <text>SSL/TLS could not load identity from %1</text>
+    <doc>
+      <description>There was a failure adding the identity from the given file.
+      </description>
+    </doc>
+  </message>
+
+  <message id="209" name="SSLID" severity="notice" args="1">
+    <arg position="1">Path for ID file</arg>
+    <text>SSL/TLS loaded identity from %1</text>
+    <doc>
+      <description>The SSL/TLS system loaded the identity found in the file.
+      </description>
+    </doc>
+  </message>
+
+  <message id="210" name="SSLnoIDs" severity="notice">
+    <text>SSL/TLS could not load any identities</text>
+    <doc>
+      <description>There were no SSL/TLS identities which could be loaded.
+      </description>
+    </doc>
+  </message>
+
+  <message id="211" name="SSLIDload" severity="error" args="1">
+    <arg position="1">Path for ID file</arg>
+    <text>SSL/TLS failed to load identity file %1</text>
+    <doc>
+      <description>The SSL/TLS system failed loading the ID file.
+      </description>
+    </doc>
+  </message>
+
+  <message id="212" name="SSLIDloaderror" severity="error" args="2">
+    <arg position="1">Path for ID file</arg>
+    <arg position="2">Additional information</arg>
+    <text>SSL/TLS failed to load identity file %1, %2</text>
+    <doc>
+      <description>The SSL/TLS system failed loading the ID file.
+      </description>
+    </doc>
+  </message>
+
+  <message id="213" name="SSLIDmissing" severity="error" args="1">
+    <arg position="1">Path for ID file</arg>
+    <text>SSL/TLS failed to find identity file in %1</text>
+    <doc>
+      <description>Could not find the identity file id.p12 in the directory.
+      </description>
+    </doc>
+  </message>
+
+  <message id="214" name="SSLrsablinding" severity="notice">
+    <text>SSL/TLS has RSA blinding disabled</text>
+    <doc>
+      <description>RSA blinding has been disabled.
+      </description>
+    </doc>
+  </message>
+
+  <message id="215" name="SSLDHfile" severity="error" args="1">
+    <arg position="1">name of file</arg>
+    <text>Problem reading DH parameter file %1</text>
+    <doc>
+      <description>A problem was found reading the Diffie-Hellman parameter file.
+      </description>
+    </doc>
+  </message>
+
+  <message id="216" name="SSLDHparam" severity="error" args="1">
+    <arg position="1">error detail</arg>
+    <text>Problem with DH parameter in file: %1</text>
+    <doc>
+      <description>There is a problem with a Diffie-Hellman parameter read
+      from the parameter file.
+      </description>
+    </doc>
+  </message>
+
+  <message id="217" name="SSLCAfile" severity="error" args="2">
+    <arg position="1">Path for CA file</arg>
+    <arg position="2">Additional information</arg>
+    <text>SSL/TLS problem loading trusted CA file %1, %2</text>
+    <doc>
+      <description>The SSL/TLS system failed loading the trusted CA file.
+      </description>
+    </doc>
+  </message>
+
+  <message id="218" name="SSLcertverify" severity="error" args="4">
+    <arg position="1" type="int">Error number</arg>
+    <arg position="2">Error description</arg>
+    <arg position="3" type="int">Depth in chain</arg>
+    <arg position="4">Certificate issuer</arg>
+    <text>SSL/TLS certificate verify error (%1) %2, depth=%3 issuer=%4</text>
+    <doc>
+      <description>A certificate in the path failed verification for the reason
+      stated.
+      </description>
+    </doc>
+  </message>
+
+  <message id="219" name="SSLalready" severity="warning">
+    <text>SSL/TLS has already been started</text>
+    <doc>
+      <description>An attempt was made to start TLS when TLS had already been
+      started.
+      </description>
+    </doc>
+  </message>
+
+  <message id="220" name="SSLnoissuercert" severity="error" args="0">
+    <text>Unable to get issuer certificate</text>
+    <doc>
+      <description>Peer authentication was unable to get the issuer certificate.
+      </description>
+    </doc>
+  </message>
+
+  <message id="221" name="SSLcertdecryptfailed" severity="error" args="0">
+    <text>Unable to decrypt certificate's signature</text>
+    <doc>
+      <description>Could not decrypt the signature in the certificate.
+      </description>
+    </doc>
+  </message>
+
+  <message id="222" name="SSLcertsignature" severity="error" args="0">
+    <text>Certificate's signature failure</text>
+    <doc>
+      <description>The certificate's signature could not be verified.
+      </description>
+    </doc>
+  </message>
+
+  <message id="223" name="SSLcertnotyetvalid" severity="error" args="0">
+    <text>Certificate is not yet valid</text>
+    <doc>
+      <description>The certificate has a validity period in the future.
+      </description>
+    </doc>
+  </message>
+
+  <message id="224" name="SSLcertexpired" severity="error" args="0">
+    <text>Certificate has expired</text>
+    <doc>
+      <description>The certificate has a validity period in the past.
+      </description>
+    </doc>
+  </message>
+
+  <message id="225" name="SSLcertnotbefore" severity="error" args="0">
+    <text>Certificate has an invalid notBefore field</text>
+    <doc>
+      <description>The certificate has an invalid date in its notBefore field.
+      </description>
+    </doc>
+  </message>
+
+  <message id="226" name="SSLselfsigned" severity="error" args="0">
+    <text>A self-signed certificate found in chain</text>
+    <doc>
+      <description>A self signed certificate was found in the chain.
+      </description>
+    </doc>
+  </message>
+
+  <message id="227" name="SSLlocalissuer" severity="error" args="0">
+    <text>Unable to get local issuer's certificate</text>
+    <doc>
+      <description>The local issuer's certificate was not available.
+      </description>
+    </doc>
+  </message>
+
+  <message id="228" name="SSLleafsignature" severity="error" args="0">
+    <text>Unable to verify the first certificate</text>
+    <doc>
+      <description>The first certificate did not verify.
+      </description>
+    </doc>
+  </message>
+
+  <message id="229" name="SSLchaintoolong" severity="error" args="0">
+    <text>The certificate chain was too long</text>
+    <doc>
+      <description>The certificate chain was too long.
+      </description>
+    </doc>
+  </message>
+
+  <message id="230" name="SSLinvalidCA" severity="error" args="0">
+    <text>The CA certificate was not valid</text>
+    <doc>
+      <description>The CA's certificate was not valid.
+      </description>
+    </doc>
+  </message>
+
+  <message id="231" name="SSLpathlength" severity="error" args="0">
+    <text>The path length constraint exceeded</text>
+    <doc>
+      <description>The length of the path exceeded the constraint.
+      </description>
+    </doc>
+  </message>
+
+  <message id="232" name="SSLinvalidpurpose" severity="error" args="0">
+    <text>Unsupported certificate purpose</text>
+    <doc>
+      <description>The certificate contained a purpose which is not supported.
+      </description>
+    </doc>
+  </message>
+
+  <message id="233" name="SSLuntrusted" severity="error" args="0">
+    <text>Certificate not trusted</text>
+    <doc>
+      <description>A certificate is not trusted.
+      </description>
+    </doc>
+  </message>
+
+  <message id="234" name="SSLrejected" severity="error" args="0">
+    <text>Certificate rejected</text>
+    <doc>
+      <description>The certificate was rejected.
+      </description>
+    </doc>
+  </message>
+
+  <message id="235" name="SSLsubjectissuer" severity="error" args="0">
+    <text>Subject issuer mismatch</text>
+    <doc>
+      <description>There was a mismatch with the subject issuer.
+      </description>
+    </doc>
+  </message>
+
+  <message id="236" name="SSLserialmismatch" severity="error" args="0">
+    <text>Authority and issuer serial number mismatch</text>
+    <doc>
+      <description>Mistamch with the authority and issuer serial number.
+      </description>
+    </doc>
+  </message>
+
+  <message id="237" name="SSLkeyusage" severity="error" args="0">
+    <text>Key usage does not include certificate signing</text>
+    <doc>
+      <description>A certificate in the path is not allowed to sign another
+      certificate.
+      </description>
+    </doc>
+  </message>
+
+  <message id="238" name="SSLnocert" severity="error" args="0">
+    <text>There was no peer certificate and a certificate is required</text>
+    <doc>
+      <description>The configuration requires peer authentication, and
+      no peer certificate was available.
+      </description>
+    </doc>
+  </message>
+
+  <message id="239" name="SSLunknown" severity="error" args="1">
+    <arg position="1" type="int">Internal error code</arg>
+    <text>unknown verification reason %1</text>
+    <doc>
+      <description>The verification failed for some unknown reason.
+      </description>
+    </doc>
+  </message>
+
+  <message id="240" name="SSLnul_in_subject" severity="error" args="1">
+    <arg position="1">name</arg>
+    <text>Subject name may contain NUL: possibly truncated name %1</text>
+    <doc>
+      <description>A certificate with an unacceptable name has been
+      received.  The name contains a NUL, and unfortunately (even if
+      that is intended and valid) our software is unable to safely use
+      such names, so we must reject the certificate.
+      </description>
+    </doc>
+  </message>
+
+</facility>

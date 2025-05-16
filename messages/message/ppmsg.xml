@@ -1,0 +1,902 @@
+<?xml version="1.0" standalone="yes"?>
+<!-- Copyright 2005-2009 Isode Limited -->
+<facility id="100" name="MTA">
+  <doc>
+    <description>
+    Messages relating to generic M-Switch functionality
+    </description>
+  </doc>
+
+  <!-- General -->
+  <!-- Error numbers MUST match the value of the corresponding level -->
+  <message id="6" name="Notice" severity="notice" args="1">
+    <arg position="1">
+       Text describing condition
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>General notice level event: See log entry for details
+       </description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="12" name="Error" severity="error" args="1">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>General error used for normal errors
+       </description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="13" name="Fatal" severity="fatal" args="1">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>M-Switch Error. Isode's medium term plan is to remove all
+       common use of this event, Isode's long term plan is to remove all use of
+       this event. 
+       </description>
+       <action>See log entry for details</action>
+    </doc>
+  </message>
+
+  <message id="14" name="Critical" severity="critical" args="2">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <arg position="2">
+       Optional text when reporting system error
+    </arg>
+    <text>%1 %2</text>
+    <doc>
+       <description>Critical M-Switch Event. This event should only occur in
+       very unusual situations.  Isode's medium term plan is to remove all use
+       of this event. 
+       </description>
+       <action>See Log entry for details.  Please send information on the
+       occurrence of this event to support@isode.com</action>
+    </doc>
+  </message>
+
+  <!-- Messages with the system log need two arguments,
+       and the id is the number for the level + 16 -->
+  <message id="29" name="FatalS" severity="fatal" args="2" system="yes">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <arg position="2">
+       Additional text field
+    </arg>
+    <text>%1 %2</text>
+    <doc>
+       <description>
+       Fatal M-Switch Event. This event should only occur in very unusual
+       situations.  Isode's medium term plan is to remove all use of this event
+       </description>
+       <action>See Log entry for details.  Please send information on the
+       occurrence of this event to support@isode.com</action>
+    </doc>
+  </message>
+
+  <message id="28" name="ErrorS" severity="error" args="2" system="yes">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <arg position="2">
+       Additional text field
+    </arg>
+    <text>%1 %2</text>
+    <doc>
+       <description>
+       M-Switch Error. Isode's medium term plan is to remove all common use of
+       this event,  Isode's long term plan is to remove all use of this event
+       </description>
+       <action>See log entry for details.</action>
+    </doc>
+  </message>
+
+  <message id="22" name="NoticeS" severity="notice" args="2" system="yes">
+    <arg position="1">
+       Text describing condition
+    </arg>
+    <arg position="2">
+       Additional text field
+    </arg>
+    <text>%1 %2</text>
+    <doc>
+       <description>General notice level event: See log entry for details
+       </description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+
+  <!-- General system errors -->
+
+  <message id="44" name="ProcDying" severity="fatal" args="2">
+    <arg position="1"  type="int" >
+       Int value of the signal that is killing the process
+    </arg>
+    <arg position="2">
+       String value of the signal that is killing the process
+    </arg>
+    <text>Process dying on signal %1 (%2)</text>
+    <doc>
+       <description>The process is dying after receiving a signal from the OS
+       </description>
+       <action>May be temporary resource problem.  If error repeats, investigate
+       for configuration error</action>
+    </doc>
+  </message>
+
+
+  <message id="45" name="NoShutdownHandle" severity="fatal">
+    <text>Failed to create shutdown handle</text>
+    <doc>
+       <description>The channel failed to create a system event to
+       mark shutdown of the service.
+       </description>
+       <action>This would be unusual. The most likely cause would be
+       exhaustion of system resources. If error repeats, investigate for
+       configuration error on M-Switch or on system.
+       </action>
+    </doc>
+  </message>
+
+  <message id="46" name="UnexpectedEvent" severity="fatal" args="1" system="yes">
+    <arg position="1" type="int">
+      Return code from function.
+    </arg>
+    <text>Unexpected event, status=%1</text>
+    <doc>
+       <description>An unexpected event occured while waiting for the
+       service to be shutdown.
+       </description>
+       <action>See other log entries for further information</action>
+    </doc>
+  </message>
+
+  <message id="47" name="ChangeNotification" severity="fatal" args="1" system="yes">
+    <arg position="1">
+       name of directory/folder being monitored
+    </arg>
+    <text>Change notification failure for %1</text>
+    <doc>
+       <description>There was a failure monitoring a folder for changes.
+       </description>
+       <action>Check that the directory exists, and that the permissions are
+       correct. May be a temporary system resource shortage.  If error repeats,
+       investigate for configuration error.</action>
+    </doc>
+  </message>
+
+  <!-- Communication -->
+
+  <message id="50" name="CantCreateSocket" severity="error" args="0">
+    <text>Can't create socket to connect to the submit server</text>
+    <doc>
+       <description>It was not possible to create a socket to connect
+       to the submit server</description>
+       <action>Check for temporary system resource shortage.  If error repeats,
+       investigate for configuration error</action>
+    </doc>
+  </message>
+
+  <message id="51" name="CantBind" severity="error" args="0">
+    <text>Can't bind/listen on socket to connect to the submit server</text>
+    <doc>
+	<description>
+	It was not possible for submit to listen on a socket for incoming
+	connections from a client.
+	</description>
+       <action>
+       Check that the submit port is correctly configured. Make sure the
+       submit program has the correct permissions</action>
+    </doc>
+  </message>
+
+  <message id="52" name="CantConnect2QMGR" severity="error" args="2">
+    <text>Can't connect to QMGR %1</text>
+    <arg position="1">
+       Passive channel name
+    </arg>
+    <arg position="2">
+       Internal PP name
+    </arg>
+    <doc>
+       <description>It was not possible to connect to the QMGR as a passive channel
+       </description>
+       <action>Check that QMGR  is running.  If it is running, there is a
+       configuration error in the program that failed to bind that must be
+       corrected.</action>
+    </doc>
+  </message>
+
+  <message id="53" name="CantSetUID" severity="fatal" args="0">
+    <text>Cannot set userid mail user</text>
+    <doc>
+       <description>Cannot set userid mail user
+       </description>
+       <action>Ensure that the owner of the submit program exists</action>
+    </doc>
+  </message>
+
+  <message id="54" name="ChanTimeout" severity="error" args="1">
+    <text>Aborting channel after timeout (message %1)</text>
+    <arg position="1">
+	Name of the message that the channel failed to process because of the 
+	timeout
+    </arg>
+    <doc>
+       <description>Aborting channel after timeout, for the message ID specified
+       </description>
+       <action>The Tcl interpreter in the checking channel has timed out. Check
+       for other errors in the logs</action>
+    </doc>
+  </message>
+
+  <message id="55" name="ProblemWithMtaOnChan" severity="error" args="1">
+    <text>Problem with MTAs queued on chan %1</text>
+    <arg position="1">
+       Name of the channel where the problem was detected
+    </arg>
+    <doc>
+       <description>There was a problem with MTAs queued on a channel
+       </description>
+       <action>iMay be problems with messages or configuration. Check other log
+       entries for further information. Examine the message in the queue. Check
+       the MTA configuration</action>
+    </doc>
+  </message>
+
+  <message id="56" name="CannotChangeDir" severity="fatal" args="1" system="yes">
+    <text>Cannot change directory to %1</text>
+    <arg position="1">Name of directory
+    </arg>
+    <doc>
+       <description>Cannot change directory.
+       </description>
+       <action>Check logentry for further information. Ensure that the directory
+       exists and that the permissions are correct</action>
+    </doc>
+  </message>
+
+  <message id="60" name="MessageDiscard" severity="notice" args="2">
+    <text>Message to %1 discarded: %2</text>
+    <arg position="1">
+       Name of the recipient of the message
+    </arg>
+    <arg position="2">
+       A string giving the reason the message is being discarded
+    </arg>
+    <doc>
+       <description>A message to a recipient is being discarded.
+       The normal reason for this is that the checking channel has been
+       configured to discard messages which match certain characteristics.
+       </description>
+       <action>
+       Generally, no action is necessary.  If message discard is not intended,
+       this should be investigated for configuration error.
+       The m-switch audit log can be inspected for more information about the
+       message. 
+       </action>
+    </doc>
+  </message>
+
+  <message id="61" name="ReportDiscard" severity="notice" args="2">
+    <text>Report to %1 discarded: %2</text>
+    <arg position="1">
+       Name of the recipient of the report
+    </arg>
+    <arg position="2">
+       A string giving the reason the report is being discarded
+    </arg>
+    <doc>
+       <description>A report to a recipient is being discarded.
+       Reports are discarded on any error, such as routing errors or
+       failure to transfer within the required time.
+       </description>
+       <action>Discard of reports is often routine.  Site policy may require
+       this event to be investigated, to ensure that there is no associated
+       message loss. The audit log can be inspected for more information about
+       the report, and there may be indications for the failure in other
+       event log messages.
+       </action>
+    </doc>
+  </message>
+
+  <!-- Submission messages -->
+  <message id="100" name="SubmitMsgCheck" severity="error" args="1">
+    <text>Problem checking inbound message: %1</text>
+    <arg position="1">
+       A string giving the problem with the message.
+    </arg>
+    <doc>
+       <description>Various checks are made on a message on submission.
+       A message has failed these checks.
+       </description>
+    </doc>
+  </message>
+
+  <message id="101" name="AddressFailed" severity="error" args="2">
+    <text>Address %1 invalid: %2</text>
+    <arg position="1">
+       The address string which is being faulted
+    </arg>
+    <arg position="2">
+       A string describing the problem.
+    </arg>
+    <doc>
+       <description>An address failed in submission
+       </description>
+    </doc>
+  </message>
+
+  <message id="102" name="RoutingTimeout" severity="warning" args="2">
+    <text>Address %1 timed out: %2</text>
+    <arg position="1">
+       The address string which is being faulted
+    </arg>
+    <arg position="2">
+       A string describing the problem.
+    </arg>
+    <doc>
+       <description>The procedure to route a recipient address resulted
+       in a network timeout.
+       </description>
+    </doc>
+  </message>
+
+  <message id="103" name="NoRecipients" severity="error" args="0">
+    <text>Message has no recipients</text>
+    <doc>
+       <description>The message being submitted has no recipients
+       which require processing.
+       </description>
+    </doc>
+  </message>
+
+  <message id="104" name="LookupFailed" severity="error" args="2">
+    <text>Address %1 lookup failed: %2</text>
+    <arg position="1">
+       The address string which is being faulted
+    </arg>
+    <arg position="2">
+       A string describing the problem.
+    </arg>
+    <doc>
+       <description>An address failed in lookup in a remote directory.
+       </description>
+    </doc>
+  </message>
+
+  <message id="105" name="SubmitContentError" severity="error" args="1">
+    <text>Problem with message content: %1</text>
+    <arg position="1">
+       A string giving the problem with the message.
+    </arg>
+    <doc>
+       <description>Various checks are made on a message content on submission.
+       A message has failed these checks.
+       </description>
+    </doc>
+  </message>
+
+  <!-- Generic messages for channel processing -->
+  <message id="150" name="ChanProcess" severity="notice" args="2">
+    <text>%1 processing message %2</text>
+    <arg position="1">
+       Name of channel
+    </arg>
+    <arg position="2">
+       Queue ID for the message
+    </arg>
+    <doc>
+       <description>The channel is starting processing the given message.
+       </description>
+    </doc>
+  </message>
+
+  <message id="151" name="NoSource" severity="error" args="2">
+    <text>%1: missing source directory for message %2</text>
+    <arg position="1">
+       Name of channel
+    </arg>
+    <arg position="2">
+       Queue ID for the message
+    </arg>
+    <doc>
+       <description>There is no source directory for the message content
+       for the given message.
+       </description>
+    </doc>
+  </message>
+
+  <message id="152" name="NoContentType" severity="error" args="2">
+    <text>%1: missing content type for message %2</text>
+    <arg position="1">
+       Name of channel
+    </arg>
+    <arg position="2">
+       Queue ID for the message
+    </arg>
+    <doc>
+       <description>There is no content-type for the given message.
+       </description>
+    </doc>
+  </message>
+
+  <message id="153" name="ContentOpen" severity="error" args="2" system="yes">
+    <text>%1: cannot open content %2</text>
+    <arg position="1">
+       Name of channel
+    </arg>
+    <arg position="2">
+       Name of content file
+    </arg>
+    <doc>
+       <description>Cannot open the named content file.
+       </description>
+    </doc>
+  </message>
+
+  <message id="154" name="Qid2Dir" severity="error" args="3">
+    <text>%1: cannot create directory name for %2:%3</text>
+    <arg position="1">
+       Name of channel
+    </arg>
+    <arg position="2">
+       Queue ID of message
+    </arg>
+    <arg position="3" type="int">
+       Internal recipient number
+    </arg>
+    <doc>
+       <description>Cannot generate the required queue name for the recipient.
+       </description>
+    </doc>
+  </message>
+
+  <!-- Conversion and authorization related messages -->
+  <message id="200" name="ContentSyntaxError" severity="fatal" args="2">
+    <text>%1 has incorrect syntax: %2</text>
+    <arg position="1">
+       The component of the content
+    </arg>
+    <arg position="2">
+       A string giving the problem with the content.
+    </arg>
+    <doc>
+       <description>The message content cannot be decoded either because
+       of corruption, or because it is not the content type given in the
+       message envelope.
+       </description>
+    </doc>
+  </message>
+
+  <message id="201" name="EITsNotSupported" severity="fatal" args="1">
+    <text>Encoded information types not supported: %1</text>
+    <arg position="1">
+       The name(s) of the encoded information types which are not supported
+    </arg>
+    <doc>
+       <description>The message cannot be processed because the message
+       contains EITs which are not supported by the recipient.
+       </description>
+    </doc>
+  </message>
+
+  <message id="202" name="ContentTypeNotSupported" severity="fatal" args="1">
+    <text>Content type not supported: %1</text>
+    <arg position="1">
+       The name of the content type which would be used
+    </arg>
+    <doc>
+       <description>The message cannot be transferred or delivered
+       because the content type of the original message is not supported,
+       or because the message cannot be converted to any content type
+       supported by the recipient.
+       </description>
+    </doc>
+  </message>
+
+  <message id="203" name="ConversionImpractical" severity="fatal" args="1">
+    <text>Conversion impractical: %1</text>
+    <arg position="1">
+       Detailed reason for the problem.
+    </arg>
+    <doc>
+       <description>Some issue prevents the conversion of the message.
+       </description>
+    </doc>
+  </message>
+
+  <message id="204" name="ConversionWithLoss" severity="fatal">
+    <text>Conversion with loss prohibited</text>
+    <doc>
+       <description>The conversion of the message would require loss of
+       information and this has been forbidden by the sender of the message.
+       </description>
+    </doc>
+  </message>
+
+  <message id="205" name="ContentTooLong" severity="fatal" args="2">
+    <text>Content size (%1) exceeds authorized size (%2)</text>
+    <arg position="1" type="int">
+       Size of content
+    </arg>
+    <arg position="2" type="int">
+       Limit on size
+    </arg>
+    <doc>
+       <description>The size of the message content exceeds a limit
+       set for the channel, MTA or user.
+       </description>
+    </doc>
+  </message>
+
+  <message id="206" name="NoBilateralAgreement" severity="fatal" args="1">
+    <text>Message transfer not authorized: %1</text>
+    <arg position="1">
+       Detailed reason for the problem.
+    </arg>
+    <doc>
+       <description>The message is not allowed to be transferred to
+       the user or the peer MTA.
+       </description>
+    </doc>
+  </message>
+
+  <message id="207" name="ConversionProblem" severity="error" args="2">
+    <text>%1: Problem converting content from message %2</text>
+    <arg position="1">
+       Name of channel
+    </arg>
+    <arg position="2">
+       Queue ID for the message
+    </arg>
+    <doc>
+       <description>There was some error converting the message content.
+       The Switch will attempt the conversion again if the problem
+       is not a permanent error.
+       </description>
+    </doc>
+  </message>
+
+  <message id="208" name="CharsetInit" severity="error" args="2">
+    <text>Cannot initialize charset %1: %2</text>
+    <arg position="1">
+       Name of character set
+    </arg>
+    <arg position="2">
+       Detailed reason
+    </arg>
+    <doc>
+       <description>Cannot initialize the character set.
+       </description>
+    </doc>
+  </message>
+
+  <message id="209" name="CharsetDecode" severity="error" args="1">
+    <text>Problem decoding character string: %1</text>
+    <arg position="1">
+       Detailed problem
+    </arg>
+    <doc>
+       <description>Cannot decode character string.
+       </description>
+    </doc>
+  </message>
+
+  <message id="210" name="CharsetEncode" severity="error" args="1">
+    <text>Problem encoding character string: %1</text>
+    <arg position="1">
+       Detailed problem
+    </arg>
+    <doc>
+       <description>Cannot encode character string.
+       </description>
+    </doc>
+  </message>
+
+  <message id="211" name="FieldParse" severity="warning" args="3">
+    <text>Parse error (%1) %2: %3</text>
+    <arg position="1">
+       Detailed problem
+    </arg>
+    <arg position="2">
+       Field type
+    </arg>
+    <arg position="3">
+       Field body
+    </arg>
+    <doc>
+       <description>Problem found in parsing RFC 2822 heading field.
+       </description>
+    </doc>
+  </message>
+
+  <message id="212" name="FilterError" severity="error" args="1">
+    <text>Error in Filter processing: %1</text>
+    <arg position="1">
+       Detailed problem
+    </arg>
+    <doc>
+       <description>An attempt is made to read data which is not available
+       in this context. This is probably the result of a misconfigured
+       list of filters.
+       </description>
+    </doc>
+  </message>
+
+  <message id="213" name="AddressParse" severity="warning" args="2">
+    <text>Parse error (%1) %2</text>
+    <arg position="1">
+       Detailed problem
+    </arg>
+    <arg position="2">
+       Field body
+    </arg>
+    <doc>
+       <description>Problem found in parsing address in RFC 2822 heading field.
+       </description>
+    </doc>
+  </message>
+
+  <message id="214" name="Asn1EncodeError" severity="error" args="2">
+    <text>Failure encoding %1: %2</text>
+    <arg position="1">
+       Item being encoded
+    </arg>
+    <arg position="2">
+       Detail for failure
+    </arg>
+    <doc>
+       <description>A problem was encountered encoding an ASN.1 object.
+       </description>
+    </doc>
+  </message>
+
+  <message id="215" name="Asn1DecodeError" severity="error" args="2">
+    <text>Failure decoding %1: %2</text>
+    <arg position="1">
+       Item being decoded
+    </arg>
+    <arg position="2">
+       Detail for failure
+    </arg>
+    <doc>
+       <description>A problem was encountered decoding an ASN.1 object.
+       </description>
+    </doc>
+  </message>
+
+  <message id="216" name="Asn1PEwrite" severity="error">
+    <text>Failed to flatten PElements</text>
+    <doc>
+       <description>A problem was encountered flattening PElements to
+       a presentation stream.
+       </description>
+    </doc>
+  </message>
+
+  <message id="217" name="Downgrade" severity="error" args="1">
+    <text>Failed to downgrade: %1</text>
+    <arg position="1">
+       Details of problem
+    </arg>
+    <doc>
+       <description>Downgrading IPMS 88 to IPMS 84 failed.
+       </description>
+    </doc>
+  </message>
+
+
+  <message id="218" name="UnknownEncoding" severity="error" args="1">
+    <text>Unknown transfer encoding: %1</text>
+    <arg position="1">
+       The name of the encoding
+    </arg>
+    <doc>
+       <description>In attempting to decode a message body, an unknown
+       transfer encoding has been encountered.
+       </description>
+    </doc>
+  </message>
+
+  <!--  Checking channel -->
+  <message id="300" name="Tclerror" severity="error" args="2">
+    <text>Tcl error when %1: %2</text>
+    <arg position="1">
+       When error happened
+    </arg>
+    <arg position="2">
+       Tcl result
+    </arg>
+    <doc>
+       <description>A Tcl error occurred while executing part of the
+       checking channel.
+       </description>
+    </doc>
+  </message>
+
+  <message id="301" name="UUdecode" severity="error" args="1">
+    <text>UUdecode error %1</text>
+    <arg position="1">
+       Error detail
+    </arg>
+    <doc>
+       <description>An error occurred extracting a uuencoded attachment.
+       </description>
+    </doc>
+  </message>
+
+  <message id="302" name="Verification" severity="error">
+    <text>Signature verification failed</text>
+    <doc>
+       <description>Signature verification failed for reasons given in
+       subordinate message.
+       </description>
+    </doc>
+  </message>
+
+  <message id="303" name="InvalidSecurityLabel" severity="error" args="1">
+    <text>Invalid Security Label, %1</text>
+    <arg position="1">
+       Error detail
+    </arg>
+    <doc>
+       <description>A security label was found which was not valid.
+       </description>
+    </doc>
+  </message>
+
+
+  <!-- CCCP checking channel -->
+  <message id="400" name="CCCPprotocol" severity="error" args="2">
+    <text>Procotol error %1 near '%2'</text>
+    <arg position="1">
+       Error detail
+    </arg>
+    <arg position="2">
+       Context for error
+    </arg>
+    <doc>
+       <description>There was an error in the protocol from the CCCP server.
+       </description>
+    </doc>
+  </message>
+
+  <message id="401" name="CCCPinternal" severity="error" args="1">
+    <text>Internal error %1</text>
+    <arg position="1">
+       Error detail
+    </arg>
+    <doc>
+       <description>There was an internal error.
+       </description>
+    </doc>
+  </message>
+
+  <message id="402" name="CCCPunsolicitedNO" severity="error" args="1">
+    <text>Unsolicited NO from CCCP server: %1</text>
+    <arg position="1">
+       Error detail
+    </arg>
+    <doc>
+       <description>An untagged NO response was received
+       </description>
+    </doc>
+  </message>
+
+  <message id="403" name="CCCPunsolicitedBAD" severity="error" args="1">
+    <text>Unsolicitied BAD response from CCCP server: %1</text>
+    <arg position="1">
+       Error detail
+    </arg>
+    <doc>
+       <description>An untagged BAD response was received
+       </description>
+    </doc>
+  </message>
+
+  <message id="404" name="CCCPunsolicitedOK" severity="error" args="1">
+    <text>Unsolicited OK from CCCP server: %1</text>
+    <arg position="1">
+       Error detail
+    </arg>
+    <doc>
+       <description>An untagged OK response was received
+       </description>
+    </doc>
+  </message>
+
+  <message id="405" name="CCCPNO" severity="error" args="1">
+    <text>NO response from CCCP server: %1</text>
+    <arg position="1">
+       Error detail
+    </arg>
+    <doc>
+       <description>A NO response was received
+       </description>
+    </doc>
+  </message>
+
+  <message id="406" name="CCCPBAD" severity="error" args="1">
+    <text>BAD response from CCCP server: %1</text>
+    <arg position="1">
+       Error detail
+    </arg>
+    <doc>
+       <description>A BAD response was received
+       </description>
+    </doc>
+  </message>
+
+  <message id="407" name="CCCPBYE" severity="notice" args="1">
+    <text>BYE response from CCCP server: %1</text>
+    <arg position="1">
+       detail
+    </arg>
+    <doc>
+       <description>The server indicated that it was shutting down
+       </description>
+    </doc>
+  </message>
+
+  <message id="408" name="CCCPerror" severity="error" args="1">
+    <text>Problem with message %1</text>
+    <arg position="1">
+       ID for message being processed
+    </arg>
+    <doc>
+       <description>The channel hit an error processing the message
+       </description>
+    </doc>
+  </message>
+
+  <message id="409" name="CCCPcapability" severity="info">
+    <text>Capability response</text>
+    <doc>
+       <description>received an unsolicited capability response
+       </description>
+    </doc>
+  </message>
+
+  <message id="410" name="CCCPignore" severity="warning" args="3">
+    <text>Ignoring status item for %1:%2: %3</text>
+    <arg position="1">
+       Message name
+    </arg>
+    <arg position="2" type="int">
+       Internal recipient number
+    </arg>
+    <arg position="3">
+       A representation of the item being ignored
+    </arg>
+    <doc>
+       <description>The server is returning items which are being ignored.
+       </description>
+    </doc>
+  </message>
+
+  <message id="411" name="CCCPread" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc><description>Read data from CCCP server</description></doc>
+  </message>
+
+  <message id="412" name="CCCPwrite" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc><description>Data written to CCCP server</description></doc>
+  </message>
+
+</facility>

@@ -1,0 +1,124 @@
+<?xml version="1.0" standalone="yes"?>
+<!-- Copyright 2005-2007 Isode Limited -->
+<facility id="150" name="XMSlegacy">
+  <doc>
+    <description>
+    Messages relating to generic M-Store functionality
+    </description>
+  </doc>
+
+  <!-- General -->
+  <!-- Error numbers MUST match the value of the corresponding level -->
+  <message id="6" name="Notice" severity="notice" args="1">
+    <arg position="1">
+       Text describing condition
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>General notice level event: See log entry for details
+       </description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="12" name="Error" severity="error" args="1">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>M-Store X.400 Error.  Isode's medium term plan is to remove
+       all common use of this event,  Isode's long term plan is to remove all
+       use of this event. 
+       </description>
+       <action>See log entry for details</action>
+    </doc>
+  </message>
+
+  <message id="13" name="Fatal" severity="fatal" args="1">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>Fatal M-Store X.400 Event. This event should only occur in
+       very unusual situations.  Isode's medium term plan is to remove all use
+       of this event. 
+       </description>
+       <action>See Log entry for details.  Please send information on the
+       occurrence of this event to support@isode.com</action>
+    </doc>
+  </message>
+
+  <message id="14" name="Critical" severity="critical" args="2">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <arg position="2">
+       Optional text when reporting system error
+    </arg>
+    <text>%1 %2</text>
+    <doc>
+       <description>
+       Critical M-Store X.400 Event. This event should only occur in very
+       unusual situations.  Isode's medium term plan is to remove all use of
+       this event. 
+       </description>
+       <action>See Log entry for details.  Please send information on the
+       occurrence of this event to support@isode.com</action>
+    </doc>
+  </message>
+
+  <!-- Messages with the system log need two arguments,
+       and the id is the number for the level + 16 -->
+  <message id="29" name="FatalS" severity="fatal" args="2" system="yes">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <arg position="2">
+       Additional text field
+    </arg>
+    <text>%1 %2</text>
+    <doc>
+       <description>Fatal M-Store X.400 Event. This event should only occur in
+       very unusual situations.  Isode's medium term plan is to remove all use
+       of this event. 
+       </description>
+       <action>See Log entry for details. Please send information on the
+       occurrence of this event to support@isode.com</action>
+    </doc>
+  </message>
+
+  <message id="28" name="ErrorS" severity="error" args="2" system="yes">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <arg position="2">
+       Additional text field
+    </arg>
+    <text>%1 %2</text>
+    <doc>
+       <description>M-Store X.400 Error.  Isode's medium term plan is to remove
+       all common use of this event,  Isode's long term plan is to remove all
+       use of this event. 
+       </description>
+       <action>See log entry for details</action>
+    </doc>
+  </message>
+
+  <message id="22" name="NoticeS" severity="notice" args="2" system="yes">
+    <arg position="1">
+       Text describing condition
+    </arg>
+    <arg position="2">
+       Additional text field
+    </arg>
+    <text>%1 %2</text>
+    <doc>
+       <description>General notice level event: See log entry for details
+       </description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+</facility>

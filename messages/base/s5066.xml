@@ -1,0 +1,300 @@
+<?xml version="1.0" standalone="yes"?>
+<!-- Copyright 2007-2008 Isode Limited -->
+<facility id="33" name="S5066msg">
+  <doc>
+    <description>
+    A set of messages for S5066 functionality
+    </description>
+  </doc>
+
+  <!-- Configuration and Manager -->
+  <message id="1" name="NotInitialized" severity="fatal" args="0">
+    <text>S'5066 Provider not initialized</text>
+    <doc>
+       <description>An attempt was made to use STANAG 5066 services
+       without the service being configured.
+       </description>
+       <action>Programmer or configuration error</action>
+    </doc>
+  </message>
+
+  <message id="2" name="DuplicateSAP" severity="fatal" args="1">
+    <arg position="1" type="int">Conflicting SAP value</arg>
+    <text>Duplicate S'5066 SAP: %1</text>
+    <doc>
+       <description>More than one user is attempting to use the same
+       S'5066 SAP value, and the SAP is not RCOP or UDOP.
+       </description>
+       <action>Programmer or configuration error</action>
+    </doc>
+  </message>
+
+  <message id="3" name="NoAvailableConnID" severity="fatal" args="0">
+    <text>Cannot find RCOP/UDOP connection ID</text>
+    <doc>
+       <description>More than one user is attempting to use the same
+       RCOP or UDOP connection ID.
+       </description>
+       <action>Programmer or configuration error</action>
+    </doc>
+  </message>
+
+  <message id="4" name="InvalidSAP" severity="fatal" args="1">
+    <arg position="1" type="int">Conflicting SAP value</arg>
+    <text>Invalid S'5066 SAP: %1</text>
+    <doc>
+       <description>A requested S'5066 SAP value is out of range.
+       </description>
+       <action>Programmer or configuration error</action>
+    </doc>
+  </message>
+
+  <message id="5" name="InvalidConnID" severity="fatal" args="1">
+    <arg position="1" type="int">Conflicting ConnID value</arg>
+    <text>Invalid RCOP/UDOP connection ID: %1</text>
+    <doc>
+       <description>A requested RCOP/UDOP connection ID is out of range.
+       </description>
+       <action>Programmer or configuration error</action>
+    </doc>
+  </message>
+
+  <message id="6" name="SAPclosing" severity="fatal" args="1">
+    <arg position="1" type="int">SAP being requested</arg>
+    <text>S'5066 SAP closing: %1</text>
+    <doc>
+       <description>An attempt to bind to a server connection failed
+       because the connection was in the process of closing.
+       </description>
+       <action>Programmer or configuration error</action>
+    </doc>
+  </message>
+
+  <message id="7" name="Bound" severity="success" args="1">
+    <arg position="1" type="int">MTU size</arg>
+    <text>S'5066 User bound to server: MTU %1</text>
+    <doc>
+       <description>The user has been bound to the server and can commence
+       operations. The value is the maximum MTU size allowed.
+       </description>
+    </doc>
+  </message>
+
+  <message id="8" name="BindReject" severity="error" args="1">
+    <arg position="1">Bind reject reason</arg>
+    <text>Bind failed: %1</text>
+    <doc>
+       <description>The bind to the S'5066 server failed, for the given reason.
+       </description>
+       <action>The action will depend upon the failure reason.</action>
+    </doc>
+  </message>
+
+  <message id="9" name="Unbind" severity="notice">
+    <text>Normal server unbound</text>
+    <doc>
+       <description>The S'5066 server has unbound the client following the
+       client's request.
+       </description>
+       <action>The action will depend upon the failure reason.</action>
+    </doc>
+  </message>
+
+  <message id="10" name="BadPDUlength" severity="fatal" args="1">
+    <arg position="1" type="int">Proposed length</arg>
+    <text>Invalid PDU length %1</text>
+    <doc>
+       <description>An attempt was made to send a PDU with an invalid length.
+       </description>
+       <action>Programmer error.</action>
+    </doc>
+  </message>
+
+  <message id="11" name="InvalidAddress" severity="error">
+    <text>Invalid destination address</text>
+    <doc>
+       <description>An attempt was made to send data to an invalid address.
+       </description>
+       <action>Probably programmer error.</action>
+    </doc>
+  </message>
+
+  <message id="12" name="ServerClosed" severity="fatal">
+    <text>Server closed connection unexpectedly</text>
+    <doc>
+       <description>The server closed the connection unexpectedly
+       </description>
+       <action>Check the state of the server.</action>
+    </doc>
+  </message>
+
+  <message id="13" name="PreEmpted" severity="fatal">
+    <text>Server connection pre-empted by higher ranked client</text>
+    <doc>
+       <description>The server connection was broken as a result of a higher
+       ranked client.
+       </description>
+       <action>Determine what other clients are using the server.</action>
+    </doc>
+  </message>
+
+  <message id="14" name="Inactive" severity="fatal">
+    <text>Server connection closed through inactivity</text>
+    <doc>
+       <description>The server connection was broken as a result of
+       the failure of the client to respond to "keep-alive" messages.
+       </description>
+       <action>The application must be hanging up for more than 120 seconds</action>
+    </doc>
+  </message>
+
+  <message id="15" name="InvalidPrimitives" severity="fatal">
+    <text>Server connection closed, too many invalid primitives</text>
+    <doc>
+       <description>The server connection was broken as a result of the client
+       sending too many invalid primitives
+       </description>
+       <action>Determine what other clients are using the server.</action>
+    </doc>
+  </message>
+
+  <message id="16" name="TooMuchExpedited" severity="fatal">
+    <text>Server connection closed, too many expedited data primitives</text>
+    <doc>
+       <description>The server connection was broken as a result of the client
+       sending too many expedited data primitives
+       </description>
+       <action>Application error.</action>
+    </doc>
+  </message>
+
+  <message id="17" name="ARQmode" severity="fatal">
+    <text>Server connection closed, ARQ mode unsupportable</text>
+    <doc>
+       <description>The server connection was broken as a result of the client
+       attempting a broadcast session using ARQ Mode.
+       </description>
+       <action>Application error.</action>
+    </doc>
+  </message>
+
+  <message id="18" name="ForcedUnbind" severity="fatal" args="1">
+    <arg position="1" type="int">Unknown unbind reason code</arg>
+    <text>Server connection closed, unknown reason %1</text>
+    <doc>
+       <description>The server connection was broken for an unknown reason.
+       </description>
+       <action>Check server logs.</action>
+    </doc>
+  </message>
+
+  <message id="19" name="InvalidPDU" severity="fatal" args="2">
+    <arg position="1">Detailed reason</arg>
+    <arg position="2" type="int">Additional information</arg>
+    <text>Invalid PDU received, %1 (%2)</text>
+    <doc>
+       <description>An invalid PDU was received from the server.
+       </description>
+       <action>Possible communication problem or server software error</action>
+    </doc>
+  </message>
+
+  <message id="20" name="UnknownPDUtype" severity="fatal" args="1">
+    <arg position="1" type="int">type code of PDU</arg>
+    <text>Unknown PDU type %1</text>
+    <doc>
+       <description>A PDU with an unknown type was received from the server.
+       </description>
+       <action>Could be communication issue, or server error.</action>
+    </doc>
+  </message>
+
+  <message id="21" name="UnexpectedPDUtype" severity="fatal" args="1">
+    <arg position="1" type="int">type code of PDU</arg>
+    <text>Unexpected PDU type %1</text>
+    <doc>
+       <description>A PDU with a type was received from the server which
+       the server should not be sending.
+       </description>
+       <action>Could be communication issue, or server error.</action>
+    </doc>
+  </message>
+
+  <message id="22" name="InvalidPDUlength" severity="fatal" args="2">
+    <arg position="1" type="int">Actual length</arg>
+    <arg position="2" type="int">Expected length</arg>
+    <text>Invalid PDU length, actual=%1 expected=%2</text>
+    <doc>
+       <description>The actual length of a PDU does not correspond with the
+       expected length.
+       </description>
+       <action>Possible communication problem or server software error</action>
+    </doc>
+  </message>
+
+  <message id="23" name="BufferTooSmall" severity="warning" args="1">
+    <arg position="1" type="int">required size</arg>
+    <text>Provided buffer is too small %1</text>
+    <doc>
+       <description>The S'5066 user provided a buffer which was not big
+       enough to hold the largest U_PDU.
+       </description>
+       <action>Programmer error.</action>
+    </doc>
+  </message>
+
+  <message id="24" name="DataErrors" severity="warning" args="2">
+    <arg position="1" type="int">Number of blocks with errors</arg>
+    <arg position="2" type="int">Number of blocks not received</arg>
+    <text>Data PDU with %1 error blocks and %2 missing blocks</text>
+    <doc>
+       <description>A Data PDU has received with parts of it in error,
+       and parts of it missing. It was discarded
+       </description>
+       <action>Results from transmission problems.</action>
+    </doc>
+  </message>
+
+  <message id="25" name="DiscardData" severity="warning" args="1">
+    <arg position="1" type="int">connection ID</arg>
+    <text>Discarding data for unregistered connection ID %1</text>
+    <doc>
+       <description>An RCOP/UDOP PDU for an unregistered connection ID has
+       been received. It was discarded
+       </description>
+    </doc>
+  </message>
+
+  <message id="26" name="OutOfOrder" severity="warning" args="2">
+    <arg position="1" type="int">Actual sequence number</arg>
+    <arg position="2" type="int">Expected sequence number</arg>
+    <text>Segment out of order, actual=%1 expected=%2</text>
+    <doc>
+       <description>For RCOP or UDOP the PDU segments are expected in the
+       order in which they were sent. This error indicates that an
+       out-of-order segment was received. The segment is ignored.
+       </description>
+       <action>The sender may not have configured for in-order delivery,
+       which is required for this implementation.
+       </action>
+    </doc>
+  </message>
+
+  <!-- PDUs -->
+  <message id="100" name="WritePDU" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>S'5066 data written</description>
+    </doc>
+  </message>
+
+  <message id="101" name="ReadPDU" severity="pdu" args="1">
+    <arg position="1">File containing PDU</arg>
+    <text>%1</text>
+    <doc>
+       <description>S'5066 data read</description>
+    </doc>
+  </message>
+
+</facility>

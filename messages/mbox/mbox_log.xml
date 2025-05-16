@@ -1,0 +1,101 @@
+<?xml version="1.0" standalone="yes"?>
+<!-- Copyright 2006 Isode Limited -->
+<facility id="70" name="MBOX">
+  <doc>
+    <description>
+      Messages relating to MBOX
+    </description>
+  </doc>
+
+  <!-- General -->
+  <!-- Error numbers MUST match the value of the corresponding level
+    -->
+  
+  <message id="1" name="Error" severity="error" args="1">
+    <arg position="1">
+      Text describing error
+    </arg>
+    <text>%1</text>
+    <doc>
+      <description>M-Box Failure
+      </description>
+      <action>See log entry for details</action>
+    </doc>
+  </message>
+  
+  <message id="2" name="Warning" severity="warning" args="1">
+    <arg position="1">
+      Text describing warning
+    </arg>
+    <text>%1</text>
+    <doc>
+      <description>General M-Box warning event: See log entry for details
+      </description>
+      <action>Action might be required, see log entry for details</action>
+    </doc>
+  </message>
+
+  <message id="3" name="Notice" severity="notice" args="1">
+    <arg position="1">
+      Text describing message
+    </arg>
+    <text>%1</text>
+    <doc>
+      <description>
+	General M-Box notice level event: See log entry for details
+      </description>
+      <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="4" name="Info" severity="information" args="1">
+    <arg position="1">
+      Text describing information
+    </arg>
+    <text>%1</text>
+    <doc>
+      <description>General M-Box information message
+      </description>
+      <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="5" name="Debug" severity="debug" args="1">
+    <arg position="1">
+      Text describing information
+    </arg>
+    <text>%1</text>
+    <doc>
+      <description>General M-Box debug message
+      </description>
+      <action>No Operator Action</action>
+    </doc>
+  </message>
+
+
+  <message id="6" name="Trace" severity="detail" args="1">
+    <arg position="1">
+      Text describing information
+    </arg>
+    <text>%1</text>
+    <doc>
+      <description>General M-Box trace message
+      </description>
+      <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="7" name="Auth" severity="detail" args="1">
+    <arg position="1">
+      Text describing information
+    </arg>
+    <text>%1</text>
+    <doc>
+      <description>M-Box event related to authentication: See log entry for details
+      </description>
+      <action>No Operator Action</action>
+    </doc>
+  </message>
+
+</facility>
+

@@ -1,0 +1,247 @@
+<?xml version="1.0" standalone="yes"?>
+<!-- Copyright 2009 Isode Limited -->
+<facility id="106" name="SMIME">
+  <doc>
+    <description>
+    A set of messages from the S/MIME processing
+    </description>
+  </doc>
+
+  <message id="1" name="DecodeError" severity="error" args="2">
+    <text>Failed to decode %1, %2</text>
+    <arg position="1">
+       item for which the decode failed
+    </arg>
+    <arg position="2">
+       detail for the error
+    </arg>
+    <doc>
+       <description>There was a problem decoding some data item.
+       </description>
+       <action>Check for more detailed logging of the problem.</action>
+    </doc>
+  </message>
+
+  <message id="2" name="UnknownContentInfo" severity="error" args="1">
+    <text>Unknown or unsupported ContentInfo type: %1</text>
+    <arg position="1">
+       numeric object identifier for the ContentInfo
+    </arg>
+    <doc>
+       <description>The type of data within the ContentInfo is either
+       not known or not currently supported.
+       </description>
+    </doc>
+  </message>
+
+  <message id="3" name="UnsupportedOperation" severity="error" args="1">
+    <text>Unsupported operation on this content info type: %1</text>
+    <arg position="1">
+       numeric object identifier for the ContentInfo
+    </arg>
+    <doc>
+       <description>The type of data within the ContentInfo is either
+       not known or not currently supported.
+       </description>
+    </doc>
+  </message>
+
+  <message id="4" name="UnsupportedCertificate" severity="warning" args="1">
+    <text>Ignoring unsupported certificate type %1</text>
+    <arg position="1">
+       Information about the type found.
+    </arg>
+    <doc>
+       <description>The CertificateSet in a CMS object contained a certificate
+       which is ignored in the processing of that object.
+       </description>
+    </doc>
+  </message>
+
+  <message id="5" name="CertificateProblem" severity="error" args="1">
+    <text>Certificate problem: %1</text>
+    <arg position="1">
+       Detail for the problem
+    </arg>
+    <doc>
+       <description>There was a problem when handling a certificate.
+       </description>
+    </doc>
+  </message>
+
+  <message id="6" name="NoCertificate" severity="error" args="1">
+    <text>Problem finding signing certificate: %1</text>
+    <arg position="1">
+       Detail for the problem
+    </arg>
+    <doc>
+       <description>There was a problem when attempting to find the
+       certificate used for signing.
+       </description>
+    </doc>
+  </message>
+
+  <message id="7" name="UnknownAlgorithm" severity="error" args="1">
+    <text>Unknown signing/digest algorithm %1</text>
+    <arg position="1">
+       Numeric object identifier supplied for the algorithm identifier
+    </arg>
+    <doc>
+       <description>An unknown algorithm was found in the S/MIME message.
+       </description>
+    </doc>
+  </message>
+
+  <message id="8" name="NoData" severity="error">
+    <text>No data or incomplete data for verification</text>
+    <doc>
+       <description>Programming error. The complete data to be signed
+       has not been passed to the signer for verification.
+       </description>
+    </doc>
+  </message>
+
+  <message id="9" name="CryptoError" severity="error" args="1">
+    <text>Error %1 in crptographic function</text>
+    <arg position="1" type="int">
+       Integer giving detailed reason for error.
+    </arg>
+    <doc>
+       <description>A cryptographic library has returned an error.
+       </description>
+    </doc>
+  </message>
+
+  <message id="10" name="DigestMismatch" severity="error">
+    <text>Digest in message does not match derived digest</text>
+    <doc>
+       <description>The digest found in the message does not match the digest
+       generated from the actual data.
+       </description>
+    </doc>
+  </message>
+
+  <message id="11" name="InvalidDigest" severity="error">
+    <text>Invalid Digest in message</text>
+    <doc>
+       <description>The digest found in the message cannot be interpreted
+       as an octet string.
+       </description>
+    </doc>
+  </message>
+
+  <message id="12" name="EncodeError" severity="error" args="2">
+    <text>Failed to encode %1, %2</text>
+    <arg position="1">
+       item for which the encode failed
+    </arg>
+    <arg position="2">
+       detail for the error
+    </arg>
+    <doc>
+       <description>There was a problem encoding some data item.
+       </description>
+       <action>Check for more detailed logging of the problem.</action>
+    </doc>
+  </message>
+
+  <message id="13" name="MissingAttribute" severity="error" args="1">
+    <text>Missing mandatory signed attribute %1</text>
+    <arg position="1">
+       name of missing attribute
+    </arg>
+    <doc>
+       <description>When there are signed attributes, certain attributes
+       are mandatory. This error happens when a mandatory attribute is missing.
+       </description>
+    </doc>
+  </message>
+
+  <message id="14" name="DataTypeMismatch" severity="error" args="2">
+    <text>content-type in signed attributes does not match %1 != %2</text>
+    <arg position="1">
+       oid from content-type in signed attributes
+    </arg>
+    <arg position="2">
+       oid from encapsulated content
+    </arg>
+    <doc>
+       <description>There was a mismatch between the content-type attribute
+       in the signed attributes and the data type in the encapsulated content.
+       </description>
+    </doc>
+  </message>
+
+  <message id="15" name="NoSecurityEnv" severity="warning">
+    <text>No local security environment</text>
+    <doc>
+       <description>The verification cannot proceed as there is no
+       local security environment which can be used to verify certificates.
+       </description>
+       <action>Configure a security environment</action>
+    </doc>
+  </message>
+
+  <message id="16" name="CertificateFailed" severity="error" args="1">
+    <text>Problem with certificate, %1</text>
+    <arg position="1">
+       Detail of problem
+    </arg>
+    <doc>
+       <description>Issue with signing certificate.
+       </description>
+    </doc>
+  </message>
+
+  <message id="17" name="VerifyFailed" severity="error">
+    <text>Signature failed verification</text>
+    <doc>
+       <description>The signature verification failed.
+       </description>
+    </doc>
+  </message>
+
+  <message id="18" name="SignerState" severity="error">
+    <text>Signer is not in correct state</text>
+    <doc>
+       <description>The signer is not in the correct state to generate the
+       signer information for the message.
+       </description>
+    </doc>
+  </message>
+
+  <message id="19" name="NoSignerCert" severity="error">
+    <text>Cannot obtain signer's certificate</text>
+    <doc>
+       <description>It was not possible to get the signer's certificate.
+       </description>
+    </doc>
+  </message>
+
+  <message id="20" name="NoAlgorithm" severity="error">
+    <text>No available signing algorithm</text>
+    <doc>
+       <description>It is not possible to get a signing algorithm which
+       is supported.
+       </description>
+    </doc>
+  </message>
+
+  <message id="21" name="SigningFailed" severity="error">
+    <text>Forming the signature failed</text>
+    <doc>
+       <description>There was an error forming the signature.
+       </description>
+    </doc>
+  </message>
+
+  <message id="22" name="CertificateListError" severity="error">
+    <text>Forming the list of certificates failed</text>
+    <doc>
+       <description>There was an error forming the list of certificates
+       </description>
+    </doc>
+  </message>
+
+
+</facility>

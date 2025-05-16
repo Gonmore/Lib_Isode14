@@ -1,0 +1,731 @@
+<?xml version="1.0" standalone="yes"?>
+<!-- Copyright 2005-2009 Isode Limited -->
+<facility id="103" name="MTAconfig">
+  <doc>
+    <description>
+    Messages relating to M-Switch configuration
+    </description>
+  </doc>
+
+  <!-- General (legacy) message -->
+  <!-- Error numbers MUST match the value of the corresponding level -->
+  <message id="6" name="Notice" severity="notice" args="1">
+    <arg position="1">
+       Text describing condition
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>General notice level event: See log entry for details
+       </description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <message id="12" name="Error" severity="error" args="1">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>
+       M-Switch Configuration Error.  Isode's medium term plan is to remove all
+       common use of this event,  Isode's long term plan is to remove all use of
+       this event. 
+       </description>
+       <action>See log entry for details</action>
+    </doc>
+  </message>
+
+  <message id="13" name="Fatal" severity="fatal" args="1">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <text>%1</text>
+    <doc>
+       <description>Fatal M-Switch Configuration  Event. This event should only
+       occur in very unusual situations.  Isode's medium term plan is to remove
+       all use of this event.
+       </description>
+       <action>See Log entry for details.  Please send information on the
+       occurrence of this event to support@isode.com</action>
+    </doc>
+  </message>
+
+  <message id="14" name="Critical" severity="critical" args="2">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <arg position="2">
+       Optional text when reporting system error
+    </arg>
+    <text>%1 %2</text>
+    <doc>
+       <description>General error used for critical errors
+       </description>
+       <action>See Log entry for details.  Please send information on the
+       occurrence of this event to support@isode.com</action>
+    </doc>
+  </message>
+
+  <!-- Messages with the system log need two arguments,
+       and the id is the number for the level + 16 -->
+  <message id="29" name="FatalS" severity="fatal" args="2" system="yes">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <arg position="2">
+       Additional text field
+    </arg>
+    <text>%1 %2</text>
+    <doc>
+       <description>Fatal M-Switch Configuration  Event. This event should only
+       occur in very unusual situations.  Isode's medium term plan is to remove
+       all use of this event.
+       </description>
+       <action>See Log entry for details.  Please send information on the
+       occurrence of this event to support@isode.com</action>
+    </doc>
+  </message>
+
+  <message id="28" name="ErrorS" severity="error" args="2" system="yes">
+    <arg position="1">
+       Text describing error
+    </arg>
+    <arg position="2">
+       Additional text field
+    </arg>
+    <text>%1 %2</text>
+    <doc>
+       <description>M-Switch Configuration Error.  Isode's medium term plan is
+       to remove all common use of this event,  Isode's long term plan is to
+       remove all use of this event. 
+       </description>
+       <action>See log entry for details</action>
+    </doc>
+  </message>
+
+  <message id="22" name="NoticeS" severity="notice" args="2" system="yes">
+    <arg position="1">
+       Text describing condition
+    </arg>
+    <arg position="2">
+       Additional text field
+    </arg>
+    <text>%1 %2</text>
+    <doc>
+       <description>General notice level event: See log entry for details
+       </description>
+       <action>No Operator Action</action>
+    </doc>
+  </message>
+
+  <!-- Common configuration errors (IDs 40+)-->
+
+  <message id="40" name="UnexpectedChanType" severity="error" args="2">
+    <arg position="1">
+       The name of the channel
+    </arg>
+    <arg position="2">
+       The expected type(s) of the channel
+    </arg>
+    <text>The type of channel %1 is not %2</text>
+    <doc>
+       <description>The channel type is not the one of the expected types.
+	 Check the configuration of the channel.
+       </description>
+       <action>Correct configuration error</action>
+    </doc>
+  </message>
+
+  <message id="41" name="ChannelNotFound" severity="fatal" args="1">
+    <arg position="1">
+       The name of the channel
+    </arg>
+    <text>The channel %1 could not be found in the configuration</text>
+    <doc>
+       <description>The channel could not be found in the configuration
+       </description>
+       <action>You have attempted to run a channel whose configuration is
+       missing. Either run with the name of a valid channel, or add a new
+       channel with the required name</action>
+    </doc>
+  </message>
+
+  <message id="42" name="WrongChannelParam" severity="error" args="3">
+    <arg position="1">
+       The name of the channel
+    </arg>
+    <arg position="2">
+       The param and error message
+    </arg>
+    <arg position="3">
+       [optional] The value of the param
+    </arg>
+    <text>The value of parameter %2 of channel %1 is not valid [%3]</text>
+    <doc>
+       <description>One of the parameters in the channel configuration is wrong
+       </description>
+    </doc>
+  </message>
+
+  <message id="43" name="ConfigErr" severity="error" args="2">
+    <arg position="1">
+       Text of the error message
+    </arg>
+    <arg position="2">
+       Value of the key or value that is wrong
+    </arg>
+    <text>%1: %2</text>
+    <doc>
+       <description>An entry in the configuration file is incorrectly specified.
+       </description>
+       <action>Correct the configuration</action>
+    </doc>
+  </message>
+
+  <message id="44" name="MissingValue" severity="error" args="2">
+    <arg position="1">
+       Key for which the value is missing
+    </arg>
+    <arg position="2">
+       The complete string which is the in/out info value
+    </arg>
+    <text>Missing value for key %1 in channel info %2</text>
+    <doc>
+       <description>In a channel ininfo or outinfo string, a keyword is
+       missing a value.
+       </description>
+       <action>Correct configuration error</action>
+    </doc>
+  </message>
+
+  <message id="45" name="UnknownKeyword" severity="error" args="2">
+    <arg position="1">
+       Keyword which is not known
+    </arg>
+    <arg position="2">
+       The complete string which is the in/out info value
+    </arg>
+    <text>Unknown key %1 in channel info %2</text>
+    <doc>
+       <description>In a channel ininfo or outinfo string, a keyword is
+       is not known.
+       </description>
+       <action>Correct configuration error</action>
+    </doc>
+  </message>
+
+  <message id="56" name="MissingFilter" severity="error" args="2">
+    <text>Channel %1 : missing filter '%2'</text>
+    <arg position="1">
+       Channel name
+    </arg>
+    <arg position="2">
+       Program filter that is missing
+    </arg>
+    <doc>
+       <description>The specified filter for the channel is missing from 
+       the configuration.
+       </description>
+       <action>Correct configuration error</action>
+    </doc>
+  </message>
+
+  <message id="57" name="InvalidQmgrAddr" severity="error" args="1">
+    <text>The default QMGR addr configured (%1) is invalid</text>
+    <arg position="1">
+       The default QMGR address
+    </arg>
+    <doc>
+       <description>The default QMGR addr configured is invalid
+       </description>
+       <action>Correct configuration error</action>
+    </doc>
+  </message>
+
+  <message id="58" name="CantFindX400Postmaster" severity="error" args="0">
+    <text>Cannot get X.400 postmaster address"</text>
+    <doc>
+	<description>The X.400 postmaster address could not be found in 
+    	the configuration
+	</description>
+       <action>Change the configuration to add an X.400 Postmaster address.</action>
+    </doc>
+  </message>
+
+  <message id="59" name="CantParsePostmaster" severity="error" args="1">
+    <text>Failed to parse this postmaster address: %1 </text>
+    <arg position="1">
+       The postmaster address that cannot be parsed
+    </arg>
+    <doc>
+       <description>Failed to parse configured postmaster address
+       </description>
+       <action>Configure a valid postmaster address</action>
+    </doc>
+  </message>
+
+  <message id="60" name="TableNotFound" severity="error" args="1">
+    <arg position="1">
+       The name of the table
+    </arg>
+    <text>>The table '%1' could not be found in the configuration</text>
+    <doc>
+       <description>The table could not be found in the configuration
+       </description>
+       <action>Correct configuration error</action>
+    </doc>
+  </message>
+
+  <message id="61" name="BadSubmitPort" severity="error" args="1">
+    <arg position="1">
+       The submit port
+    </arg>
+    <text>The submit port specified (%1) is wrong</text>
+    <doc>
+       <description>The configured submit port is wrong
+       </description>
+       <action>An invalid submit is configured. Reconfigure with a correct value</action>
+    </doc>
+  </message>
+
+  <message id="62" name="ChannelNotSpecified" severity="error" args="1">
+    <arg position="1">
+       The name of the channel type that is missing
+    </arg>
+    <text>No channel of type %1 was found</text>
+    <doc>
+       <description>A channel of the specified type could not be found in
+       the configuration, but it's needed by the system
+       </description>
+       <action>Add a channel of the required type</action>
+    </doc>
+  </message>
+
+  <message id="63" name="TooManyItems" severity="fatal" args="2">
+    <arg position="1">
+       The leading item
+    </arg>
+    <arg position="2">
+       The second item
+    </arg>
+    <text>Too many items in tailoring line starting %1 %2</text>
+    <doc>
+       <description>A tailoring item has too many parameters
+       </description>
+       <action>Identify the item and reduce the number of items</action>
+    </doc>
+  </message>
+
+  <message id="64" name="SchemaUnknown" severity="fatal" args="2">
+    <arg position="1">
+       Type of item
+    </arg>
+    <arg position="2">
+       Name of item
+    </arg>
+    <text>Schema %1 %2 is unknown</text>
+    <doc>
+       <description>The library refers to Directory schema items by name.
+       Such an item has not been found in the schema available to the program.
+       </description>
+       <action>The item should be defined correctly in the schema files.</action>
+    </doc>
+  </message>
+
+  <message id="65" name="DsapTailor" severity="fatal">
+    <text>Directory interface tailoring failed</text>
+    <doc>
+       <description>There was a problem initializing some aspect of the
+       directory interface.
+       </description>
+       <action>Check the logs for more detailed information.</action>
+    </doc>
+  </message>
+
+  <message id="66" name="TooManyOverrides" severity="fatal" args="1">
+    <arg position="1">
+       Name of table
+    </arg>
+    <text>Too many table overrides for %1</text>
+    <doc>
+       <description>There are too many table overrides for the table.
+       </description>
+       <action>Reduce the number table overrides.
+       Use ordinary table entries if required.</action>
+    </doc>
+  </message>
+
+  <message id="67" name="TooManyVariables" severity="fatal" args="1">
+    <arg position="1">
+       Name of channel
+    </arg>
+    <text>Too many channel variables for %1</text>
+    <doc>
+       <description>There are too many channel variables for the channel.
+       </description>
+       <action>Reduce the number channel variables.</action>
+    </doc>
+  </message>
+
+  <!-- Command line arguments -->
+
+  <message id="70" name="UnknownArg" severity="error" args="2">
+    <arg position="1">
+       The name of the program or channel reading the value
+    </arg>
+    <arg position="2">
+       The command line flag which is unknown
+    </arg>
+    <text>%1: bad value for switch %2: '%3'</text>
+    <doc>
+       <description>An unknown command line flag has been found.
+       </description>
+       <action>
+       Fix the command line which may entail configuration change if the
+       program was invoked from a script or from another program. For
+       a Windows services, this will be set in the Isode Service
+       Manager. For a Unix service, this will be set in the pp.rc
+       file. For channel programs, command line flags are set in the
+       program field in the channel properties. For programs invoked via
+       isode.iaed, the invoke vector in the channel inbound properties
+       will contain the command line flags.
+       </action>
+    </doc>
+  </message>
+
+  <message id="71" name="BadArgValue" severity="error" args="3">
+    <arg position="1">
+       The name of the program or channel reading the value
+    </arg>
+    <arg position="2">
+       The command line flag which has the bad value
+    </arg>
+    <arg position="3">
+       The value which is wrong.
+    </arg>
+    <text>%1: bad value for switch %2: '%3'</text>
+    <doc>
+       <description>A bad value was provided for a command line switch.
+       </description>
+       <action>
+       Fix the command line, which may entail configuration change if the
+       program was invoked from a script or from another program. For
+       a Windows services, this will be set in the Isode Service
+       Manager. For a Unix service, this will be set in the pp.rc
+       file. For channel programs, command line flags are set in the
+       program field in the channel properties. For programs invoked via
+       isode.iaed, the invoke vector in the channel inbound properties
+       will contain the command line flags.
+       </action>
+    </doc>
+  </message>
+
+  <message id="72" name="BadProgramCommand" severity="error" args="2">
+    <text>Channel %1 : bad prog string '%2'</text>
+    <arg position="1">
+       Channel name
+    </arg>
+    <arg position="2">
+       The program string which gives the problem
+    </arg>
+    <doc>
+       <description>The prog value for the channel cannot be used.
+       </description>
+       <action>Correct configuration error</action>
+    </doc>
+  </message>
+
+  <message id="73" name="MissingCommand" severity="error" args="2">
+    <text>Channel %1 : bad prog string '%2'</text>
+    <arg position="1">
+       Channel name
+    </arg>
+    <arg position="2">
+       The program string for the channel
+    </arg>
+    <doc>
+       <description>Cannot find the program for the given channel.
+       </description>
+       <action>Correct configuration error</action>
+    </doc>
+  </message>
+
+  <message id="74" name="MissingArchive" severity="error">
+    <text>No archive directory configured</text>
+    <doc>
+       <description>An attempt was made to archive a message but there
+       was no archive directory configured.
+       </description>
+       <action>Configure an archive directory</action>
+    </doc>
+  </message>
+
+  <message id="75" name="MissingQuarantine" severity="error" args="1">
+    <text>No quarantine directory configured for %1</text>
+    <arg position="1">
+       Channel name
+    </arg>
+    <doc>
+       <description>An attempt was made to quarantine a message but there
+       was no directory configured.
+       </description>
+       <action>Configure an archive directory</action>
+    </doc>
+  </message>
+
+  <!-- FAPI specific configuration issues -->
+  <message id="200" name="TooManyPOAs" severity="fatal" args="2">
+    <arg position="1">
+       The name of the channel
+    </arg>
+    <arg position="2" type="int">
+       The maximum allowed number of POAs
+    </arg>
+    <text>%1: too many POAs, maximum allowed is %2</text>
+    <doc>
+       <description>There is a limit of the number of POAs which a channel
+       can service. When reading the POAs, this number was exceeded.
+       </description>
+       <action>Remove any unused POAs.
+       </action>
+    </doc>
+  </message>
+
+  <message id="201" name="NoPOAs" severity="fatal" args="2">
+    <arg position="1">
+       The name of the channel
+    </arg>
+    <arg position="2">
+       Directory name under which the POAs were expected to be found. 
+    </arg>
+    <text>%1: no POAs found under %2</text>
+    <doc>
+       <description>The channel searched for POAs under the configured root
+       entry, but failed to find any.
+       </description>
+       <action>Correct configuration error</action>
+    </doc>
+  </message>
+
+  <message id="202" name="POAerror" severity="error" args="3">
+    <arg position="1">
+       The name of the channel
+    </arg>
+    <arg position="2">
+       POA entry DN
+    </arg>
+    <arg position="3">
+       Text for specific error
+    </arg>
+    <text>%1: Problem configuring POA %2: %3</text>
+    <doc>
+       <description>There was a problem configuring a specific POA.
+       </description>
+       <action>See Log entry for details</action>
+    </doc>
+  </message>
+
+  <message id="203" name="POAcreatefailed" severity="error" args="2" system="yes">
+    <arg position="1">
+       The name of the channel
+    </arg>
+    <arg position="2">
+       The path of the POA which failed
+    </arg>
+    <text>%1: failed to create POA %2</text>
+    <doc>
+       <description>There was a failure creating the directory structure
+       for a new POA. There should be a system error appended in the log file
+       which gives a reason for the failure.
+       </description>
+       <action>Check file system permissions.
+       </action>
+    </doc>
+  </message>
+
+  <message id="204" name="POAthreadfailed" severity="error" args="2" system="yes">
+    <arg position="1">
+       The name of the channel
+    </arg>
+    <arg position="2">
+       The path of the POA which failed
+    </arg>
+    <text>%1: failed to create thread to monitor POA %2</text>
+    <doc>
+       <description>There was a failure creating a thread to monitor a POA.
+       </description>
+       <action>
+       This is likely to be a problem with system resources. 
+       Check system logs.
+       </action>
+    </doc>
+  </message>
+
+  <message id="205" name="POAnotable" severity="error" args="2">
+    <arg position="1">
+       The name of the channel
+    </arg>
+    <arg position="2">
+       The name of the POA or the ORaddress
+    </arg>
+    <text>%1: failed to find table entry for POA %2</text>
+    <doc>
+       <description>The table entry was missing for the given POA.
+       </description>
+       <action>Correct configuration error</action>
+    </doc>
+  </message>
+
+  <message id="206" name="TooManyRoots" severity="error" args="1">
+    <arg position="1" type="int">
+       The maximum allowed number of POA roots
+    </arg>
+    <text>Number of POA roots exceeds %1</text>
+    <doc>
+       <description>A FAPI channel configuration specified too many roots.
+       </description>
+       <action>Correct configuration error</action>
+    </doc>
+  </message>
+
+  <!-- Shaper channel configuration errors -->
+  <message id="250" name="XMLerror" severity="fatal" args="2">
+    <arg position="1">
+       The name of the channel
+    </arg>
+    <arg position="2">
+       Detail of the error
+    </arg>
+    <text>%1: XML error in config file: %2</text>
+    <doc>
+       <description>The channel's XML file contain a parse error.
+       </description>
+       <action>Correct configuration error</action>
+    </doc>
+  </message>
+
+  <message id="251" name="ItemMissing" severity="fatal" args="3">
+    <arg position="1">
+       The name of the channel
+    </arg>
+    <arg position="2">
+       Type of item
+    </arg>
+    <arg position="3">
+       Name of item
+    </arg>
+    <text>%1: Cannot find %2 %3</text>
+    <doc>
+       <description>The channel's XML file refers to an item which cannot be
+       found.
+       </description>
+       <action>Correct configuration error</action>
+    </doc>
+  </message>
+
+  <message id="252" name="RegexpError" severity="fatal" args="4">
+    <arg position="1">
+       The name of the channel
+    </arg>
+    <arg position="2">
+       The regexp text
+    </arg>
+    <arg position="3" type="int">
+       Offset of error
+    </arg>
+    <arg position="4">
+       nature of error
+    </arg>
+    <text>%1: Regexp error in '%2' at offset %3: %4</text>
+    <doc>
+       <description>The channel's XML file contains a regexp which is malformed.
+       </description>
+       <action>Correct configuration error</action>
+    </doc>
+  </message>
+
+  <message id="253" name="FilterCreate" severity="fatal" args="2">
+    <arg position="1">
+       The name of the channel
+    </arg>
+    <arg position="2">
+       Name of item
+    </arg>
+    <text>%1: Cannot create filter %2</text>
+    <doc>
+       <description>
+       Cannot create filter item.
+       </description>
+       <action>Either the name is incorrect or the library is not available.</action>
+    </doc>
+  </message>
+
+  <message id="254" name="LibraryLoad" severity="fatal" args="2">
+    <arg position="1">
+       The name of the channel
+    </arg>
+    <arg position="2">
+       Name of library
+    </arg>
+    <text>%1: Cannot library %2</text>
+    <doc>
+       <description>
+       Cannot dynamically load a library needed for the channel.
+       </description>
+       <action>Either the library name is incorrect or the library is not suitable.</action>
+    </doc>
+  </message>
+
+
+  <!--  Security related items -->
+  <message id="300" name="X509IdentityFailed" severity="fatal" args="3">
+    <arg position="1">
+       The name of the channel
+    </arg>
+    <arg position="2">
+       Name of P12 file
+    </arg>
+    <arg position="3">
+       Name of PPHR file
+    </arg>
+    <text>%1: Cannot load identity (%2 %3)</text>
+    <doc>
+       <description>
+       Cannot load an X.509 identity using the file and passphrase file given
+       </description>
+       <action>Check the configuration parameters.</action>
+    </doc>
+  </message>
+
+  <message id="301" name="X509CertError" severity="error" args="1">
+    <arg position="1">
+       The name of the file containing the certficiate
+    </arg>
+    <text>Failed to load certificate from %1</text>
+    <doc>
+       <description>
+       Failed to load a certificate from the file.
+       </description>
+       <action>Check the permissions and content of the file.</action>
+    </doc>
+  </message>
+
+  <message id="302" name="SPIFload" severity="error" args="2">
+    <arg position="1">
+       The name of the file containing the security policy
+    </arg>
+    <arg position="2">
+       Detail for the problem
+    </arg>
+    <text>Failed to load security policy from %1, %2</text>
+    <doc>
+       <description>
+       Failed to load security policy from file.
+       </description>
+       <action>Check the permissions and content of the file.</action>
+    </doc>
+  </message>
+
+
+</facility>
